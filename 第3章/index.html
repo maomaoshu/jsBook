@@ -1,0 +1,467 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第3章 图片控制</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../extend/animateManage.js"></script>
+    <script type="text/javascript" src="iManage.js"></script>
+    <style>
+        /*======================图片预览上传========================*/
+        #previewImg{
+            height: 100px;
+        }
+        #previewImgSrc{
+            display: none;
+            height: 100px;
+        }
+
+        /*======================鼠标移入移出，改变图片样式========================*/
+         #imgChangeStyle{
+             width: 300px;
+         }
+        /*======================放大镜效果========================*/
+        .minImages{
+            width: 200px;
+            position: relative;
+        }
+        .focusPoint{
+            display: none;
+            border: 2px #ccc outset;
+            position: absolute;
+            top: 80px;
+            z-index: 100;
+            filter: alpha(opacity=50);
+            -moz-opacity:0.5;
+            opacity: 0.5;
+            cursor: move;
+        }
+        #imagesSource{
+            width: 200px;
+            height: auto;
+        }
+        .magnifier{
+            width: 304px;
+            height: 222px;
+            position: absolute;
+            display: none;
+            top: 300px;
+            overflow: hidden;
+            margin: 0px auto 0px;
+        }
+        .maxImage{
+            width: 800px;
+            position: absolute;
+        }
+
+        /*======================点击图片缓缓放大========================*/
+        #slowlyEnlarge{
+            width: 100px;
+        }
+        .slowlyEnlarge{
+            height: 220px;
+        }
+        /*======================水中倒影效果========================*/
+        .shadowInWater{
+            position:relative;
+            top:-20px;
+            filter:wave(strength=3,freq=3,phase=0,lightstrength=30)blur()flipv()
+        }
+        /*======================图片横向轮播========================*/
+        .horizontalShuffling{
+            position: absolute;
+            z-index: 11111111111;
+            top: 2330px;
+            height: 333px;
+            overflow: hidden;
+            width: 300px;
+            margin: 0px auto 0px;
+        }
+        #horizontalShuffling{
+            position:relative;
+            width: 1000px;
+            height: auto;
+            padding: 0;
+        }
+        #horizontalShuffling li{
+            float: left;
+            z-index: 0;
+            position: relative;
+            height: auto;
+            width: 300px;
+            cursor: pointer;
+            list-style-type: none;
+            border-radius: 4px;
+            box-shadow: 1px 1px 12px rgba(200, 200, 200, 1);
+            margin: 0;
+            +left:-40px; /* IE7 */
+        }
+        #horizontalShuffling li img{
+            width: 300px;
+            height: 333px;
+        }
+        #horizontalShufflingBtn{
+            position: relative;
+            top: 350px;
+        }
+        /*======================图片层叠轮播========================*/
+        #cascadingShuffling{
+            position: absolute;
+            z-index: 1;
+            top: 360px;
+        }
+        #cascadingShuffling li{
+            z-index: 0;
+            position: absolute;
+            top: 2500px;
+            height: auto;
+            width: 300px;
+            cursor: pointer;
+            list-style-type: none;
+            left: 377px;
+            border-radius: 4px;
+            box-shadow: 1px 1px 12px rgba(200, 200, 200, 1);
+            margin: 0;
+        }
+        #cascadingShuffling li img{
+            width: 300px;
+            height: 333px;
+        }
+        #cascadingBtn{
+            position: absolute;
+            top: 3208px;
+            left:410px;
+        }
+        .shufflingcss{
+            position: absolute;
+            top: 2720px;
+        }
+         /*======================QQ相册横向流效果========================*/
+        .QQPhotoAlbum{
+            position: relative;
+            top: 1000px;
+            width:100%;
+            height:783px;
+            background-color: #232429;
+        }
+
+        .QQPhotoAlbum .phototitle{
+            position: relative;
+            text-align: center;
+            font-size: 35px;
+            font-weight: normal;
+            top: 100px;
+            +top:90px; /* IE7 */
+/*            _top:value; *//* IE6 */
+            color: #fff;
+        }
+
+        .QQPhotoAlbum .photoname{
+            position: relative;
+            text-align: center;
+            font-weight: normal;
+            top: 41px;
+            +top:80px; /* IE7 */
+        }
+        .QQPhotoAlbum .photoname h5{
+            font-weight: normal;
+            width: 200px;
+            line-height: 34px;
+            height: 34px;
+            color: #fff;
+            display: inline-block;
+            font-size: 19px;
+            background-color: rgba(0, 0,0,.3);
+            filter: none;
+            border: 1px solid rgba(119, 119,119,.7);
+        }
+        .photoStreamMain{
+            border-left-width: 0;
+            border-right-width: 0;
+            padding: 1px 0;
+            border-radius: 0;
+            border: 1px solid rgba(119,119,119,.7);
+            border-radius: 3px;
+            width: 100%;
+            height: 300px;
+            overflow:   hidden;
+            padding: 1px;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#B2777777", endColorstr="#B2777777");
+            position: relative;
+            top: 100px;
+        }
+        #photoStreamMain{
+            position:relative;
+        }
+        #photoStreamMain div{
+            float: left;
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        #photoStreamMain div img{
+            height: 280px;
+            margin-top:10px;
+            position: relative;
+        }
+        .rollLine{
+            position: relative;
+            top: 135px;
+            left: 50%;
+            +left:40%;
+            margin-left: -152;
+            width: 334px;
+            background-position: 0 -36px;
+            font-size: 0;
+            height: 6px;
+            _background-image: none;
+            _background-color: transparent;
+            _height: 6px;
+            border: 1px solid #535353;
+            border-radius: 4px;
+        }
+        .rollLine .line{
+            width: 100px;
+            left:0px;
+            height: 6px;
+            background: #FFF;
+            background: rgba(255,255,255,.8);
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            font-size: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>动画管理——点击元素会触发元素向右移动，移动结束后会触发回调</h2>
+        <img id='focusPointSource' class='minImages' src='images/psu2.jpg'>
+    <h2>实时预览上传图片</h2>
+    <form>
+        <div id='previewImg'><img id='previewImgSrc' src='' /></div>
+        <input type="file" id='upPreviewImg' name='fileimg'>
+    </form>
+    <h2>鼠标移入移出，改变图片样式</h2>
+    <img src='images/psu2.jpg' id='imgChangeStyle' />
+    <h2>移动鼠标图片放大镜</h2>
+    <div id='imagesSource' data-maxImg='images/psu2.jpg'>
+        <!--原图-->
+        <img  class='minImages' src='images/psu2.jpg'>
+        <!--聚焦点-->
+        <div class='focusPoint' id='focusPoint'></div>
+    </div>
+
+    <!--放大镜-->
+    <div class='magnifier' id='magnifier'>
+        <!--放大效果图-->
+        <img class='maxImage' id='magnifierImg' src='images/psu2.jpg'>
+    </div>
+    <h2>点击图片缓缓放大--图片 Width范围 <= 300px</h2>
+    <div class="slowlyEnlarge">
+        <img src='images/psu2.jpg' id='slowlyEnlarge' />
+    </div>
+    <h2>水中倒影效果</h2>
+    <p><img src="images/water.jpg"  height="500" data-water='shadowInWater' id="shadowInWaterSrurce"></p>
+    <p><img src="images/water.jpg" class='shadowInWater' id="shadowInWater"  height="500"></p>
+    <h2>图片轮播---横向轮播效果</h2>
+    <div class="horizontalShuffling">
+        <ul id='horizontalShuffling'>
+            <li>
+                <img src='images/psu.jpg' />
+            </li>
+            <li>
+                <img src='images/psu1.jpg' />
+            </li>
+            <li>
+                <img src='images/psu2.jpg' />
+            </li>
+            <li>
+                <img src='images/psu3.jpg' />
+            </li>
+            <li>
+                <img src='images/water.jpg' />
+            </li>
+        </ul>
+    </div>
+    <div id='horizontalShufflingBtn'>
+        <input id='horizontalShufflingBtnLeft' type="button" value="左滚动">
+        <input id='horizontalShufflingBtnRight' type="button" value="右滚动">
+    </div>
+    <h2 class="shufflingcss">图片层叠轮播---图片的张数必须>=3张</h2>
+        <ul id='cascadingShuffling'>
+            <li>
+                <img src='images/psu.jpg' />
+            </li>
+            <li>
+                <img src='images/psu1.jpg' />
+            </li>
+            <li>
+                <img src='images/psu2.jpg' />
+            </li>
+            <li>
+                <img src='images/psu3.jpg' />
+            </li>
+            <li>
+                <img src='images/water.jpg' />
+            </li>
+        </ul>
+    <div id='cascadingBtn'>
+        <input id='cascadingBtnLeft' type="button" value="《">
+        <input id='cascadingBtnRight' type="button" value="》">
+    </div>
+    <!--占位层-->
+    <div style="position: relative;top: 952px">
+        <h2>图片旋转</h2>
+        旋转之前：<img src="images/water.jpg"  height="100" data-water='shadowInWater' id="rotateSrurce"> <br />
+        旋转之后：<img src="images/water.jpg"  height="100" data-water='shadowInWater' id="rotated">
+    </div>
+    <!--占位层-->
+    <div class='QQPhotoAlbum'>
+        <div class="phototitle">
+            <h2>类似QQ相册效果</h2>
+        </div>
+        <div class="photoname">
+            <h5>相册名称</h5>
+        </div>
+
+        <!--横式流主体-->
+        <div class="photoStreamMain">
+            <div id='photoStreamMain'>
+                <div>
+                    <img src='images/psu.jpg' />
+                </div>
+                <div>
+                    <img src='images/psu1.jpg' />
+                </div>
+                <div>
+                    <img src='images/psu2.jpg' />
+                </div>
+                <div>
+                    <img src='images/psu3.jpg' />
+                </div>
+                <div>
+                    <img src='images/water.jpg' />
+                </div>
+                <div>
+                    <img src='images/psu.jpg' />
+                </div>
+                <div>
+                    <img src='images/psu3.jpg' />
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--滚动线轴-->
+        <div class="rollLine" style="margin-left:-150px">
+            <div id='scrollLine' class="line"></div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+		//为了直观方便大家查看  将待测试代码放入当前页
+		; (function (_IM, window, document, undefined) {
+
+            var _W = window,
+				document = _W.document,
+
+                //原来的写法
+                //project = project || {}
+
+                //新的写法，继承_IM ，区别于原型链继承
+                project = _IM || {}
+                ;
+			//初始化
+			project.init = function () {
+
+				this.initEvents();
+			}
+
+			//初始化事件
+			project.initEvents = function () {
+                //动画管理测试，点击元素会触发闪烁式动画
+                this.getElement("focusPointSource").onclick = function(){
+                    project.animate({
+
+                        //被操作的元素
+                        "context":this,
+
+                        //动画的效果，linear 线性运动
+                        "effect":"linear",
+
+                        //持续时间
+                        "time": 500,
+
+                        //元素的起始值偏移量
+                        "starCss":{
+                            "left":this.left
+                        },
+
+                        //元素的结束值偏移量
+                        "css" :{
+                            "left":200
+                        },
+                        //结束之后的回调函数
+                        "callback":function(){
+                            alert("动画结束的回调函数执行");
+                        }
+                    }).init();
+                }
+
+
+                //图片预览上传
+                this.upPreviewImg({
+                    "e":this.getElement("upPreviewImg"),
+                    "previewImgSrc":this.getElement("previewImgSrc")
+                });
+
+                //鼠标移入移出，改变图片样式
+                this.imgChangeStyle(this.getElement("imgChangeStyle"));
+
+                //放大镜效果
+                this.mouseMagnifier(this.getElement("imagesSource"));
+
+                //水中倒影效果
+                this.shadowInWater(this.getElement("shadowInWaterSrurce"));
+
+                //点击图片缓缓放大
+                this.slowlyEnlarge(this.getElement("slowlyEnlarge"));
+
+                //图片轮播---一般轮播效果
+                this.horizontalShuffling({
+                    "e":this.getElement("horizontalShuffling"),
+                    "left":this.getElement("horizontalShufflingBtnLeft"),
+                    "right":this.getElement("horizontalShufflingBtnRight")
+                });
+
+                //图片层叠轮播
+                this.cascadingShuffling({
+                    //待旋转的父节点
+                    "e":this.getElement("cascadingShuffling") ,
+                    //向左旋转
+                    "left":this.getElement("cascadingBtnLeft") ,
+                    //向右旋转
+                    "right":this.getElement("cascadingBtnRight")
+                });
+
+                //图片旋转
+                this.rotateImg(this.getElement("rotated"), 30);
+
+                //类似QQ相册效果
+                this.QQPhotoAlbum({
+                    "scrollLine":this.getElement("scrollLine"),
+                    "photoStreamMain":this.getElement("photoStreamMain"),
+                    /*"minLeft":580,*/
+                    "width":334
+                })
+
+                this.bodymousemove();
+
+			}
+
+			window.onload = function(){
+                project.init();
+            };
+		})(iManage , window, document);
+	</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.4节,获取子窗口的返回值</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>获取子窗口的返回值</h2>
+    <input id='opentChildWindowValue' type="button"  value="打开模式子窗口" />
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("opentChildWindowValue").onclick = function(){
+            var returnV = window.showModalDialog("../child.html");//子窗口的引用
+            if(returnV){//监听子窗口返回值
+                alert("返回值为：" + returnV);
+            }
+        }
+    };
+</script>
+</body>
+</html>

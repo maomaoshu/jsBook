@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.17节,自动选定TextArea内容</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>自动选定TextArea内容</h2>
+<textarea id='autoSelected' rows="10" cols="50">
+    默认被选择的文本
+</textarea>
+<script type="text/javascript">
+    window.onload = function(){
+            document.getElementById("autoSelected").select();//调用浏览器内置的文本选定方法
+    };
+</script>
+</body>
+</html>

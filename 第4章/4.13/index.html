@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.13节,关键字的高亮显示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>关键字的高亮显示</h2>
+    <p id='keyWordsHighlight'>我是关键字的高亮显示文本，高亮的文字有JavaScript，还有CSS，以及HTML5！</p>
+<script type="text/javascript">
+    window.onload = function(){
+        //参数---e代表被绑定的元素，keys关键字数组列表，color设置关键词的高亮颜色
+        function keyWordsHighlight(e, keys, color){
+            var
+                i = 0,
+                l = keys.length,//关键词的长度
+                k = "";
+            for(; i < l ; i++){
+                k = keys[i];//获取关键词的对象
+                //替换关键词的数据
+                e.innerHTML = e.innerHTML.replace(k, "<span style='color:"+ (color || "#000")+"'>" + k + "</span>")
+            }
+        }
+
+        keyWordsHighlight(document.getElementById("keyWordsHighlight"),
+            [
+                "JavaScript",
+                "CSS",
+                "HTML5"
+            ], "red")
+    };
+</script>
+</body>
+</html>

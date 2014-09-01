@@ -1,0 +1,168 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>9.9节,类似百度的自动完成功能</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D874c49a728d76c2e075dd33658f0864"></script>
+    <style type="text/css">
+        .autoComplete{
+            background-color: #F6F6F6;
+            width: 100%;
+            height: 200px;
+        }
+        #autoComplete{
+            width: 500px;
+            border: 0px;
+            height: 35px;
+            border: 1px solid #ccc;
+        }
+        #autoCompleteList{
+            display: none;
+            margin-top: 0px;
+            width: 500px;
+            border: 1px solid #ccc;
+        }
+        #autoCompleteList div{
+            width: 500px;
+            height: 35px;
+            line-height: 33px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="autoComplete">
+        <h2>类似百度的自动完成功能</h2>
+        <div><input type="text" id='autoComplete'/></div>
+        <div id='autoCompleteList'></div>
+    </div>
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        lexicon = [//默认联想词库
+            "美女",
+            "美眼美女",
+            "QingJs",
+            "火影忍者",
+            "新浪微博",
+            "腾讯微博",
+            "QQ控件",
+            "中国强",
+            "12阿卡丽",
+            "888网上",
+            "88发财",
+            "JavaScript编程",
+            "JavaScript教程",
+            "JavaScript学习不难",
+            "HTML5很好",
+            "HTML5学习",
+            "英雄联盟"
+        ],
+        thread = -1;//超时填充线程
+
+        function createAutoHtml(autoCompleteList, str){
+            var _html = "",
+                    i,
+                    _lexicon = lexicon,
+                    regStr = null,
+                    n = 0,
+                    v = "";
+
+            regStr = new RegExp("^(" + str + ")", "g");//匹配合适的联想词
+
+            for(i in _lexicon){//检索匹配词
+                if(n >= 3){
+                    break;//限制最多3个联想词
+                }
+                v = _lexicon[i];
+
+                if(regStr.test(v)){
+                    n++;
+                    _html += "<div onclick='addContent(this)'>" + v + "</div>";
+                }
+            }
+
+            if(!_html){ //如果不存在联想词，隐藏联想的层
+                autoCompleteList.style.display = "none";
+                return false;
+            }else{//存在联想词，显示联想层
+                autoCompleteList.innerHTML = _html;
+                autoCompleteList.style.display = "block";
+                return true;
+            }
+
+        }
+
+        function getTypeElement(es, type){//获取指定类型的节点
+            var esLen = es.length,
+                    i = 0,
+                    eArr = [],
+                    esI = null;
+            for(; i < esLen ; i++){
+                esI = es[i];
+                if(esI.nodeName.replace("#", "").toLocaleLowerCase() == type){
+                    eArr.push(esI);
+                }
+            }
+            return eArr;
+        }
+
+        function autoComplete(){
+            console.log(lexicon)
+
+            var autoComplete = document.getElementById("autoComplete"),
+                    autoCompleteList = null,
+                    str = "";
+
+            var createAuto = function(_this){
+                clearTimeout(thread);  //清除定时
+                str = _this.value;
+                str = str.replace( /[,|\-|——|!|！|\@|＠|，|/|=|+|\[|\]|.|。|‘|’|%|^|&|(|)|（|）|……|＃|#|￥|\$|？|、|【|】|\"|\"|\'|\'|?|\\|、|\||｜|;|:|：|；|\{|\}|｛|｝|《|》|_|\||＋|<|>|`|~|～|｀|*|×|\"|\"|“|”]/g, ""); //过滤特殊字符,暂时不考虑检索
+
+                if(!str){
+                    return;
+                }
+                thread = setTimeout(function(){ //如果1秒中停留，则填充词库
+                    if(str.length > 2 && !lexicon[str]){
+                        lexicon[str] = str; //填充词库
+                    }
+                }, 500)
+
+                autoCompleteList = document.getElementById("autoCompleteList");
+
+                /*
+                 *构建联想词,不存在联想词，不执行事件绑定
+                 * */
+                if(!createAutoHtml(autoCompleteList, str)){
+                    return;
+                }
+
+
+                /*
+                 *绑定事件
+                 * */
+
+                var autoCompleteLists = getTypeElement(autoCompleteList.childNodes, "div"),
+                        i = 0,
+                        l = autoCompleteLists.length;
+
+                for(; i < l ; i++){
+                    autoCompleteLists[i].onclick = function(){
+                        autoComplete.value = this.innerHTML;
+                        autoCompleteList.style.display = "none";
+                    }
+                }
+            }
+
+            autoComplete.onkeyup = function(){
+                createAuto(this);
+            }
+
+            autoComplete.onfocus = function(){
+                createAuto(this);
+            }
+        }
+        autoComplete();
+    };
+</script>
+</body>
+</html>

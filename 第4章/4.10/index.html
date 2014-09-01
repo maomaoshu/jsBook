@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.10节,调整字体大小</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>调整字体大小</h2>
+    <p id='fontSize'>字体的大小变化展示</p>
+    <p>
+        <input id='fontSizeBig' value="大" type="button" />
+        <input id='fontSizeMedium' value="中" type="button" />
+        <input id='fontSizeSmall' value="小" type="button" />
+    </p>
+<script type="text/javascript">
+    window.onload = function(){
+        var _fontSize = document.getElementById("fontSize"),//获取元素对象
+        fontSize = function(e, unit){//设置元素字体大小
+            e.style.fontSize = unit;
+        };
+
+        document.getElementById("fontSizeBig").onclick = function(){//大字体设置
+            fontSize(_fontSize, "16px");
+        }
+
+        document.getElementById("fontSizeMedium").onclick = function(){ //中字体设置
+            fontSize(_fontSize, "14px");
+        }
+
+        document.getElementById("fontSizeSmall").onclick = function(){//小字体设置
+            fontSize(_fontSize, "12px");
+        }
+    };
+</script>
+</body>
+</html>

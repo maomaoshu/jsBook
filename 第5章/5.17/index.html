@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.17节,添加到收藏夹</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>添加到收藏夹</h2>
+    <input id='addFavorite' type="button" value="添加到收藏夹" />
+<script type="text/javascript">
+    window.onload = function(){
+        //添加到收藏夹=======================start
+        function addFavorite(fURL, fTitle){
+            try {//IE支持的API
+                window.external.AddFavorite(fURL, fTitle);
+            } catch(e) {//FF支持的API
+                try{
+                    window.sidebar.addPanel(fTitle, fURL, "");
+                }catch(error){
+                    //如果不支持以上两种方案，采用 提示性收藏
+                    alert("加入收藏失败，请用Ctrl+D 或 手动设置！");
+                }
+            }
+        }
+        document.getElementById("addFavorite").onclick = function(){
+            addFavorite("http://qingjs.com", "QingJs框架");
+        };
+    };
+</script>
+</body>
+</html>

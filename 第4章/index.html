@@ -1,0 +1,664 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第4章 内容显示常用代码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../extend/animateManage.js"></script>
+    <script type="text/javascript" src="cManage.js"></script>
+    <style>
+        /*========公共==========*/
+        h2,h5,#tooltipMsg,p{
+            white-space: nowrap;
+        }
+        td{
+            border: 1px solid #ccc;
+            height: 50px;
+            text-align: center;
+            font-size: 10pt;
+            padding: 2px;
+        }
+        /*============= 单元行上鼠标悬停提示 ===============*/
+        #tooltipMsg{
+            position: absolute;
+            border: 1px solid #ccc;
+            display: none;
+            color: #ccc;
+            font-size: 12px;
+            padding: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            z-index: 1;
+        }
+        /*================内容拖拽=============================*/
+        #tableDrawContent{
+            border: 1px solid darkgreen;
+            display: inline;
+            cursor: move;
+            z-index: 100;
+        }
+        /*================表格分页=============================*/
+        .paging span{
+            color:blue;
+        }
+        /*================英文字符串超出元素宽度自动换行=============================*/
+        #autoNewline{
+            display: block;
+            width: 50px;
+            /*样式处理换行，有兼容性问题
+            word-break: break-all;
+            word-wrap: break-word;*/
+        }
+        /*===============内容超过元素宽度显示省略号===========================*/
+        #contentApostrophe{
+            white-space: nowrap;
+            display: block;
+            width: 100px;
+        }
+        /*===============文本段落的展开和收拢效果===========================*/
+        #textOutInParent{
+            display: block;
+            width: 500px;
+            height: 203px;
+        }
+        #textOutIn{
+            overflow: hidden;
+            height: 203px;
+            width: 500px;
+            display: block;
+            border: 1px #ccc solid;
+        }
+        #textOutIn p{
+            white-space: pre-wrap;
+        }
+        /*==================字幕上下间歇滚动===================*/
+        .rollingSubtitles{
+            width: 350px;
+            height: 94px;
+            min-height: 25px;
+            line-height: 25px;
+            border: #cc1233 1px solid;
+            overflow: hidden;
+        }
+        /*====================让层可以随意拖动========================*/
+        #bindDrawElement{
+            border: 1px solid #ccc;
+        }
+        /*===================Tab选项卡切换===============================*/
+        .tabSwitchParent{
+            position: relative;
+            height: 100px;
+            width: 200px;
+        }
+        .tabSwitchParent div{
+            position: relative;
+            float: left;
+        }
+        .tabSwitchTarget{
+            display: none;
+            left: 0;
+            top: 0px;
+            z-index: 1;
+            width: 324px;
+            height: 54px;
+            padding: 5px;
+            border: solid 1px #ccc;
+            color: #666;
+        }
+        #tabSwitch{
+            position: relative;
+            float: left;
+            z-index: 2;
+            top:1px;
+        }
+        #tabSwitch{
+            font-size: 15px;
+            margin: 0px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #tabSwitch .on{
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #fff;
+        }
+        /*===============对联浮动广告=======================*/
+        .coupletAds{
+            position: absolute;
+            width: 100px;
+            border: 1px #ccc solid;
+            height: 200px;
+            z-index: 2000;
+            background-color: #ccc;
+            white-space: pre-wrap;
+            display: none;
+        }
+        #coupletAdsLeft{
+            left: 5px;
+        }
+        #coupletAdsRight{
+            left:100%;
+            margin-left: -107px;
+        }
+        /*==============类似QQ消息窗口提示==============*/
+        #QQMsg{
+            display: none;
+            position: absolute;
+            width: 242px;
+            height: 160px;
+            border: 1px #4F9BD0 solid;
+        }
+        #QQMsg div{
+            width: 242px;
+        }
+        #QQMsg .title{
+            background-color: #4F9BD0;
+            height: 22px;
+            line-height: 21px;
+        }
+        #QQMsg .title div{
+            background-color: #4F9BD0;
+            position: relative;
+            float: left;
+        }
+        #QQMsg .title div.titles{
+            margin: 0px;
+            font-size: 13px;
+            width: 200px;
+        }
+        #QQMsg .title div.close{
+            font-size: 12px;
+            color: #fff;
+            margin: 0px;
+            background-color: #58A0D3;
+            width: 4px;
+            left: 30px;
+            cursor: pointer;
+        }
+        #QQMsg .content p{
+            white-space: normal;
+            margin: 10px;
+            font-size: 13px;
+            color: #0C4E7C;
+        }
+    </style>
+</head>
+<body>
+    <h2>单元行上鼠标悬停提示</h2>
+    <table id='tooltip' border="1" width="100">
+            <tr data-tooltip="第1行提示">
+                <td>1</td>
+                <td>2</td>
+            </tr>
+            <tr data-tooltip="第2行提示">
+                <td>3</td>
+                <td>4</td>
+            </tr>
+    <table>
+    <div id='tooltipMsg'>我是提示信息</div>
+    <h2>表格光棒效果</h2>
+    <table id='lightBar' border="1" width="500">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+    <table>
+    <h2>让表单没有凹凸感</h2>
+    <input id="cleanConcaveConvex"  value="没有凹凸感" />
+    <h2>动态插入和删除单元行</h2>
+    <table id='tableAct' border="1" width="500">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    <table>
+    <input value='删除第一行' type="button" id='deleteRow' />
+    <input value='新增一行' type="button" id='addRow' />
+    <h2>表格内容的展开和折叠效果</h2>
+        <h5>例子中，会演示隐藏/展示第一行表格内容</h5>
+        <table id='tableOutIn' border="1" width="500">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+        <table>
+    <input value='展开' type="button" id='openRow' />
+    <input value='收缩' type="button" id='inRow' />
+    <h2>表格内容拖拽效果：进入拖入区域后，会变暗橙色</h2>
+    <table id='tableDraw' border="1">
+        <tr>
+            <td>
+                <div class="draw" id='tableDrawContent'>被拖拽的内容</div>
+            </td>
+            <td>等待被拖入元素</td>
+        </tr>
+        <tr>
+            <td>等待被拖入元素</td>
+            <td>等待被拖入元素</td>
+        </tr>
+    <table>
+
+    <h2>使用js对表格内容进行分页</h2>
+    <table id='tablePaging' border="1">
+        <tr>
+            <td>第1页内容</td>
+            <td>第1页内容</td>
+        </tr>
+        <tr>
+            <td>第1页内容</td>
+            <td>第1页内容</td>
+        </tr>
+    <table>
+    <p class="paging">
+        总页数<span id='allPage'>1</span>
+        当前页<span id='currentPage'>1</span>
+        <input value='上一页' id='prevPaging' type="button" />
+        <input value='下一页' id='nextPaging' type="button" >
+    </p>
+    <h2>英文字符串超出元素宽度自动换行</h2>
+    <div id='autoNewline'>English string is beyond word wrap element width</div>
+    <h2>内容超过元素宽度显示省略号</h2>
+    <div id='contentApostrophe'>内容超过元素宽度显示省略号</div>
+    <h2>调整字体大小</h2>
+    <p id='fontSize'>字体的大小变化展示</p>
+    <p>
+        <input id='fontSizeBig' value="大" type="button" />
+        <input id='fontSizeMedium' value="中" type="button" />
+        <input id='fontSizeSmall' value="小" type="button" />
+    </p>
+    <h2>实现打字机效果</h2>
+    <p id='typewriterEffect'></p>
+    <p id='typewriterEffect2'></p>
+    <h2>文本段落的展开和收拢效果</h2>
+    <div id='textOutInParent'>
+        <div id='textOutIn'>
+        <p>今天写的代码挺有趣，自学并思考很重要！我是文本段落的展开和收拢效果，我是文本段落的展开和收拢效果我是文本段落的
+            展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+            展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+            展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+            展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+        </p>
+    </div>
+    </div>
+    <input value="展开" type="button" id='textOut' />
+    <input value="收缩" type="button" id='textRoundin' />
+    <h2>关键字的高亮显示</h2>
+    <p id='keyWordsHighlight'>我是关键字的高亮显示文本，高亮的文字有JavaScript，还有CSS，以及HTML5！</p>
+    <h2>字幕上下间歇滚动</h2>
+    <div class="rollingSubtitles">
+        <ul id='rollingSubtitles' style="margin-top: -2px;">
+            <li>
+                <a href="http://www.qingjs.com/" target="_blank">QingJs框架---1页</a>
+            </li>
+            <li>
+                <a href="http://wpa.qq.com/msgrd?V=1&Uin=939898101&Site=chat&Menu=yes" target="_blank">作者QQ：939898101</a>
+            </li>
+            <li>
+                <a href="http://weibo.com/xixinliang/home?wvr=5&lf=reg" target="_blank">点击作者新浪微博</a>
+            </li>
+            <li>
+                <a href="http://wpa.qq.com/msgrd?V=1&Uin=939898101&Site=chat&Menu=yes" target="_blank">作者QQ：939898101</a>
+            </li>
+            <li>
+                <a href="http://www.qingjs.com/" target="_blank">QingJs框架---2页</a>
+            </li>
+            <li>
+                <a href="http://wpa.qq.com/msgrd?V=1&Uin=939898101&Site=chat&Menu=yes" target="_blank">作者QQ：939898101</a>
+            </li>
+            <li>
+                <a href="http://weibo.com/xixinliang/home?wvr=5&lf=reg" target="_blank">点击作者新浪微博</a>
+            </li>
+            <li>
+                <a href="http://www.qingjs.com/" target="_blank">QingJs框架</a>
+            </li>
+            <li>
+                <a href="http://wpa.qq.com/msgrd?V=1&Uin=939898101&Site=chat&Menu=yes" target="_blank">作者QQ：939898101---3页</a>
+            </li>
+            <li>
+                <a href="http://weibo.com/xixinliang/home?wvr=5&lf=reg" target="_blank">点击作者新浪微博</a>
+            </li>
+
+        </ul>
+    </div>
+    <br />
+    <input type="button" id='upSubtitles'value='向上滚动' />
+    <input type="button" id='downSubtitles'value='向下滚动' />
+    <h2>弹出层</h2>
+    <div id='popupDiv' style="border:1px solid #ccc;display: none;height: 100px;width: 300px; text-align: center;">
+        <p><input type="button" id='popupClose'value='关闭' /></p>
+        <p>我是弹出层</p>
+    </div>
+    <input type="button" id='popupOpen'value='弹出' />
+    <h2>层模拟的提示消息框</h2>
+    <div id='promptMsgBox' style="border:1px solid #ccc;display: none;height: 100px;width: 300px; text-align: center;">
+        <p>层模拟的提示框，请关闭</p>
+        <p>
+            <input type="button" id='promptMsgBoxAgree'value='确认' />
+            <input type="button" id='promptMsgBoxCancel'value='取消' />
+        </p>
+    </div>
+    <input type="button" id='promptMsgBoxOpen' value='弹出' />
+    <h2>隐藏层</h2>
+    <div id="hide" style="position:relative;border: 1px solid #ccc;width: 200px;height: 100px;display: block">
+        我是将要被隐藏的层！</div>
+    <input type="button" id="hidePrev" value="隐藏上边的层" />
+    <h2>用层实现滚动条</h2>
+    <!--最外层-->
+    <div style="position: relative;background-color: #F6F6F6;width: 200px;border: 1px #ccc solid;overflow: hidden">
+        <!--内容包-->
+        <div id="contentScroll" style="position: relative;left:0px">
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我123456789<p>
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我123456789<p>
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我123456789<p>
+        </div>
+        <!--横向滚动条-->
+        <div id="scrolling" style="position: relative;display: block;width: 100px;height: 10px;background-color: #fff;border: 1px #979797 solid;-moz-border-radius: 3px;
+-webkit-border-radius: 3px;"></div>
+    </div>
+    <h2>让层可以随意拖动</h2>
+    <div id='bindDrawElement'>我是被拖动的层，鼠标按下---移动，就可以拖动我！！！</div>
+    <div style="position: relative;top:50px;height: 10px">      </div>
+    <h2>遮罩层效果</h2>
+    <input type="button" value='显示遮罩层' id='showMaskLayer'/>
+    <div id='maskLayer' style="display: none"></div>
+    <h2>Tab选项卡切换</h2>
+    <div class="tabSwitchParent">
+        <!--选项卡-->
+        <div id='tabSwitch'>
+            <div data-targent='tabSwitch1' class="on">选项卡1</div>
+            <div data-targent='tabSwitch2'>选项卡2</div>
+            <div data-targent='tabSwitch3'>选项卡3</div>
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="display: block;color: #123323" id='tabSwitch1'>
+            选项卡1，
+            欢迎您学习《最实用的JS代码》
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="color: #abcdee" id='tabSwitch2'>
+            选项卡2，
+            欢迎您学习《最实用的JS代码》
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="color: #444321" id='tabSwitch3'>
+            选项卡3，
+            欢迎您学习《最实用的JS代码》
+        </div>
+    </div>
+    <h2>对联浮动广告</h2>
+    <div class="coupletAds" id='coupletAdsLeft'>浮动广告左边</div>
+    <div class="coupletAds" id='coupletAdsRight'>浮动广告右边</div>
+    <input type="button" id='openAbs' value='显示对联广告'>
+    <h2>类似QQ消息窗口提示</h2>
+    <div id='QQMsg'>
+        <!--title-->
+        <div class="title">
+            <div class="titles">qq消息 - 您的空间有新的评论</div>
+            <div class="close" id='closeQQMsg'>X</div>
+        </div>
+        <div style="clear: both"></div>
+        <!--内容-->
+        <div class="content">
+            <p>您的空间有人发表了有趣的评论，并向您发起了一个好友请求，单击查看一下吧！</p>
+        </div>
+    </div>
+    <input type="button" id='showQQMsg' value='显示类似QQ消息窗口' />
+    <h2>修改浏览器title</h2>
+    <input id='titleNewline' data-title='修改后的title' type="button" value='修改浏览器title'/>
+    <h2>打开链接时弹出确认框</h2>
+    <a id='linkConfirmation' data-msg='您真的要打开 “Qingjs” 连接吗？' data-target='http://www.qingjs.com/' href='javascript:void(0)'>Qingjs</a>
+    <h2>删除时弹出确认对话框</h2>
+    <div id='deleteElement' style="height: 100px;background-color: #ccc">将要被删除的元素······</div>
+    <input id='deleteConfirmation' data-msg='警告，您真的要删除上边的元素吗？' type="button" value="删除" />
+
+    <script type="text/javascript">
+		//为了直观方便大家查看  将待测试代码放入当前页
+		; (function (_CM, window, document, undefined) {
+
+            var _W = window,
+				document = _W.document,
+
+                //继承_CM ，区别于原型链继承
+                project = cManage || {}
+                ;
+			//初始化
+			project.init = function () {
+				this.initEvents();
+			}
+
+			//初始化事件
+			project.initEvents = function () {
+                //单元行上鼠标悬停提示******************************
+                this.tooltip(this.getElement("tooltip"), this.getElement("tooltipMsg"));
+
+                //表格光棒效果***************************************
+                this.lightBar(this.getElement("lightBar"));
+
+
+                //让表单没有凹凸感************************************
+                this.cleanConcaveConvex(this.getElement("cleanConcaveConvex"));
+
+                //动态插入和删除单元行********************************
+                var _tableAct = this.getElement("tableAct");
+                //删除第一行
+                this.getElement("deleteRow").onclick = function(){
+                    project.trAct(_tableAct, 0);
+                }
+
+                //新增一行
+                this.getElement("addRow").onclick = function(){
+                    project.trAct(_tableAct, 0, [
+                        "新增单元格1",
+                        "新增单元格2"
+                    ]);
+                }
+
+                //表格内容的展开和折叠效果******************************
+
+                var _tableOutIn = this.getElement("tableOutIn");
+                //展开一行 openRow
+                this.getElement("openRow").onclick = function(){
+                    project.tableOutIn(_tableOutIn.rows[0], "open")
+                }
+
+                //收缩一行 inRow
+                this.getElement("inRow").onclick = function(){
+                    project.tableOutIn(_tableOutIn.rows[0])
+                }
+
+                //表格内容拖拽效果**************************************
+                this.tableDraw(
+                        this.getElement("tableDraw"),
+                        this.getElement("tableDrawContent"));
+
+                //表格分页**********************************************
+                this.tablePaging({
+                        "tablePaging":this.getElement("tablePaging"),
+                        "currentPage":this.getElement("currentPage"),
+                        "allPage":this.getElement("allPage"),
+                        "nextPaging":this.getElement("nextPaging"),
+                        "prevPaging":this.getElement("prevPaging")
+                });
+
+                //英文字符串超出元素宽度自动换行*************************
+                this.autoNewline(this.getElement("autoNewline"));
+
+                //内容超过元素宽度显示省略号*****************************
+                this.contentApostrophe(this.getElement("contentApostrophe"));
+
+                //调整字体大小*******************************************
+                var _fontSize = this.getElement("fontSize");
+                //大字体设置
+                this.getElement("fontSizeBig").onclick = function(){
+                    project.fontSize(_fontSize, "16px");
+                }
+
+                //中字体设置
+                this.getElement("fontSizeMedium").onclick = function(){
+                    project.fontSize(_fontSize, "14px");
+                }
+
+                //小字体设置
+                this.getElement("fontSizeSmall").onclick = function(){
+                    project.fontSize(_fontSize, "12px");
+                }
+
+                //打印机效果************************************************
+                this.typewriterEffect(
+                        this.getElement("typewriterEffect"),
+                        "我是打字机效果，有趣吧，哈哈！！！",
+                        "red")
+                .typewriterEffect(
+                        this.getElement("typewriterEffect2"),
+                        "《最实用的JS代码》有趣吧，另外对JavaScript感兴趣的朋友，请加QQ群：315238234，欢迎您的加入！！！",
+                        "green")
+                .startTypewriter(100);
+
+                //文本段落的展开和收拢效果*********************************
+                this.textOutIn({
+                    "e": this.getElement("textOutIn"),
+                    "out":this.getElement("textOut"),
+                    "roundin":this.getElement("textRoundin")
+                });
+
+                //关键字高亮***********************************************
+                this.keyWordsHighlight(this.getElement("keyWordsHighlight"),
+                        [
+                            "JavaScript",
+                            "CSS",
+                            "HTML5"
+                        ], "red")
+
+                //字幕上下间歇滚动******************************************
+                this.rollingSubtitles(this.getElement("rollingSubtitles")).downSubtitles();
+
+                //向上滚动
+                this.getElement("upSubtitles").onclick = function(){
+                    project.upSubtitles(true)
+                }
+                //移入清空定时
+                this.getElement("upSubtitles").onmouseover = function(){
+                    clearInterval(_CM.rollingID);
+                }
+                //移出开启定时
+                this.getElement("upSubtitles").onmouseout = function(){
+                    _CM.upSubtitles();
+                }
+                //向下滚动
+                this.getElement("downSubtitles").onclick = function(){
+                    project.downSubtitles(true)
+                }
+                //移入清空定时
+                this.getElement("downSubtitles").onmouseover = function(){
+                    clearInterval(_CM.rollingID);
+                }
+                //移出开启定时
+                this.getElement("downSubtitles").onmouseout = function(){
+                    _CM.downSubtitles();
+                }
+                //弹出层*******************************************************
+                this.setPopup(
+                        this.getElement("popupDiv"),
+                        this.getElement("popupOpen"),
+                        this.getElement("popupClose")
+                );
+                //层模拟的提示消息框********************************************
+                this.promptMsgBox({
+                    //响应的元素
+                    "promptMsgBox":this.getElement("promptMsgBox"),
+                    //打开确认按钮
+                    "promptMsgBoxOpen":   this.getElement("promptMsgBoxOpen"),
+                    //确认按钮
+                    "promptMsgBoxAgree":    this.getElement("promptMsgBoxAgree"),
+                    //确认之后的回调函数
+                    "agreeCallBack":function(){
+                        alert("确认的回调函数！")
+                    },
+                    //取消按钮
+                    "promptMsgBoxCancel":   this.getElement("promptMsgBoxCancel"),
+                    //取消之后的回调函数
+                    "cancelCallBack":function(){
+                        alert("取消的回调函数！")
+                    }
+                });
+                //隐藏层********************************************************
+                this.getElement("hidePrev").onclick = function(){
+                    project.hide(project.getElement("hide"));
+                }
+                //用层实现滚动条************************************************
+                this.scrollBar({
+                    "contentScroll":this.getElement("contentScroll"),
+                    "scrolling":this.getElement("scrolling")
+                });
+
+                //让层可以随意拖动 *********************************************
+                this.bindDrawElement(this.getElement("bindDrawElement"));
+
+                //遮罩层*********************************************************
+                this.getElement("showMaskLayer").onclick = function(){
+                    project.maskLayer(project.getElement("maskLayer"));
+                }
+
+                //Tab选项卡切换**************************************************
+                this.tabSwitch(this.getElement("tabSwitch"));
+
+                //对联广告*******************************************************
+                this.getElement("openAbs").onclick = function(){
+                    project.coupletAds(
+                            project.getElement("coupletAdsLeft"),
+                            project.getElement("coupletAdsRight")
+                    );
+                }
+
+                //类似QQ消息窗口提示*********************************************
+                this.getElement("showQQMsg").onclick = function(){
+                    project.QQMsg(
+                            project.getElement("QQMsg"),
+                            project.getElement("closeQQMsg")
+                    );
+                }
+
+                //修改浏览器title******************************************************
+                this.getElement("titleNewline").onclick = function(){
+                    project.titleNewline(this);
+                }
+
+                //打开链接时弹出确认框*******************************************
+                this.linkConfirmation(this.getElement("linkConfirmation"));
+
+                //删除时弹出确认对话框*******************************************
+                this.deleteConfirmation(this.getElement("deleteConfirmation"));
+
+                this.bodyEvents();
+			}
+
+			window.onload = function(){
+                project.init();
+            };
+		})(cManage , window, document);
+	</script>
+</body>
+</html>

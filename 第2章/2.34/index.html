@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.34节,可输入下拉框效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>可输入下拉框效果</h2>
+<select id="inOption" style="position:absolute;width: 118px;left:12px">
+    <option value="可输入1">可输入1</option>
+    <option value="可输入2">可输入2</option>
+</select>
+<input type="text" id='inInput' style='position: absolute;left: 11px;width: 100px;border-right: 0px'/><br />
+<script type="text/javascript">
+    window.onload = function(){
+        var _inOption = document.getElementById("inOption"),
+                _inIpnut = document.getElementById("inInput"),
+                addOptions = function(target, optons){//添加option
+                    var _option = null,
+                            ol = optons.length,
+                            i = 0,
+                            _v = "",
+                            _t = "";
+                    for(; i < ol ; i++ ){
+                        _v = optons[i].value;
+                        _t = optons[i].text;
+                        _option = document.createElement("OPTION");//创建空option
+                        _option.value = _v;
+                        _option.text = _t;
+                        target.options.add(_option);
+                    }
+
+                };
+        _inIpnut.onkeyup = function(){
+            var   key=event.keyCode,
+                    _v = _inIpnut.value;
+            if(key == 13){//如果为回车键，则添加值
+                addOptions(_inOption, [//添加新option
+                    {
+                        "value":_v,
+                        "text":_v
+                    }
+                ])
+
+            }
+        }
+        _inOption.onchange = function(){//值变更事件
+            _inIpnut.value = this.value;
+        }
+    };
+</script>
+</body>
+</html>

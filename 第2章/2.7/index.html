@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.7节,限制只能输入中文</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>限制只能输入中文</h2>
+<input type="text" name="number"  value='只能输入中文' id='chineseStr'/><br>
+<script type="text/javascript">
+    window.onload = function(){
+        var chineseStr = document.getElementById("chineseStr"),
+                clearNonumber = function(tThis){					//过滤字符
+                    var _v = tThis.value;
+                    tThis.value = _v.replace(/[^\u4e00-\u9fa5]/g,"");	//正则替换
+                }
+        chineseStr.onfocus = function(){							//获取焦点事件
+            clearNonumber(this);
+        }
+
+        chineseStr.onkeyup = function(){							//键盘事件
+            clearNonumber(this);
+        }
+        chineseStr.onblur = function(){							//失去焦点事件
+            clearNonumber(this);
+        }
+    };
+</script>
+</body>
+</html>

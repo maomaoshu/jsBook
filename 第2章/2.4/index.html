@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.4节,关闭输入法</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>关闭输入法</h2>
+<input type='text' id='banInputMethodgoogle' value='不支持谷歌浏览器'><br>
+<input type='text' banInputMethod='1' id='banInputMethod' value='支持主流浏览器'><br>
+<script type="text/javascript">
+    window.onload = function(){
+        var arr =[//创建节点数组
+                    document.getElementById("banInputMethodgoogle"),
+                    document.getElementById("banInputMethod")],
+                self = this
+                ;
+        for(var i= 0,arrLen = arr.length ;i<arrLen;i++){	//遍历待处理的节点对象
+            var arrI = arr[i];
+            arrI.onfocus = function(){				//获取焦点事件
+                this.style.imeMode='disabled'; 		//样式方案,只兼容除了谷歌浏览器之外的浏览器
+            }
+
+            var banInputMethod = arrI.getAttribute("banInputMethod");	//获取banInputMethod属性
+            if(banInputMethod) {								//判断是否存在banInputMethod
+                var clearChinese = function(_this){
+                    var _v = _this.value;
+                    _this.value = _v.replace(/[\u4e00-\u9fa5]/g,"");	//正则替换中文字符
+                }
+                arrI.onkeyup = function(){						//keyup事件
+                    clearChinese(this);
+                }
+                arrI.onblur = function(){						//blur事件
+                    clearChinese(this);
+                }
+            }
+        }
+    };
+</script>
+</body>
+</html>

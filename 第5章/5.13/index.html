@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.13节,永远都会带着框架</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = function(){
+        //判断网页是否在框架中，如果不在框架中，自动套上框架
+        if (window.location.href == top.location.href) {
+            top.location.href = "../frames.html";//frames.html为框架网页
+        }
+    };
+</script>
+</body>
+</html>

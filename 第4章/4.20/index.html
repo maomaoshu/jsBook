@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.20节,遮罩层效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+
+</style>
+<body>
+    <h2>遮罩层效果</h2>
+    <input type="button" value='显示遮罩层' id='showMaskLayer'/>
+    <div id='maskLayer' style="display: none"></div>
+<script type="text/javascript">
+    window.onload = function(){
+        function setCss(_this, cssOption){//设置元素样式
+            //判断节点类型
+            if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                return;
+            }
+            for(var cs in cssOption){//遍历设置样式
+                _this.style[cs] = cssOption[cs];
+            }
+            return _this;
+        }
+
+        document.getElementById("showMaskLayer").onclick = function(){//获取响应元素
+            var b =  document.body.parentNode,
+                    maskLayer = document.getElementById("maskLayer");
+
+            setCss(maskLayer, {//初始化遮罩的样式
+                "position":"absolute",//绝对
+                "left":"0px",
+                "display":"block",
+                "top":"0px",
+                "zIndex":1000,//Z层级
+                "backgroundColor":"#ccc",
+                "height":  b.scrollHeight + "px",
+                "width": b.offsetWidth + "px",
+                /*为了兼容各种浏览器的透明层效果*/
+                "filter":"alpha(Opacity=60)",
+                "opacity" : "0.6",
+                "-moz-opacity":"0.6",
+                "filter": "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)",
+                "-MS-filter":"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"
+            })
+        }
+
+
+    };
+</script>
+</body>
+</html>

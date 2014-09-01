@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.16节,取消选取、防止复制</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>取消选取</h2>
+<input id='deselect' type="button" value="取消" />
+<h2>防止复制</h2>
+<input id='preventCopying' type="text" value="防止复制" />
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("deselect").onclick = function(){//取消选区
+            /*
+             1,document.selection不是W3C的标准，只是一些主流浏览器的API，只有ie支持，代表选中区块，之后可以调用这个API的一些操作方法；
+             2,window.getSelection 返回一个由用户选定的表示文本的范围的对象，并可以调用此对象的一些方法进行操作
+             * */
+            (window.getSelection && window.getSelection().removeAllRanges())
+            || (document.selection && document.selection.empty && document.selection.empty());
+        }
+
+        var preventCopying = document.getElementById("preventCopying");//防止复制
+        /***第1种方法***/
+
+        preventCopying.oncopy = function(){//禁止复制
+            return false;
+        }
+
+        preventCopying.oncut = function(){//禁止剪切
+            return false;
+        }
+        /***第2种方法***/
+
+        preventCopying.onselectstart =  function(){//禁止选取
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

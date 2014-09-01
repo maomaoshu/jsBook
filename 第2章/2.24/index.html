@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.24节,判断单选框是否选中</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>判断单选框是否选中</h2>
+<input type="radio" name='sex' id='sexMan' checked="checked">男 <br />
+<input type="radio" name='sex' id='sexWoman'>女
+<script type="text/javascript">
+    window.onload = function(){
+        var sexMan = document.getElementById("sexMan"),
+                sexWoman = document.getElementById("sexWoman");
+        if(sexMan.checked){
+            console.log("sexMan 被选中")
+        }else{
+            console.log("sexMan 未被选中")
+        }
+
+        if(sexWoman.checked){
+            console.log("sexWoman 被选中")
+        }else{
+            console.log("sexWoman 未被选中")
+        }
+    };
+</script>
+</body>
+</html>

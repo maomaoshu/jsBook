@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.15节,弹出层</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>弹出层</h2>
+    <div id='popupDiv' style="border:1px solid #ccc;display: none;height: 100px;width: 300px; text-align: center;">
+        <p><input type="button" id='popupClose'value='关闭' /></p>
+        <p>我是弹出层</p>
+    </div>
+    <input type="button" id='popupOpen'value='弹出' />
+<script type="text/javascript">
+    window.onload = function(){
+        function setCss(_this, cssOption){//设置元素样式
+            //判断节点类型
+            if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                return;
+            }
+            for(var cs in cssOption){
+                _this.style[cs] = cssOption[cs];
+            }
+        }
+
+        function setPopup(e, openPop, closePop){
+            setCss(e, {//初始化样式
+                "position":"absolute",
+                "zIndex":100,
+                "backgroundColor":"#EBEDF3"
+            });
+            openPop.onclick = function(){
+                e.style.display = "block";
+                setCss(e, {//修改弹出层的位置，将其定位于屏幕的可见区域中间位置
+                    "left": "50%" ,
+                    "marginLeft": -e.offsetWidth/2 + "px",
+                    "top":((document.body.scrollTop || document.documentElement.scrollTop) + window.screen.availHeight/2- e.offsetHeight) + "px"
+                });
+            }
+
+            closePop.onclick = function(){
+                e.style.display = "none";
+            }
+        }
+        //弹出层*******************************************************
+        setPopup(
+                document.getElementById("popupDiv"),
+                document.getElementById("popupOpen"),
+                document.getElementById("popupClose")
+        );
+    };
+</script>
+</body>
+</html>

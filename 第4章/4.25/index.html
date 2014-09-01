@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.25节,打开链接时弹出确认框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>打开链接时弹出确认框</h2>
+    <a id='linkConfirmation' data-msg='您真的要打开 “Qingjs” 连接吗？' data-target='http://www.qingjs.com/' href='javascript:void(0)'>Qingjs</a>
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("linkConfirmation").onclick = function(){//点击链接
+            if(window.confirm(this.getAttribute("data-msg"))){//弹出确认框
+                window.open(this.getAttribute("data-target"));//如果确认在跳转
+            }
+        }
+    };
+</script>
+</body>
+</html>

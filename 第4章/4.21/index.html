@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.21节,Tab选项卡切换</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+    /*===================Tab选项卡切换===============================*/
+    .tabSwitchParent{
+        position: relative;
+        height: 100px;
+        width: 200px;
+    }
+    .tabSwitchParent div{
+        position: relative;
+        float: left;
+    }
+    .tabSwitchTarget{
+        display: none;
+        left: 0;
+        top: 0px;
+        z-index: 1;
+        width: 324px;
+        height: 54px;
+        padding: 5px;
+        border: solid 1px #ccc;
+        color: #666;
+    }
+    #tabSwitch{
+        position: relative;
+        float: left;
+        z-index: 2;
+        top:1px;
+    }
+    #tabSwitch{
+        font-size: 15px;
+        margin: 0px;
+        text-align: center;
+        cursor: pointer;
+    }
+    #tabSwitch .on{
+        border: 1px solid #ccc;
+        border-bottom: none;
+        background-color: #fff;
+    }
+</style>
+<body>
+    <h2>Tab选项卡切换</h2>
+    <div class="tabSwitchParent">
+        <!--选项卡-->
+        <div id='tabSwitch'>
+            <div data-targent='tabSwitch1' class="on">选项卡1</div>
+            <div data-targent='tabSwitch2'>选项卡2</div>
+            <div data-targent='tabSwitch3'>选项卡3</div>
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="display: block;color: #123323" id='tabSwitch1'>
+            选项卡1，
+            欢迎您学习《最实用的JS代码》
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="color: #abcdee" id='tabSwitch2'>
+            选项卡2，
+            欢迎您学习《最实用的JS代码》
+        </div>
+        <!--内容-->
+        <div class="tabSwitchTarget" style="color: #444321" id='tabSwitch3'>
+            选项卡3，
+            欢迎您学习《最实用的JS代码》
+        </div>
+    </div>
+<script type="text/javascript">
+    window.onload = function(){
+        function getTypeElement(es, type){//获取指定类型的节点
+            var esLen = es.length,
+                    i = 0,
+                    eArr = [],
+                    esI = null;
+            for(; i < esLen ; i++){
+                esI = es[i];
+                if(esI.nodeName.replace("#", "").toLocaleLowerCase() == type){
+                    eArr.push(esI);
+                }
+            }
+            return eArr;
+        }
+
+        function tabSwitch(e){
+            var divs = getTypeElement(e.childNodes, "div"),
+                    l = divs.length,
+                    i = 0;
+            for(; i < l;i++){
+                divs[i].onclick = function(){//单击切换按钮
+                    for(var ii = 0; ii < l; ii++){//改为未被选中状态
+                        divs[ii].className = "";//删除选项卡的边框
+                        //隐藏内容
+                        document.getElementById("tabSwitch" + (ii+1)).style.display = "none";
+                    }
+                    this.className = "on";//设置当前元素的选中样式
+                    //获取指定内容的对象，并显示
+                    document.getElementById(this.getAttribute("data-targent")).style.display = "block";
+                }
+            }
+        }
+
+        tabSwitch(document.getElementById("tabSwitch"));//Tab选项卡切换
+    };
+</script>
+</body>
+</html>

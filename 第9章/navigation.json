@@ -1,0 +1,12 @@
+{
+    "menu":[
+        {
+            "name":"选项1",
+            "href":"http://www.qingjs.com"
+        },
+        {
+            "name":"选项2",
+            "href":"http://www.qingjs.com"
+        }
+    ]
+}

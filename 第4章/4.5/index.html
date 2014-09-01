@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.5节,表格内容的展开和折叠效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>表格内容的展开和折叠效果</h2>
+    <h5>例子中，会演示隐藏/展示第一行表格内容</h5>
+    <table id='tableOutIn' border="1" width="500">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </table>
+    <input value='展开' type="button" id='openRow' />
+    <input value='收缩' type="button" id='inRow' />
+<script type="text/javascript">
+    window.onload = function(){
+        /************************************
+         * 表格内容的展开和折叠效果   start *
+         ************************************/
+
+        tableOutIn = function(e, type){
+            if(type != "open"){
+                e.style.display = "none"//隐藏指定的行元素
+            }
+            else{
+                e.style.display = "table-row"//table-row设置此元素会作为一个表格行显示
+            }
+        }
+
+        var _tableOutIn = document.getElementById("tableOutIn");
+
+        document.getElementById("openRow").onclick = function(){//展开一行 openRow
+            tableOutIn(_tableOutIn.rows[0], "open")
+        }
+
+        document.getElementById("inRow").onclick = function(){//收缩一行 inRow
+            tableOutIn(_tableOutIn.rows[0])
+        }
+    };
+</script>
+</body>
+</html>

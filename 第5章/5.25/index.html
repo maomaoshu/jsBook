@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.25节,网页不会被缓存</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>网页不会被缓存</h2>
+    <input id='noCache' type="button" value="网页不会被缓存">
+<script type="text/javascript">
+    window.onload = function(){
+        // 网页不会被缓存
+        function noCache (){
+            /*
+            html 标准meta的写法
+
+            <!--在头部注释中 第1种写法-->
+            <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出
+            <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 用于控制HTTP缓存（在HTTP/1.0中可能部分没实现，仅仅实现了Pragma: no-cache）
+            <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT"> 表示存在时间，允许客户端在这个时间之前不去检查（发请求）
+            <!--在头部注释中 第2种写法-->
+            <META HTTP-EQUIV="expires" CONTENT="0">*/
+
+            //js方法随机数   一般利用后台可以处理
+            window.location = window.location.href+"#"+new Date().getTime()
+
+
+        }
+
+        document.getElementById("noCache").onclick = function(){ //网页不会被缓存
+            noCache();
+        }
+    };
+</script>
+</body>
+</html>

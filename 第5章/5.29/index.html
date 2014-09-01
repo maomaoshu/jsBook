@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.29节,获取浏览器信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>获取浏览器信息</h2>
+    <div id='getBrowserInformation'></div>
+<script type="text/javascript">
+    window.onload = function(){
+        //来自 navigator 对象的信息不一定准确，浏览器开发商可以随意更改，没有统一性
+        var browerInfo = "",
+                nav = navigator;
+
+        browerInfo += "<h3>中文-简体</h3>";//展示浏览器的一些基本信息
+        //appCodeName 属性是一个只读字符串，代表浏览器的代码名，在所有以Netscape代码为基础的浏览器中，值为“Mozilla”
+        browerInfo += "浏览器代码名称：" + nav.appCodeName +"<br>";
+        browerInfo += "浏览器类型：" + nav.appName +"<br>";
+        browerInfo += "浏览器版本：" + nav.appVersion +"<br>";
+        browerInfo += "浏览器语言：" + nav.language +"<br>";
+        browerInfo += "是否启用JAVA：" + (nav.javaEnabled() ? "是" : "否") +"<br>";
+
+        browerInfo += "<h3>English</h3>";
+        //遍历所有的navigator浏览器对象数据，如果提供基本的字符数据，就打印出来
+        for(var n in nav){
+            if(typeof nav[n] == "string") browerInfo += n + "：" + nav[n] +"<br>";
+        }
+        document.getElementById("getBrowserInformation").innerHTML = browerInfo;
+    };
+</script>
+</body>
+</html>

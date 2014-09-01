@@ -1,0 +1,292 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第9章 其他常用代码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D874c49a728d76c2e075dd33658f0864"></script>
+    <script type="text/javascript" src="othManage.js"></script>
+    <style type="text/css">
+        /*===============使用JavaScript代码调用百度地图====================*/
+        #baiduMap {
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            margin:0;
+        }
+        /*===============获取当前地理坐标====================*/
+        #viewMap{
+            width: 900px;
+            height: 900px;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+<h2>使用JavaScript代码调用百度地图</h2>
+<div id="baiduMap"></div>
+
+<h2>获取当前地理坐标</h2>
+<div id='geolocationMap'>正在获取地理位置···</div>
+<div id='viewMap'></div>
+
+<style>
+    #ajaxNavigation{
+        position: relative;
+        top:0px;
+        left: 0px;
+        background-color: #ccc;
+        width: 100%;
+        z-index: 1000;
+    }
+    #ajaxNavigation div{
+        position: relative;
+        float: left;
+        border: #cc2123 1px solid;
+        width: 19%;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+</style>
+<h2>Ajax实现导航</h2>
+<div id='ajaxNavigation'>
+
+</div>
+<style>
+    .autoComplete{
+        background-color: #F6F6F6;
+        width: 100%;
+        height: 200px;
+    }
+   #autoComplete{
+       width: 500px;
+       border: 0px;
+       height: 35px;
+       border: 1px solid #ccc;
+   }
+   #autoCompleteList{
+       display: none;
+       margin-top: 0px;
+       width: 500px;
+       border: 1px solid #ccc;
+   }
+   #autoCompleteList div{
+       width: 500px;
+       height: 35px;
+       line-height: 33px;
+       cursor: pointer;
+   }
+</style>
+<br />
+<div class="autoComplete">
+    <h2>类似百度的自动完成功能</h2>
+    <div><input type="text" id='autoComplete'/></div>
+    <div id='autoCompleteList'></div>
+</div>
+<br/>
+<style>
+    #vote div{
+        position: relative;
+        float: left;
+        cursor: pointer;
+    }
+</style>
+<h2>等级星投票效果---鼠标移上去，选取星级</h2>
+<div id="voteed">选取：</div>
+<div id="vote">
+    <div>☆</div>
+    <div>☆</div>
+    <div>☆</div>
+    <div>☆</div>
+    <div>☆</div>
+</div>
+<h2>IE导出Excel</h2>
+<table id="tableExcels" width="100%" border="1" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="5" align="center">WEB页面导出为EXCEL文档的方法</td>
+    </tr>
+    <tr>
+        <td>前端语言</td>
+        <td>后端语言</td>
+    </tr>
+    <tr>
+        <td>JavaScript</td>
+        <td>PHP</td>
+    </tr>
+    <tr>
+        <td><div>CSS</div></td>
+        <td>JAVA</td>
+    </tr>
+    <tr>
+        <td>HTML</td>
+        <td>Ruby</td>
+    </tr>
+</table>
+<input type="button" id="exportExcel" value="导入到EXCEL">
+<br/>
+<br/>
+<div><h2>HTML5版Js实现的MP3播放器</h2></div>
+<style>
+    audio{
+        display: none;
+    }
+</style>
+<div>
+    <div>正在播放mp3文件：stubbornDream.mp3</div>
+    <div><input id="audioAction" type="button" value="播放"/></div>
+    <div>进度：<input id="process" value="0"></div>
+    <div>
+        修改进度：
+        <input id="setProcess" type="text" value="0">
+        <input id="setProcessOK" type="button" value="确定">
+    </div>
+    <div>
+        <input type="button" id="volup" value="音量+">
+        <input type="button" id="voldown" value="音量-">
+        <input type="button" id="muted" value="静音">
+    </div>
+</div>
+<audio id="audio" src="stubbornDream.mp3" controls="controls">
+</audio>
+<h2>网页图片较多时，分批次加载图片</h2>
+<img class="lazy" data-source="./images/psu2.jpg" src="./images/pre.gif"  width="300" heigh="300">
+    <script type="text/javascript">
+		; (function (_Oth, window, document, undefined) {//为了直观方便大家查看  将待测试代码放入当前页
+
+            var _W = window,
+
+				document = _W.document,
+
+                project = _Oth || {};//继承_Oth ，区别于原型链继承
+                ;
+
+			project.init = function () {//初始化
+				this.initEvents();
+			}
+
+			project.initEvents = function () {//初始化事件
+
+                /*=============使用JavaScript代码调用百度地图=========*/
+                this.intBaiduMap("baiduMap");
+
+                /*============Js解析 XML 数据start============*/
+                var xmlStr = "<bookstore>"
+                        +"<book>"
+                        +"<title>Hello</title>"
+                        +"<author>J K. Rowling</author>"
+                        +"<year>2005</year>"
+                        +"</book>"
+                        +"</bookstore>";
+
+                console.log(this.parseXML(xmlStr));
+
+                /*============Js解析 JSON 数据start============*/
+                var jsonStr = '{ "friends" : [' +
+                        '{ "firstName":"Bills" , "lastName":"Gates" },' +
+                        '{ "firstName":"George" , "lastName":"Bush" },' +
+                        '{ "firstName":"Thomas" , "lastName":"Carter" } ]}';
+
+                console.log(this.parseJSON(jsonStr));
+
+                /*============夸浏览器的Ajax============*/
+                this.ajax({
+                    "url":"../API/ajax.php",
+                    //成功回调
+                    "successCall":function(msg){
+                        console.log(msg);
+                    },
+                    //失败回调
+                    "failureCall":function(xmlRes, resCode){
+
+                    }
+                })
+
+                /*============使用Ajax轻松加载文件略============*/
+
+                this.ajax({//加载xml文件
+                    "url":"ajax.xml",
+                    //成功回调
+                    "successCall":function(msg){
+                        console.log(msg);
+                    },
+                    //失败回调
+                    "failureCall":function(xmlRes, resCode){
+
+                    }
+                })
+
+                this.ajax({//加载json文件
+                    "url":"ajax.json",
+                    //成功回调
+                    "successCall":function(msg){
+                        console.log(msg);
+                    },
+                    //失败回调
+                    "failureCall":function(xmlRes, resCode){
+
+                    }
+                })
+
+                /*===========跨浏览器的XML读取代码========*/
+                this.getReqxml("http://1.qingjs.sinaapp.com/ajax.xml", function(xmlData){
+                        console.log(xmlData.data);
+                });
+
+                /*==========获取当前地理坐标============*/
+                this.geolocation(function(longitude, latitude){
+
+                    var viewMap = new BMap.Map("viewMap");            // 创建 BMap 实例
+
+                    viewMap.centerAndZoom(new BMap.Point(longitude, latitude), 17);// 初始化地图,设置中心点坐标和地图级别。
+
+                    viewMap.enableScrollWheelZoom();                            //启用滚轮放大缩小，默认禁用
+
+                });
+
+                /*==========Ajax实现导航=========*/
+                this.getAjaxNavigation();
+
+                /*========类似百度的自动完成功能========*/
+                this.autoComplete();
+
+                /*=======等级星星============*/
+                this.vote(this.getElement("vote"));
+
+                /*导出表格*/
+                this.getElement("exportExcel").onclick = function(){
+                    project.exportExcel("tableExcels");
+                }
+
+                /*=========HTML5版Js实现的MP3播放器==============*/
+                this.playerMp3({
+
+                    "audio":this.getElement("audio"),//音频对象
+
+                    "audioAction":this.getElement("audioAction"),//音频控制播放或暂停
+
+                    "process":this.getElement("process"),//播放进度
+
+                    "setProcess":this.getElement("setProcess"),//修改播放进度
+
+                    "setProcessOK":this.getElement("setProcessOK"),//确定修改进度
+
+                    "volup":this.getElement("volup"),//音量增大
+
+                    "voldown":this.getElement("voldown"),//音量减小
+
+                    "muted":this.getElement("muted")//静音
+                })
+
+                /*============图片分批加载========*/
+                this.needLoadImgs.initImgs();
+
+
+            }
+
+			window.onload = function(){
+                project.init();
+            };
+		})(othManage , window, document);
+	</script>
+</body>
+</html>

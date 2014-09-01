@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.23 TextArea自适应文字行数多少</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>TextArea自适应文字行数多少</h2>
+<textarea rows=1 name=s1 cols=27 id="autoRow"></textarea>
+<script type="text/javascript">
+    window.onload = function(){
+        var autoRow = document.getElementById("autoRow");
+        autoRow.style.overflowY = "hidden";
+        autoRow.onkeyup= function(){
+            autoRow.style.height = autoRow.scrollHeight;
+        };
+    };
+</script>
+</body>
+</html>

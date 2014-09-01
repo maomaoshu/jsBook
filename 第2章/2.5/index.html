@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.5节,禁止复制与粘贴</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>禁止复制与粘贴</h2>
+<input type="text" name="banCopyPaste"  id='banCopyPaste'/><br>
+<script type="text/javascript">
+    var banCopyPaste = document.getElementById("banCopyPaste");
+    banCopyPaste.oncopy = function(){		//禁止复制事件
+        return false;
+    }
+
+    banCopyPaste.onpaste = function(){		//禁止粘贴
+        return false;
+    }
+</script>
+</body>
+</html>

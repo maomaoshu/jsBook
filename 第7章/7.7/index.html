@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>7.7节,滑动展开/收缩广告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    a{
+        text-decoration:none;
+    }
+    /*=============滑动展开/收缩广告=====start*/
+    #adOpenOrShrink{
+        position: relative;
+        height: 0px;
+        overflow: hidden;
+        background-color: #ccc;
+    }
+</style>
+<body>
+    <h2>滑动展开/收缩广告</h2>
+
+    <div id='adOpenOrShrink'>
+        <p>我是展开/收缩广告</p>
+        <p>我是展开/收缩广告</p>
+        <p>我是展开/收缩广告</p>
+        <p>我是展开/收缩广告</p>
+        <p>我是展开/收缩广告</p>
+        <p>我是展开/收缩广告</p>
+    </div>
+    <input value='显示广告' id="updateAdOpenOrShrink" type="button" />
+<script type="text/javascript">
+    window.onload = function(){
+        function adOpenOrShrink(e){//    滑动展开/收缩广告===========================start
+
+            new animateManage({//滑动展开广告
+                //被操作的元素
+                "context" : e,
+                "effect":"linear",
+                "time": 1000,//持续时间
+                "starCss":{//元素的起始值偏移量
+                    "height":0
+                },
+                "css" :{//元素的结束值偏移量
+                    "height":210
+                },
+                "callback":function(){
+                    new animateManage({//滑动收缩广告
+                        "context" : e,//被操作的元素
+                        "effect":"linear",
+                        "time": 1000,//持续时间
+                        "starCss":{//元素的起始值偏移量
+                            "height":210
+                        },
+                        "css" :{//元素的结束值偏移量
+                            "height":0
+                        }
+                    }).init();
+                }
+            }).init();
+        }
+        document.getElementById("updateAdOpenOrShrink").onclick = function(){//滑动展开/收缩广告===========================start
+            adOpenOrShrink(document.getElementById("adOpenOrShrink"));
+        }
+
+    };
+</script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+</body>
+</html>

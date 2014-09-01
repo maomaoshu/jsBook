@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.25节,判断复选框至少选中一项</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>判断复选框至少选中一项</h2>
+<input type="checkbox" name='checkSelects' checked='checked'>1<br />
+<input type="checkbox" name='checkSelects'>2<br />
+<input type="checkbox" name='checkSelects'>3<br />
+<input type="checkbox" name='checkSelects'>4<br />
+<script type="text/javascript">
+    window.onload = function(){
+        var _checkSelects = document.getElementsByName("checkSelects");
+        for(var i in _checkSelects){
+            if(_checkSelects[i].checked){
+                console.log("至少选中了一项");
+                return;
+            };
+        }
+        console.log("没有选中");
+    };
+</script>
+</body>
+</html>

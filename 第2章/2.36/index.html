@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.36节,设置表单中所有文本型的成员的值为空</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>设置表单中所有文本型的成员的值为空</h2>
+<form id='clearFrom'>
+    <input id='clearText' type="button"  value='清空所有文本' /> <br />
+    <input type="text"  value='文本1' /> <br />
+    <textarea>文本2</textarea>
+</form>
+<script type="text/javascript">
+    window.onload = function(){
+        var _clearText = document.getElementById("clearText");
+        _clearText.onclick = function(){//为清空的文本绑定时间事件
+            var _elements = document.getElementById("clearFrom").elements,//设置表单中所有文本型的成员的值为空
+                    _elementsLen = _elements.length,
+                    _ei = null,
+                    i = 0;
+            for (; i < _elementsLen ; i++){//遍历元素
+                _ei = _elements[i];
+                (_ei.type == "text" || _ei.type == "textarea") && (_ei.value = "");
+            }
+        }
+    };
+</script>
+</body>
+</html>

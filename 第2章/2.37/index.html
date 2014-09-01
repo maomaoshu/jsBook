@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.37节,JavaScript对上传文件相关操作</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>JavaScript对上传文件相关操作</h2>
+<form id='fileUpload' enctype="multipart/form-data">
+    <p><input type="file" name='file1' id='filedemo1'> </p>
+    <input type="button" id='addFileUpload' value="添加">
+    <input type="button" id='clearFileUpload' value="清空">
+    <input type="button" id='fileUploadSub' value="上传">
+</form>
+<script type="text/javascript">
+    window.onload = function(){
+        uploadCount = 1;//增加的文件“input”标示符
+
+        isIE = function(){//是否是ie
+            return document.all ? true : false;
+        }
+
+        getFileSize = function(_f){//获取文件大小
+            var _fileSize = 0;
+            if (this.isIE() && !_f.files) {
+                var filePath = _f.value;
+                var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+
+                if(!fileSystem.FileExists(filePath)){
+                    return 0;
+                }
+                var file = fileSystem.GetFile (filePath);
+                _fileSize = file.Size;
+            } else {
+                _fileSize = (_f.files[0] && _f.files[0].size) || 0;
+            }
+            return _fileSize;
+        }
+
+        fileType = function(_eForm, types){//限制上传文件的格式
+            var _elements = _eForm.elements,
+                    _elementsLen = _elements.length
+            _ei = null,
+                    _v = "",
+                    _contentType = "",
+                    i = 0;
+            for (; i < _elementsLen ; i++){
+                _ei = _elements[i];
+                if(_ei.type == "file"){
+                    //var _i = _ei.value.lastIndexOf("\\");
+                    _v = _ei.value,
+                            _contentType = _v && _v.match(/^(.*)(\.)(.{1,8})$/)[3];
+
+                    if(!_v || types.search(_contentType) != -1){//如果文件上传为空或者类型为限制类型则返回false
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        clearFile = function(_eForm){//清空input为file的ui
+            var _elements = _eForm.elements,
+                    _elementsLen = _elements.length,
+                    _ei = null,
+                    i = 0;
+            for (; i < _elementsLen ; i++){
+                _ei = _elements[i];
+                (_ei.type == "file") && ((isIE() && (_ei.outerHTML = _ei.outerHTML)) || (_ei.value = ""));//如果为IE，利用其特性清空file文本数据，否则直接将value设置为空值
+            }
+        }
+
+        fileUpload = function(){//上传文件的相关业务
+            var _fileUpload = document.getElementById("fileUpload"),
+                    _addFileUpload = document.getElementById("addFileUpload"),
+                    _clearFileUpload = document.getElementById("clearFileUpload"),
+                    _filedemo1 = document.getElementById("filedemo1"),
+                    _fileUploadSub = document.getElementById("fileUploadSub");
+            _fileUploadSub.onclick =function(){
+                alert("测试获取文件大小：" + getFileSize(_filedemo1));//获取上传文件的大小
+                if(!fileType(_fileUpload, "text")){//限制上传文件的格式 ---参数（上传文件的表单对象， 被限制的格式）
+                    return;
+                }
+            }
+
+            _clearFileUpload.onclick =function(){//清除上传文件的内容
+                clearFile(_fileUpload);
+            }
+
+            _addFileUpload.onclick =function(){//动态多文件上传，添加上传文件元素
+                uploadCount++;
+                var  _input=document.createElement("input"),
+                        _pE=document.createElement("p");
+                _input.name="filedemo"+uploadCount;
+                _input.id="filedemo"+uploadCount;
+                _input.type="file";
+                _pE.appendChild(_input);
+                _fileUpload.insertBefore(_pE,document.getElementById("addFileUpload"));
+            }
+        }
+        fileUpload();
+    };
+</script>
+</body>
+</html>

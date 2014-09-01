@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.3节,让表单没有凹凸感</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>让表单没有凹凸感</h2>
+    <input id="cleanConcaveConvex"  value="没有凹凸感" />
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        cleanConcaveConvex = function(e){
+            e.style.border = "1 solid #000000";//设定样式
+        }
+        cleanConcaveConvex(document.getElementById("cleanConcaveConvex"));
+    };
+</script>
+</body>
+</html>

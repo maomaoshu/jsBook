@@ -1,0 +1,308 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Page-Enter" content="revealTrans(Duration=1.0,Transition=14)">
+    <title>第5章 页面控制</title>
+    <!--IE地址栏前换成自己的图标-->
+    <link rel="Shortcut Icon" href="images/favicon.ico">
+    <!--可以在收藏夹中显示出你的图标 -->
+    <link rel="Bookmark" href="images/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="pManage.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="noprint">
+        <h2>打开新页面</h2>
+        <input id='openNewPage' data-href='http://www.qingjs.com/' type="button" value="打开QingJs网站" />
+        <h2>打开指定大小的窗口</h2>
+        宽度:<input id='windowWidth'/>
+        高度:<input id='windowHeight'/>
+        <input id='openwindow' type="button" data-href='http://www.qingjs.com/' value="打开新窗口" />
+        <h2>打开模式子窗口</h2>
+        <input id='opentChildWindow' type="button" data-href='http://www.qingjs.com/' value="打开模式子窗口" />
+        <h2>获取子窗口的返回值</h2>
+        <input id='opentChildWindowValue' type="button"  value="打开模式子窗口" />
+        <h2>刷新iframe窗口</h2>
+        <input id='updateIframeBtn' type="button" value="刷新iframe窗口" />
+        <iframe src="child.html" width=850 height=300 id="updateIframe" name="updateIframe"></iframe>
+        <h2>刷新当前页面</h2>
+        <input id='updatePage' type="button" value="刷新"/>
+        <h2>不弹出提示框关闭父窗口</h2>
+        <iframe src="closeParent.html" width=850 height=300 name="updateIframe"></iframe>
+        <h2>弹出窗口关闭时刷新父窗口</h2>
+        <input id='openChildWin' type="button" value="打开子窗口"/>
+        <h2>子窗口全屏</h2>
+        <input id='windowFullScreen' type="button" value="全屏"/>
+        <h2>屏蔽右键</h2>
+        <input id='shieldingRight' type="button" value="开启屏蔽"/>
+        <h2>网页将不能被另存为</h2>
+        <input id='banOnPage' type="button" value="打开禁止另存网页"/>
+        <h2>禁止滚动条</h2>
+        <input id='banScrollBar' type="button" value="禁止">
+        <h2>禁止查看源代码</h2>
+        <input id='banViewSource' type="button" value="禁止" />
+        <h2>取消选取</h2>
+        <input id='deselect' type="button" value="取消" />
+        <h2>防止复制</h2>
+        <input id='preventCopying' type="text" value="防止复制" />
+        <h2>添加到收藏夹</h2>
+        <input id='addFavorite' type="button" value="添加到收藏夹" />
+        <h2>网页设置为首页</h2>
+        <input id='setHomePage' type="button" value="网页设置为首页" />
+        <h2>将网页另存为</h2>
+        <input id='webSave' type="button" value="将网页另存为" />
+        <h2>查看网页源代码</h2>
+        <input id='viewDocumentSource' type="button" value="查看网页源代码" />
+        <h2>判断上一页的来源</h2>
+        <p id='getPreviousPageView'>上一页来源：</p>
+        <input id='getPreviousPage' type="button" value="获取上一页来源" />
+        <h2>最小化、最大化、关闭窗口</h2>
+        <!--IE 最小化方法1-->
+        <!--object id=updateWinMinIE classid="clsid:ADB880A6-D8FF-11CF-9377-00AA003B7A11">
+            <param name="Command" value="Minimize"></object-->
+        <input id='updateWinMin' type="button" value="最小化" />
+        <input id='updateWinMax' type="button" value="最大化" />
+        <input id='updateWinClose' type="button" value="关闭窗口" />
+        <h2>网页不会被缓存</h2>
+        <input id='noCache' type="button" value="网页不会被缓存">
+        <h2>检测某个网站的链接速度</h2>
+        时间：<input id='linkSpeedTime' type="text" value="0"> <br />
+        网站：<input id='linkSpeedWeb' type="text" value="http://www.qingjs.com">
+        <input id='linkSpeed' type="button" value="检测">
+        <h2>防止点击空链接，页面重置到页的首端</h2>
+        <a href="">我是空链接</a> <br />
+        <a href="#">我是“#”链接</a>
+        <h2>获取浏览器信息</h2>
+        <div id='getBrowserInformation'></div>
+        <h2>URL传参中文出现乱码</h2>
+        <input type="button" id='getURL' value="显示例子"/>
+        <h2>获取地址栏URL的参数</h2>
+        <p id='getURLArgs'></p>
+        <h2>获得一个窗口的大小</h2>
+        <p id='getWinSize'></p>
+        <h2>让弹出窗口总是在最上面</h2>
+        <input type="button" id='popWinMaxTop' value="打开窗口"/>
+        <h2>页面慢慢变大</h2>
+        <input type="button" id='pageFillOut' value="页面变大" />
+        <h2>页面进入和退出的特效,IE5.5~8版本会支持此方法</h2>
+        <span  id='pageInOut' style="position:absolute; Visibility:hidden; Filter:revealTrans(duration=1, transition=1); width:100%; height:100%;"></span>
+        <h2>页面全屏</h2>
+        <input type="button" value="页面全屏" id="fullscreen" />
+        <h2>定时关闭页面</h2>
+        <input type="button" id='timeClosePage' value="3秒后关闭页面"/>
+        <h2>页面打印及预览指定区域</h2>
+    </div>
+    <p>我是被打印的区域1</p>
+    <p>我是被打印的区域2</p>
+    <p>我是被打印的区域3</p>
+    <p>我是被打印的区域4</p>
+    <p>我是被打印的区域5</p>
+    <div class="noprint">
+        <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+        <input type="button" id='printAndpreview' value="打印" />
+    </span>
+
+
+    </div>
+    <script type="text/javascript">
+		//为了直观方便大家查看  将待测试代码放入当前页
+		; (function (_PM, window, document, undefined) {
+
+            var _W = window,
+				document = _W.document,
+
+                //继承_PM ，区别于原型链继承
+                project = _PM || {};
+                ;
+			//初始化
+			project.init = function () {
+				this.initEvents();
+			}
+
+			//初始化事件
+			project.initEvents = function () {
+                 //打开新页面===================================
+                this.openNewPage(this.getElement("openNewPage"))
+
+                //打开新窗口，并设置宽、高==================
+                this.getElement("openwindow").onclick = function(){
+                    project.openwindow(
+                            project.getElement("windowWidth").value,
+                            project.getElement("windowHeight").value,
+                            this.getAttribute("data-href")
+                    );
+                }
+
+                //打开模式子窗口=======================
+                this.getElement("opentChildWindow").onclick = function(){
+                      project.opentChildWindow();
+                }
+
+                //获取子窗口的返回值======================
+                this.getElement("opentChildWindowValue").onclick = function(){
+                    project.opentChildWindowValue();
+                }
+
+                //刷新iframe窗口===========
+                this.getElement("updateIframeBtn").onclick = function(){
+                    project.updateIframe();
+                }
+
+                //刷新当前页面==========================
+                this.getElement("updatePage").onclick = function(){
+                    project.updatePage();
+                }
+
+                //不弹出提示框关闭父窗口 ---请查看closeParent.html相关代码==============
+
+                //弹出窗口关闭时，刷新父窗口---请查看updateParentWindow.html相关代码======================
+                this.getElement("openChildWin").onclick = function(){
+                    window.open("updateParentWindow.html",'openChildWin','width=500,height=500')
+                }
+                //打开子窗口，全屏     ============================
+                this.getElement("windowFullScreen").onclick = function(){
+                    project.windowFullScreen();
+                }
+
+                //屏蔽右键 =============
+                this.getElement("shieldingRight").onclick = function(){
+                    if(this.value == '已经开启屏蔽'){
+                        return;
+                    }
+                    this.value = '已经开启屏蔽';
+                    project.shieldingRight();
+                }
+
+                //网页将不能被另存为 ====================
+                this.getElement("banOnPage").onclick = function(){
+                   project.banOnPage();
+                }
+
+                //防止被人frame===============
+                this.banFrame();
+
+                //永远都会带着框架================
+                //this.existFrame();
+
+                //禁止滚动条 ====================
+                this.getElement("banScrollBar").onclick = function(){
+                    project.banScrollBar();
+                }
+
+                //禁止查看源代码==============
+                this.banViewSource(this.getElement("banViewSource"));
+
+                //取消选区====================
+                this.getElement("deselect").onclick = function(){
+                    project.deselect();
+                }
+
+                //防止复制   ===========================
+                project.preventCopying(this.getElement("preventCopying"));
+
+                //添加到收藏夹   ===========================
+                this.getElement("addFavorite").onclick = function(){
+                    project.addFavorite("http://qingjs.com", "QingJs框架");
+                };
+
+                //网页设置为首页   ===========================
+                this.getElement("setHomePage").onclick = function(){
+                    project.setHomePage("http://qingjs.com");
+                };
+
+                //将网页另存为===============
+                this.getElement("webSave").onclick = function(){
+                    project.webSave('index.html');
+                }
+
+                //查看网页源代码===============
+                this.getElement("viewDocumentSource").onclick = function(){
+                    project.viewDocumentSource();
+                }
+
+                //判断上一页的来源===============
+                this.getElement("getPreviousPage").onclick = function(){
+                    project.getElement("getPreviousPageView").innerHTML = "上一页来源：" + project.getPreviousPage();
+                }
+
+                //最小化、最大化、关闭窗口
+                this.getElement("updateWinMin").onclick = function(){
+                    project.updateWin("min");
+                }
+                this.getElement("updateWinMax").onclick = function(){
+                    project.updateWin("max");
+                }
+                this.getElement("updateWinClose").onclick = function(){
+                    project.updateWin("close");
+                }
+
+                //网页不会被缓存
+                this.getElement("noCache").onclick = function(){
+                    project.noCache();
+                }
+                //检测某个网站的链接速度
+                this.getElement("linkSpeed").onclick = function(){
+                    project.linkSpeed(project.getElement("linkSpeedWeb"), project.getElement("linkSpeedTime"));
+                }
+
+                //防止点击空链接，页面重置到页的首端
+                this.noATop();
+
+                //获取浏览器信息
+                this.getBrowserInformation(this.getElement("getBrowserInformation"));
+
+                //URL传参中文出现乱码
+                this.getElement("getURL").onclick = function(){
+                    project.getURL();
+                }
+
+                //获取地址栏URL的参数
+                this.getURLArgs(this.getElement("getURLArgs"));
+
+                // 获得一个窗口可见区域的大小
+                var winSize = this.getWinSize();
+                this.getElement("getWinSize").innerHTML = "高：" + winSize.height + "宽：" + winSize.width;
+
+                //让弹出窗口总是在最上面
+                this.getElement("popWinMaxTop").onclick = function(){
+                    project.popWinMaxTop();
+                }
+
+                // 页面慢慢变大
+                this.getElement("pageFillOut").onclick = function(){
+                    project.pageFillOut();
+                }
+
+                //页面进入和退出的特效 IE支持，>=IE9之后不支持,写此部分需要重新编写代码
+                this.pageInOut();
+
+                //页面全屏
+                this.getElement("fullscreen").onclick = function(){
+                    project.pageFullScreen();
+                }
+
+                //定时关闭页面---设置3000毫秒后关闭
+                this.getElement("timeClosePage").onclick = function(){
+                    project.timeClosePage(3000);
+                }
+
+                //页面打印及预览指定区域
+                this.getElement("printAndpreview").onclick = function(){
+                    project.printAndpreview();
+                }
+
+
+
+
+
+			}
+
+			window.onload = function(){
+                project.init();
+            };
+		})(pManage , window, document);
+	</script>
+</body>
+</html>

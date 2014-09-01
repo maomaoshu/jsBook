@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.4节,动态插入和删除单元行</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>动态插入和删除单元行</h2>
+    <table id='tableAct' border="1" width="500">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </table>
+    <input value='删除第一行' type="button" id='deleteRow' />
+    <input value='新增一行' type="button" id='addRow' />
+<script type="text/javascript">
+    window.onload = function(){
+        /*
+         * 如果tr存在则是新增操作，否则为删除操作
+         * 当为删除操作的时候，参数 --- table为表格的table对象，num为被删除的单元行序列数
+         * 当为新增行操作的时候，参数 ---  table为表格的table对象，num是新增单元行的位置，tr为新增行的单元格的字符串型数组，
+         * */
+        trAct = function(table, num, tr){
+            if(!tr){//如果num不存在则执行删除操作
+                var _num = table.rows[num];
+                if(_num){//如果被删除的行对象存在，则删除 ，返回true
+                    table.deleteRow(_num);//js的原生函数删除行
+                    return true;
+                }
+                else{
+                    return false;//如果删除的对象不存在，则删除失败，返回false
+                }
+            }
+            else{
+                var r = table.insertRow(num),//在指定的位置创建行对象
+                        i = 0,
+                        l = tr.length;//待插入的数据长度
+                for(; i < l ; i++){//遍历待插入数据
+                    r.insertCell(i).innerHTML = tr[i];//插入新单元格数据
+                }
+                return true;//新增成功返回 true
+            }
+
+        }
+
+        /*动态插入和删除单元行*/
+        var _tableAct = document.getElementById("tableAct");
+
+        document.getElementById("deleteRow").onclick = function(){//删除第一行
+            trAct(_tableAct, 0);
+        }
+
+        document.getElementById("addRow").onclick = function(){//新增一行
+            trAct(_tableAct, 0, [
+                "新增单元格1",
+                "新增单元格2"
+            ]);
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.9节,子窗口全屏</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>子窗口全屏</h2>
+<input id='windowFullScreen' type="button" value="全屏"/>
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("windowFullScreen").onclick = function(){
+            /*设置新打开的页面：
+             toolbar不显示浏览器的工具栏、
+             location不显示地址字段、
+             menubar不显示菜单栏、
+             directories不显示目录添加按钮、
+             scrollbars窗体中内部超出窗口可视范围时不存在有滚动条 */
+            var win = window.open("../child.html","_blank","resizable=yes;status=yes;toolbar=no;location=no;menubar=no;directories=no;scrollbars=no;");
+            win.moveTo(0,0);//设置新窗口的位置(0,0)
+            win.resizeTo(screen.availWidth,screen.availHeight);//设置新打开窗口的宽、高
+        }
+    };
+</script>
+</body>
+</html>

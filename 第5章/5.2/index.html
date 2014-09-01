@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.2节,打开指定大小的窗口</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>打开指定大小的窗口</h2>
+    宽度:<input id='windowWidth'/>
+    高度:<input id='windowHeight'/>
+    <input id='openwindow' type="button" data-href='http://www.qingjs.com/' value="打开新窗口" />
+<script type="text/javascript">
+    window.onload = function(){
+        var openwindow = function(w, h, href){
+            w = w || "";
+            h = h || "";
+            /*window.open(
+             "可选，将要跳转的页面",
+             "可选，新窗口的名称",
+             "可选，设置新窗口的一些特征，默认为浏览器的标准特征，可选参数---channelmode、directories、fullscreen、height、width等"
+             "可选，规定装载到窗口的URL，是替换浏览器当前历史条目还是新创建一个新条目，true为替换，false为创建新条目"
+             ) */
+            window.open(href,'','width='+ w +',height='+ h);//打开指定尺寸的新页面
+        }
+        document.getElementById("openwindow").onclick = function(){//跳转页面的响应按钮
+            openwindow(
+                    document.getElementById("windowWidth").value,
+                    document.getElementById("windowHeight").value,
+                    this.getAttribute("data-href")
+            );
+        }
+    };
+</script>
+</body>
+</html>

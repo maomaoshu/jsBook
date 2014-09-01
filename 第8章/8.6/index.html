@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>9.7节,获取当前地理坐标</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D874c49a728d76c2e075dd33658f0864"></script>
+    <style type="text/css">
+        /*===============获取当前地理坐标====================*/
+        #viewMap{
+            width: 900px;
+            height: 900px;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <h2>获取当前地理坐标</h2>
+    <div id='geolocationMap'>正在获取地理位置···</div>
+    <div id='viewMap'></div>
+<script type="text/javascript">
+    window.onload = function(){
+        /*获取当前地理坐标*/
+        function geolocation(success){  //HTML5 里面引入了geolocation的API可以帮助用户获得浏览器所在的地理位置
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                        function(position){//成功回调
+
+                            var coords = position.coords, //取得地理位置信息
+                                    longitude = coords.longitude, // 经度
+                                    latitude = coords.latitude; // 维度
+                            document.getElementById("geolocationMap").innerHTML = "经度：" + longitude + " 维度：" + latitude;
+
+                            if(success){//成功后的回调
+                                success(longitude, latitude);
+                            }
+                        },
+
+                        function(error){//失败回调
+                            var msg = "";
+                            switch (error.code){
+                                case 1:
+                                    msg = "用户拒绝了位置服务";
+                                    break;
+                                case 2:
+                                    msg = "获取不到位置信息";
+                                    break;
+                                case 3:
+                                    msg = "获取信息超时错误";
+                                    break;
+                                default :
+                                    msg = "code：" + error.code + " msg：" + error.message
+                            }
+                            document.getElementById("geolocationMap").innerHTML = msg;//显示错误信息
+                        },
+                        null);//getCurrentPosition(成功回调, 错误回调, 更多选项)
+            } else {
+                document.getElementById("geolocationMap").innerHTML = "获取当前地理坐标失败";
+            }
+
+
+        }
+        /*==========获取当前地理坐标============*/
+        geolocation(function(longitude, latitude){
+            var viewMap = new BMap.Map("viewMap");            // 创建 BMap 实例
+            viewMap.centerAndZoom(new BMap.Point(longitude, latitude), 17);// 初始化地图,设置中心点坐标和地图级别。
+            viewMap.enableScrollWheelZoom();                            //启用滚轮放大缩小，默认禁用
+        });
+    };
+</script>
+</body>
+</html>

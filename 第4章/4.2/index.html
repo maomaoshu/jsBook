@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.2节,表格光棒效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>表格光棒效果</h2>
+    <table id='lightBar' border="1" width="500">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+        </tr>
+    </table>
+<script type="text/javascript">
+    window.onload = function(){
+        var trE = document.getElementById("lightBar").rows,
+                trLen = trE.length,//获取被遍历的节点长度
+                i = 0;
+
+        for(; i < trLen ; i++){//遍历被提示的对象
+            var trEi = trE[i];
+
+            trEi.onmousemove = function(event){//设置光棒效果的样式
+                this.style.backgroundColor = "#a5e5aa";//光棒样式 background-color:#a5e5aa;
+            }
+
+            trEi.onmouseout = function(){//还原初始的样式
+                this.style.backgroundColor = "#fff";
+            }
+
+        }
+    };
+</script>
+</body>
+</html>

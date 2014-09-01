@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.37节,页面全屏</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>页面全屏</h2>
+    <input type="button" value="页面全屏" id="fullscreen" />
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("fullscreen").onclick = function(){//全屏交互按钮
+            window.moveTo(0,0);//定位坐标
+            window.resizeTo(screen.availWidth,screen.availHeight);//修改大小
+        }
+    };
+</script>
+</body>
+</html>

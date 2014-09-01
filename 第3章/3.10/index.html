@@ -1,0 +1,322 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>3.10节,类似QQ相册效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*======================QQ相册横向流效果========================*/
+    .QQPhotoAlbum{
+        position: relative;
+        top: 0px;
+        width:100%;
+        height:783px;
+        background-color: #232429;
+    }
+
+    .QQPhotoAlbum .phototitle{
+        position: relative;
+        text-align: center;
+        font-size: 35px;
+        font-weight: normal;
+        top: 100px;
+    +top:90px; /* IE7 */
+        /*            _top:value; *//* IE6 */
+        color: #fff;
+    }
+
+    .QQPhotoAlbum .photoname{
+        position: relative;
+        text-align: center;
+        font-weight: normal;
+        top: 41px;
+    +top:80px; /* IE7 */
+    }
+    .QQPhotoAlbum .photoname h5{
+        font-weight: normal;
+        width: 200px;
+        line-height: 34px;
+        height: 34px;
+        color: #fff;
+        display: inline-block;
+        font-size: 19px;
+        background-color: rgba(0, 0,0,.3);
+        filter: none;
+        border: 1px solid rgba(119, 119,119,.7);
+    }
+    .photoStreamMain{
+        border-left-width: 0;
+        border-right-width: 0;
+        padding: 1px 0;
+        border-radius: 0;
+        border: 1px solid rgba(119,119,119,.7);
+        border-radius: 3px;
+        width: 100%;
+        height: 300px;
+        overflow:   hidden;
+        padding: 1px;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#B2777777", endColorstr="#B2777777");
+        position: relative;
+        top: 100px;
+    }
+    #photoStreamMain{
+        position:relative;
+    }
+    #photoStreamMain div{
+        float: left;
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+    }
+    #photoStreamMain div img{
+        height: 280px;
+        margin-top:10px;
+        position: relative;
+    }
+    .rollLine{
+        position: relative;
+        top: 135px;
+        left: 50%;
+    +left:40%;
+        margin-left: -152;
+        width: 334px;
+        background-position: 0 -36px;
+        font-size: 0;
+        height: 6px;
+        _background-image: none;
+        _background-color: transparent;
+        _height: 6px;
+        border: 1px solid #535353;
+        border-radius: 4px;
+    }
+    .rollLine .line{
+        width: 100px;
+        left:0px;
+        height: 6px;
+        background: #FFF;
+        background: rgba(255,255,255,.8);
+        border-radius: 4px;
+        position: absolute;
+        top: 0;
+        font-size: 0;
+    }
+    body {
+        margin: 0px;
+    }
+</style>
+<body>
+<!--占位层-->
+<div class='QQPhotoAlbum'>
+    <div class="phototitle">
+        <h2>类似QQ相册效果</h2>
+    </div>
+    <div class="photoname">
+        <h5>相册名称</h5>
+    </div>
+
+    <!--横式流主体-->
+    <div class="photoStreamMain">
+        <div id='photoStreamMain'>
+            <div>
+                <img src='../images/psu.jpg' />
+            </div>
+            <div>
+                <img src='../images/psu1.jpg' />
+            </div>
+            <div>
+                <img src='../images/psu2.jpg' />
+            </div>
+            <div>
+                <img src='../images/psu3.jpg' />
+            </div>
+            <div>
+                <img src='../images/water.jpg' />
+            </div>
+            <div>
+                <img src='../images/psu.jpg' />
+            </div>
+            <div>
+                <img src='../images/psu3.jpg' />
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--滚动线轴-->
+    <div class="rollLine" style="margin-left:-150px">
+        <div id='scrollLine' class="line"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        _mousepos = {//鼠标在页面上的位置
+            "top":0,
+            "left":0
+        },
+
+        /**
+         * 获取鼠标在页面上的位置
+         * _e		触发的事件
+         * left:鼠标在页面上的横向位置, top:鼠标在页面上的纵向位置
+         */
+        getMousePoint = function (_e) {
+            var _body = document.body,
+                    _left = 0,
+                    _top = 0;
+            //浏览器支持 pageYOffset, 那么可以使用pageXOffset 和 pageYOffset 获取页面和视窗之间的距离
+            if(typeof window.pageYOffset != 'undefined') {
+                _left = window.pageXOffset;
+                _top = window.pageYOffset;
+            }
+            //如果浏览器指定了DOCTYPE并且支持compatMode
+            else if(typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                _left = document.documentElement.scrollLeft;
+                _top = document.documentElement.scrollTop;
+            }
+            //其他的如果浏览器支持document.body
+            else if(typeof _body != 'undefined') {
+                _left = _body.scrollLeft;
+                _top = _body.scrollTop;
+            }
+            _left += _e.clientX;
+            _top += _e.clientY;
+            _mousepos.left = _left;
+            _mousepos.top = _top;
+
+            return _mousepos;
+        },
+
+        getTypeElement = function(es, type){//获取指定类型的节点
+            var esLen = es.length,
+                    i = 0,
+                    eArr = [],
+                    esI = null;
+            for(; i < esLen ; i++){
+                esI = es[i];
+                if(esI.nodeName.replace("#", "").toLocaleLowerCase() == type){
+                    eArr.push(esI);
+                }
+            }
+            return eArr;
+        },
+
+        getAbsoluteLeft = function (_e){//获取元素的绝对left
+            var _left = _e.offsetLeft,
+                    _current = _e.offsetParent;
+            while (_current !== null){
+                _left += _current.offsetLeft;
+                _current = _current.offsetParent;
+            }
+            return _left;
+        },
+
+        QQPhotoAlbum = function(options){
+
+            var scrollLine = options.scrollLine,//线轴运动
+                    minLeft = getAbsoluteLeft(scrollLine),
+                    maxLeft = options.width - 100,
+                    childDivs = getTypeElement(options.photoStreamMain.childNodes, "div"),
+                    childDivsLen = childDivs.length,
+                    cW = 0,
+                    ve = [],//横向浮动元素
+                    initChilds = (function(){//初始化图片节点
+                        var i = 0,
+                                imge = null;
+                        while(childDivs[i]){
+                            imge = getTypeElement(childDivs[i].childNodes, "img")[0];
+                            if(i%2 == 0){
+                                ve.push(imge);
+                                cW += 150;
+                                childDivs[i].style.width = "150px";
+                            }else{
+                                cW += 300;
+                                childDivs[i].style.width = "300px";
+                            }
+                            i++;
+                        }
+                    })(),
+                    s = cW/options.width;
+
+            scrollLine.onmousedown = function(e){//开启
+                bodyscrollLineingE.scrollLineing = true;
+                e = e || window.event;
+                var _pos = getMousePoint(e);
+                bodyscrollLineingE.vx = _pos.left - minLeft - (parseInt(this.style.left) || 0);
+
+            }
+
+            document.body.onmouseup = function(){//关闭
+                bodyscrollLineingE.scrollLineing = false;
+            }
+
+            options.photoStreamMain.style.width = cW;//主流宽度
+
+            mainScrollLine = function(ml){//主流的left
+                var _ml = -1 * ml * s;
+                options.photoStreamMain.style.left = _ml+"px";
+            }
+
+            bodyscrollLineingE = {//移动
+                minLeft:minLeft,
+                maxLeft:maxLeft,
+                scrollLine:scrollLine,
+                mainScrollLine:mainScrollLine
+            }
+
+            setInterval(function(){//图片动态浮动
+                var veLen = ve.length,
+                        l = 0;
+                for(; l < veLen ; l++){
+                    new animateManage({
+                        "context":ve[l],//被操作的元素
+                        "effect":"linear",
+                        "time": 5000,//持续时间
+                        "starCss":{//元素的起始值偏移量
+                            "left":ve[l].style.left || 0
+                        },
+                        "css" :{//元素的结束值偏移量
+                            "left":(parseInt(ve[l].style.left, 10) == -150 ? 0 : -150)
+                        }
+                    }).init();
+                }
+            },6000)
+        },
+        bodyscrollLineingE = {
+            scrollLineing:false,
+            minLeft:0,
+            maxLeft:0,
+            scrollLine:null,
+            vx:0,
+            mainScrollLine:0
+        },
+
+        bodyscrollLineing = function(e){
+            var _ee =  bodyscrollLineingE;
+            if(_ee.scrollLineing){
+                e = e || window.event;
+                var _pos = getMousePoint(e),
+                        _l = _pos.left - _ee.minLeft- _ee.vx;
+                if(_l < 0) _l = 0;
+                if(_l > _ee.maxLeft) _l = _ee.maxLeft;
+                _ee.scrollLine.style.left = (_l || 0) +"px";
+                _ee.mainScrollLine(_l);//横式布局left转换
+            }
+        };
+
+        document.body.onmousemove = function(e){//body 移动事件
+            bodyscrollLineing(e);
+        }
+
+        QQPhotoAlbum({//类似QQ相册效果
+            "scrollLine":document.getElementById("scrollLine"),
+            "photoStreamMain":document.getElementById("photoStreamMain"),
+            /*"minLeft":580,*/
+            "width":334
+        })
+    };
+</script>
+</body>
+</html>

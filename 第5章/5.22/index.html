@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.22节,查看网页源代码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>查看网页源代码</h2>
+    <input id='viewDocumentSource' type="button" value="查看网页源代码" />
+<script type="text/javascript">
+    window.onload = function(){
+        //查看网页源代码
+        document.getElementById("viewDocumentSource").onclick = function(){
+            var source = window.open("index.html","","menubar=no,location=no,scrollbars=yes,resizable=yes");
+            //根据window.XMLHttpRequest对象是否存在使用不同的创建方式
+            if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();//FireFox、Opera等浏览器支持的创建方式
+            } else {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器支持的创建方式
+            }
+            xmlHttp.onreadystatechange = function(){
+                if (xmlHttp.readyState == 4) {//请求数据成功
+                    source.document.write("<textarea cols='1000' rows='1000'>" + xmlHttp.responseText +"</textarea>") ;
+                }
+            };
+
+            xmlHttp.open("GET", "index.html", true); //get形式请求数据
+            xmlHttp.send(null);
+        }
+    };
+</script>
+</body>
+</html>

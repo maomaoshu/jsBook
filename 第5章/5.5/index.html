@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.5节,刷新iframe窗口</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>刷新iframe窗口</h2>
+    <input id='updateIframeBtn' type="button" value="刷新iframe窗口" />
+    <iframe src="../child.html" width=850 height=300 id="updateIframe" name="updateIframe"></iframe>
+<script type="text/javascript">
+    window.onload = function(){
+        //刷新iframe窗口===========
+        document.getElementById("updateIframeBtn").onclick = function(){
+            //第1种获取iframe --- 用iframe的id属性定位，用location.href可以解决跨域的问题，网上流传用location.reload()，这个会有域的限制
+            updateIframe.location.href = "../child.html";
+        }
+    };
+</script>
+</body>
+</html>

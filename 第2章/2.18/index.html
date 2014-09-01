@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.18节,获取、失去焦点时改变样式</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>获取、失去焦点的时候改变样式</h2>
+<input type="text" value='修改样式' data-fClass='fboder' data-bClass='bboder' data-fCss='{"color":"red"}' data-bCss='{"color":"green"}' id='autoUpdateCss' />
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        strToJson = function(str){//将字符转换为json对象
+            return typeof JSON  == "object" ? JSON.parse(str) : (new Function("return " + str))();
+        },
+            setCss = function(_this, cssOption){//设置样式
+                if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                    return;
+                }
+                for(var cs in cssOption){
+                    _this.style[cs] = cssOption[cs];
+                }
+                return _this;
+            },
+            autoUpdateCss = document.getElementById("autoUpdateCss"),
+            fCss = autoUpdateCss.getAttribute("data-fCss"),
+            fClass = autoUpdateCss.getAttribute("data-fClass"),
+            bClass = autoUpdateCss.getAttribute("data-bClass"),
+            bCss = autoUpdateCss.getAttribute("data-bCss");
+
+        autoUpdateCss.onfocus = function(){
+            fCss && setCss(this, strToJson(fCss));
+            fClass && (this.className = fClass);
+
+        }
+        autoUpdateCss.onblur = function(){
+            bCss && setCss(this, strToJson(bCss));
+            bClass && (this.className = bClass);
+        }
+    };
+</script>
+</body>
+</html>

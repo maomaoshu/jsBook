@@ -1,0 +1,205 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第6章 日期处理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="dManage.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h2>显示当前时间</h2>
+    <p id='nowTime'>时间：</p>
+
+    <h2>显示最后修改时间</h2>
+    失去焦点时间，会修改文本：<input type="text" id='updateContent' /><br />
+    <p id='getLastMTime'>显示最后修改时间：</p>
+
+    <h2>实时显示当前时间</h2>
+    <p id='showNowTime'>时间：</p>
+
+    <h2>日期格式化成字符串</h2>
+    <p id='formatTime1'>格式化日期1：</p>
+    <p id='formatTime2'>格式化日期2：</p>
+    <p id='formatTime3'>格式化日期3：</p>
+
+    <h2>获取短日期格式---即年月日</h2>
+    <p id='getMinDate'>短日期：</p>
+
+    <h2>获取指定日期所在月份的天数</h2>
+    <p id='getMonthDays1'>2014年1月：</p>
+    <p id='getMonthDays2'>2014年2月：</p>
+    <p id='getMonthDays3'>2014年3月：</p>
+    <p id='getMonthDays4'>2014年4月：</p>
+    <p id='getMonthDays5'>2014年5月：</p>
+    <p id='getMonthDays6'>2014年6月：</p>
+
+    <h2>获取指定日期所在周是第几周</h2>
+    <p id='getHowManyWeeks'></p>
+
+    <h2>到指定日期的时间的倒计时</h2>
+    <p id='getCountDown'>2014年2月13日距离现在：</p>
+    <p id='LabourDay'>劳动节距离现在：</p>
+    <p id='NationalDay'>国庆节距离现在：</p>
+
+    <h2>比较两个日期的差</h2>
+    <p id='getDateDifferenceValue'>2014年6月3日与2014年6月4日差值：<p>
+
+    <h2>日期比较大小</h2>
+    <p id='getDateSize1'>2014年6月3日比2014年6月4日：<p>
+    <p id='getDateSize2'>2014年7月5日比2014年6月4日：<p>
+
+    <h2>对指定日期进行加减</h2>
+    <p id='setXDate1'>获取当前日期，增加7天：<p>
+    <p id='setXDate2'>获取当前日期，增加7年：<p>
+
+    <h2>字符串转换为日期格式</h2>
+    <p id='strDate'><p>
+
+    <h2>判断日期是闰年还是平年</h2>
+    <p id='getYearType1'><p>
+    <p id='getYearType2'><p>
+    <p id='getYearType3'><p>
+
+    <h2>日期合法性验证</h2>
+    <p id='verifyDate1'><p>
+    <p id='verifyDate2'><p>
+    <script type="text/javascript">
+		//为了直观方便大家查看  将待测试代码放入当前页
+		; (function (_DM, window, document, undefined) {
+
+            var _W = window,
+				document = _W.document,
+
+                //继承_DM ，区别于原型链继承
+                project = _DM || {};
+                ;
+			//初始化
+			project.init = function () {
+				this.initEvents();
+			}
+
+			//初始化事件
+			project.initEvents = function () {
+                //获取日期的指定部分====================start
+                //获取日期对象
+                var d =new Date();
+                //获取年
+                console.log(d.getFullYear() + "年");
+                //获取月函数默认是0~11 所以要+1
+                console.log((d.getMonth() + 1) + "月");
+                // //获取日
+                console.log(d.getDate() + "日");
+                //获取时
+                console.log(d.getHours() + "时");
+                //获取分
+                console.log(d.getMinutes() + "分");
+                //获取秒
+                console.log(d.getSeconds() + "秒");
+
+
+                //显示当前时间====================start
+                this.getElement("nowTime").innerHTML = "时间：" + this.getNowTime();
+
+                //显示最后修改时间===============start
+                this.getElement("updateContent").onblur = function(){
+                        project.getElement("getLastMTime").innerHTML = "显示最后修改时间：" + project.getNowTime();
+                }
+
+                //实时显示当前时间====================start
+                this.showNowTime(this.getElement("showNowTime"));
+
+                //日期格式化成字符串==================start
+                //待格式化的日期为当前日期，
+                /*
+                字符格式替换规则：“Y”被替换为年，“M”替换为，“D”替换为日期，“h”替换为小时，“m”替换为分钟，“s”替换为秒
+                * */
+                this.dateFormat();
+                this.getElement("formatTime1").innerHTML = "格式化日期1：" + d.format("YYYY-MM-DD h:m:s");
+                this.getElement("formatTime2").innerHTML = "格式化日期2：" + d.format("YYYY/MM/DD h-m-s");
+                this.getElement("formatTime3").innerHTML = "格式化日期3：" + d.format("Y:M:D h:m:s");
+
+                //获取短日期格式====================start
+                this.getElement("getMinDate").innerHTML = this.getMinDate();
+
+                //获取指定日期所在月份的天数====================start
+                this.getElement("getMonthDays1").innerHTML = "2014年1月：" + this.getMonthDays("2014", "1") +"天";
+                this.getElement("getMonthDays2").innerHTML = "2014年2月：" + this.getMonthDays("2014", "2") +"天";
+                this.getElement("getMonthDays3").innerHTML = "2014年3月：" + this.getMonthDays("2014", "3") +"天";
+                this.getElement("getMonthDays4").innerHTML = "2014年4月：" + this.getMonthDays("2014", "4") +"天";
+                this.getElement("getMonthDays5").innerHTML = "2014年5月：" + this.getMonthDays("2014", "5") +"天";
+                this.getElement("getMonthDays6").innerHTML = "2014年6月：" + this.getMonthDays("2014", "6") +"天";
+
+                //获取指定日期所在周是第几周=========================start
+                this.getElement("getHowManyWeeks").innerHTML = "第" + this.getHowManyWeeks("2014", "1", "6") +"周";
+
+                //到指定日期的时间的倒计时=========================================start
+                this.getElement("getCountDown").innerHTML = "2014年2月14日距离现在：" + this.getCountDown("2014", "2", "14") +"天";
+
+                //节日倒计时====================start
+                this.getElement("LabourDay").innerHTML = "劳动节距离现在：" + this.getCountDown("2014", "5", "1") +"天";
+                this.getElement("NationalDay").innerHTML = "国庆节距离现在：" + this.getCountDown("2014", "10", "1") +"天";
+
+                //比较两个日期的差====================start
+                this.getElement("getDateDifferenceValue").innerHTML = "2014年6月3日与2014年6月4日差值" + this.getDateDifferenceValue(
+                        {
+                            "Y":"2014",
+                            "M":"6",
+                            "D":"3"
+                        },
+                        {
+                            "Y":"2014",
+                            "M":"6",
+                            "D":"4"
+                        }) + "秒";
+
+                //日期比较大小===============start
+                this.getElement("getDateSize1").innerHTML = "2014年6月3日比2014年6月4日：" + (this.getDateSize(
+                        {
+                            "Y":"2014",
+                            "M":"6",
+                            "D":"3"
+                        },
+                        {
+                            "Y":"2014",
+                            "M":"6",
+                            "D":"4"
+                        }) ? "大" : "小");
+
+                this.getElement("getDateSize2").innerHTML = "2014年7月5日比2014年6月4日：" + (this.getDateSize(
+                        {
+                            "Y":"2014",
+                            "M":"7",
+                            "D":"5"
+                        },
+                        {
+                            "Y":"2014",
+                            "M":"6",
+                            "D":"4"
+                        }) ? "大" : "小");
+
+                //对指定日期进行加减=======================start
+                this.getElement("setXDate1").innerHTML = "获取当前日期，增加7天：" + this.setXDate(d, 0 , 0, 7);
+                this.getElement("setXDate2").innerHTML = "获取当前日期，增加7年：" + this.setXDate(d, 7);
+
+                //字符串转换为日期格式=================start
+                this.getElement("strDate").innerHTML = "2014-02-19 15:56:01转换为日期格式：" + this.strDate("2014-02-19 15:56:01");
+
+                //判断日期是闰年还是平年===================start
+                this.getElement("getYearType1").innerHTML = "2014年为" + this.getYearType("2014");
+                this.getElement("getYearType2").innerHTML = "2000年为" + this.getYearType("2000");
+                this.getElement("getYearType3").innerHTML = "2011年为" + this.getYearType("2011");
+
+                //日期合法性验证=============start
+                this.getElement("verifyDate1").innerHTML = "2021-02-19 16:21:51的日期格式：" + (this.verifyDate("2021-02-19 16:21:51") ? "正确":"错误");
+                this.getElement("verifyDate2").innerHTML = "2021-02-19的日期格式：" + (this.verifyDate("2021-02-19") ? "正确":"错误");
+
+            }
+
+			window.onload = function(){
+                project.init();
+            };
+		})(dManage , window, document);
+	</script>
+</body>
+</html>

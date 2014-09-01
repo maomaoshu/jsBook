@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.12节,文本段落的展开和收拢效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+    /*===============文本段落的展开和收拢效果===========================*/
+    #textOutInParent{
+        display: block;
+        width: 500px;
+        height: 203px;
+    }
+    #textOutIn{
+        overflow: hidden;
+        height: 203px;
+        width: 500px;
+        display: block;
+        border: 1px #ccc solid;
+    }
+    #textOutIn p{
+        white-space: pre-wrap;
+    }
+</style>
+<body>
+    <h2>文本段落的展开和收拢效果</h2>
+    <div id='textOutInParent'>
+        <div id='textOutIn'>
+            <p>今天写的代码挺有趣，自学并思考很重要！我是文本段落的展开和收拢效果，我是文本段落的展开和收拢效果我是文本段落的
+                展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+                展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+                展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+                展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果我是文本段落的展开和收拢效果
+            </p>
+        </div>
+    </div>
+    <input value="展开" type="button" id='textOut' />
+    <input value="收缩" type="button" id='textRoundin' />
+<script type="text/javascript">
+    window.onload = function(){
+        //参数---context，被绑定操作的元素；out展开的元素；roundin收缩的元素
+         function textOutIn(options){
+            var e = options.e;
+
+            options.out.onclick = function(){//展开事件
+                if(e.style.height == "") return;
+                new animateManage({
+                    "context" : e,//被操作的元素
+                    "effect":"linear",
+                    "time": 100,//持续时间
+                    "starCss":{//元素的起始值偏移量
+                        "height":e.style.height || 35
+                    },
+                    "css" :{//元素的结束值偏移量
+                        "height":203
+                    }
+                }).init();
+            }
+
+            options.roundin.onclick = function(){//收缩事件
+                new animateManage({
+                    "context" : e,//被操作的元素
+                    "effect":"linear",
+                    "time": 100,//持续时间
+                    "starCss":{//元素的起始值偏移量
+                        "height":e.style.height || 203
+                    },
+                    "css" :{//元素的结束值偏移量
+                        "height":35
+                    }
+                }).init();
+            }
+
+        }
+
+        textOutIn({//初始化对象
+            "e": document.getElementById("textOutIn"),
+            "out":document.getElementById("textOut"),
+            "roundin":document.getElementById("textRoundin")
+        });
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>6.7节,获取指定日期所在月份的天数</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>获取指定日期所在月份的天数</h2>
+    <p id='getMonthDays1'>2014年1月：</p>
+    <p id='getMonthDays2'>2014年2月：</p>
+    <p id='getMonthDays3'>2014年3月：</p>
+    <p id='getMonthDays4'>2014年4月：</p>
+    <p id='getMonthDays5'>2014年5月：</p>
+    <p id='getMonthDays6'>2014年6月：</p>
+<script type="text/javascript">
+    window.onload = function(){
+        //日期格式化成字符串====================start
+        function dateFormat(){
+            Date.prototype.format = function(f){
+                //获取对象中的日期
+                var date = {
+                            "Y" : this.getFullYear(),//获取年
+                            "M" : (this.getMonth() + 1),//获取月
+                            "D" : this.getDate(),//获取日
+                            "h" : this.getHours(),//获取小时
+                            "m" : this.getMinutes(),//获取分钟
+                            "s" : this.getSeconds()//获取秒
+                        },
+                        d = "",//初始化接受日期变量的对象
+                        r = false,//判断是否存在待替换的字符
+                        reg = null,//正则
+                        _d = "";//日期
+
+                for(d in date){//过滤日期标示符
+                    //判断是否有待格式化的字符
+                    reg = new RegExp("[" + d + "]{1,}", "g");
+                    r = reg.test(f);
+
+                    if(r)//验证是否存在
+                    {
+                        _d = date[d];//被替换的日期
+                        f = f.replace(reg, _d < 10 ? ("0" + _d) : _d);
+                    }
+                }
+
+                return f;
+            }
+        }
+
+        dateFormat();
+
+        //获取指定日期所在月份的天数
+        function getMonthDays(Y, M){
+            //Y代表年份；M 代表为月数0~11,月份加1,但是第3个参数为0，所以不+1；第3个参数要求最小为1，但是设置0，就变成M月的最后一天了
+            return new Date(Y, M, 0).getDate();
+        }
+        //获取指定日期所在月份的天数====================start
+        document.getElementById("getMonthDays1").innerHTML = "2014年1月：" + getMonthDays("2014", "1") +"天";
+        document.getElementById("getMonthDays2").innerHTML = "2014年2月：" + getMonthDays("2014", "2") +"天";
+        document.getElementById("getMonthDays3").innerHTML = "2014年3月：" + getMonthDays("2014", "3") +"天";
+        document.getElementById("getMonthDays4").innerHTML = "2014年4月：" + getMonthDays("2014", "4") +"天";
+        document.getElementById("getMonthDays5").innerHTML = "2014年5月：" + getMonthDays("2014", "5") +"天";
+        document.getElementById("getMonthDays6").innerHTML = "2014年6月：" + getMonthDays("2014", "6") +"天";
+    };
+</script>
+</body>
+</html>

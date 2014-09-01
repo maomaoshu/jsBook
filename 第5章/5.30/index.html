@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.30节,URL传参中文出现乱码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>URL传参中文出现乱码</h2>
+    <input type="button" id='getURL' value="显示例子"/>
+<script type="text/javascript">
+    window.onload = function(){
+        //URL传参中文出现乱码
+        document.getElementById("getURL").onclick = function(){
+            //为了解决中文字符传递，乱码的问题，一般都将传递的参数利用 encodeURIComponent 进行utf-8格式的url编码，服务端可以进行再解码，这样就解决中文乱码问题了
+            var cencodeStr =  encodeURIComponent("我是Qingjs");
+            alert("调用encodeURIComponent对‘我是Qingjs’编码：" + cencodeStr +"\n"
+                //decodeURIComponent返回统一资源标识符 (URI) 的一个已编码组件的非编码形式
+                    + "调用decodeURIComponent对解码后：" + decodeURIComponent(cencodeStr));
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.30节,判断下拉框是否选中</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>判断下拉框是否选中</h2>
+<select id="selectOptios">
+    <option value="">请选择</option>
+    <option value="1">选项1</option>
+    <option value="2">选项2</option>
+    <option value="3">选项3</option>
+    <option value="4">选项4</option>
+    <option value="5">选项5</option>
+</select>
+<script type="text/javascript">
+    window.onload = function(){
+        var _selectOptios = document.getElementById("selectOptios");
+        _selectOptios.onchange = function(){
+            if(this.value === ""){//判断选项是否为空
+                alert("您没有选中选项");//为空，弹出提示
+            }else{
+                alert(this.value);//不为空弹出被选中的值
+            }
+        }
+    };
+</script>
+</body>
+</html>

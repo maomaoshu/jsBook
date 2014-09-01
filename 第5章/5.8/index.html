@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.8节,弹出窗口关闭时刷新父窗口</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>弹出窗口关闭时刷新父窗口</h2>
+<input id='openChildWin' type="button" value="打开子窗口"/>
+<script type="text/javascript">
+    window.onload = function(){
+        //弹出窗口关闭时，刷新父窗口---请查看updateParentWindow.html相关代码======================
+        document.getElementById("openChildWin").onclick = function(){
+            window.open("../updateParentWindow.html",'openChildWin','width=500,height=500')
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.28节,防止点击空链接，页面重置到页的首端</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>防止点击空链接，页面重置到页的首端</h2>
+    <a href="">我是空链接</a> <br />
+    <a href="#">我是“#”链接</a>
+<script type="text/javascript">
+    window.onload = function(){
+        //一般点击空连接，页面重置到首页是因为再链接中加入了锚点"#"，或者为空字符等
+        var as = document.getElementsByTagName("a"),
+                i = 0,
+                l = as.length,
+                h = "";
+        while(i < l){//遍历所有a链接
+            h = as[i].getAttribute("href");
+            if(h = "#" || !h) as[i].href = "javascript:void(0)";//修改a链接
+            i++;
+        }
+    };
+</script>
+</body>
+</html>

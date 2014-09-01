@@ -1,0 +1,19 @@
+<html>
+	<head>
+		 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>子模式窗口</title>
+	</head>
+	<body>
+		<input type="button" id='closeParentWindow' onclick="closeParentWindow()" value="关闭父窗口" name="btn">
+		<script language="javascript">
+		//父窗体子模式窗口的简单模拟，为了简单、直观，将Javascript脚本直接写入html页面中
+		function closeParentWindow(returnValue){
+            //重新打开新的窗体，防止提示，或解决有的浏览器关闭不了的兼容性问题
+            window.parent.open("", "_self");
+            //返回的是一个窗口对象。opener属性与打开该窗口的父窗口相联系，当访问子窗口中opener属性时，返回的是父窗口，通过该属性，可以使用父窗口对象中的方法和属性。
+            window.parent.opener = null
+            window.parent.close();
+		}
+		</script>
+	</body>
+</html>

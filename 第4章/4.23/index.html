@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.23节,类似QQ消息窗口提示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+    /*==============类似QQ消息窗口提示==============*/
+    #QQMsg{
+        display: none;
+        position: absolute;
+        width: 242px;
+        height: 160px;
+        border: 1px #4F9BD0 solid;
+    }
+    #QQMsg div{
+        width: 242px;
+    }
+    #QQMsg .title{
+        background-color: #4F9BD0;
+        height: 22px;
+        line-height: 21px;
+    }
+    #QQMsg .title div{
+        background-color: #4F9BD0;
+        position: relative;
+        float: left;
+    }
+    #QQMsg .title div.titles{
+        margin: 0px;
+        font-size: 13px;
+        width: 200px;
+    }
+    #QQMsg .title div.close{
+        font-size: 12px;
+        color: #fff;
+        margin: 0px;
+        background-color: #58A0D3;
+        width: 4px;
+        left: 30px;
+        cursor: pointer;
+    }
+    #QQMsg .content p{
+        white-space: normal;
+        margin: 10px;
+        font-size: 13px;
+        color: #0C4E7C;
+    }
+</style>
+<body>
+    <h2>类似QQ消息窗口提示</h2>
+    <div id='QQMsg'>
+        <!--title-->
+        <div class="title">
+            <div class="titles">qq消息 - 您的空间有新的评论</div>
+            <div class="close" id='closeQQMsg'>X</div>
+        </div>
+        <div style="clear: both"></div>
+        <!--内容-->
+        <div class="content">
+            <p>您的空间有人发表了有趣的评论，并向您发起了一个好友请求，单击查看一下吧！</p>
+        </div>
+    </div>
+    <input type="button" id='showQQMsg' value='显示类似QQ消息窗口' />
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("showQQMsg").onclick = function(){//类似QQ消息窗口提示
+            var
+            setCss = function(_this, cssOption){//设置元素样式
+                //判断节点类型
+                if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                    return;
+                }
+                for(var cs in cssOption){
+                    _this.style[cs] = cssOption[cs];
+                }
+                return _this;
+            },
+            QQMsgE = null,
+            QQMsgTop = function(){//设置QQ窗口的top
+                if(QQMsgE && QQMsgE.style.display != "none"){//判断是否隐藏
+                    var bodyHeight = (document.body.scrollTop || document.documentElement.scrollTop)  + window.screen.availHeight;
+                    this.setCss(QQMsgE, {
+                        "top": (bodyHeight - 260) + "px",
+                        "left": "100%",
+                        "marginLeft":"-244px"
+                    });
+                }
+            },
+            QQMsg = function (e, closeQQMsg){
+                QQMsgE = e;
+                //top的值 = 滚轴的高度top+窗口的高度 ，目的是隐藏窗口
+                var bodyHeight = (document.body.scrollTop || document.documentElement.scrollTop)  + window.screen.availHeight;
+                QQMsgE.style.display = "block";
+                setCss(QQMsgE, {
+                    "top": bodyHeight+ "px",
+                    "left": "100%",
+                    "marginLeft":"-244px"
+                });
+                new animateManage({
+                    "context" : e,//被操作的元素
+                    "effect":"linear",
+                    "time": 200,//持续时间
+                    "starCss":{//元素的起始值偏移量
+                        "top": bodyHeight
+                    },
+                    "css" :{//元素的结束值偏移量
+                        "top": bodyHeight - 260
+                    },
+                    "callback" : function(){
+
+                    }
+                }).init();
+                closeQQMsg.onclick = function(){
+
+                    new animateManage({
+                        "context" : e,//被操作的元素
+                        "effect":"linear",
+                        "time": 200,//持续时间
+                        "starCss":{//元素的起始值偏移量
+                            "top": bodyHeight - 260
+                        },
+                        "css" :{//元素的结束值偏移量
+                            "top": bodyHeight
+                        },
+                        "callback" : function(){
+                            e.style.display = "none";
+                        }
+                    }).init();
+                }
+
+            };
+
+            QQMsg(
+                    document.getElementById("QQMsg"),
+                    document.getElementById("closeQQMsg")
+            );
+        }
+    };
+</script>
+</body>
+</html>

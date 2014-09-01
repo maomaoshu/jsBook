@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.21节,从字符串中剔除所有HTML代码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>从字符串中剔除所有HTML代码</h2>
+<input type="text" id='delHtmlTags' value="剔除所有HTML代码">
+失去焦点的时候执行操作
+<script type="text/javascript">
+    window.onload = function(){
+        var _delHtmlTags = document.getElementById("delHtmlTags");
+        _delHtmlTags.onblur =function(){
+            this.value = this.value.replace(/<[\/\!]*[^<>]*>/ig, "");
+        }
+    };
+</script>
+</body>
+</html>

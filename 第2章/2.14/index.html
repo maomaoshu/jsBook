@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.14节,回车提交</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>回车提交</h2>
+<input type="text" id="enterSubmit" value="回车提交">
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("enterSubmit").onkeyup = function(e){
+            e = e || window.event;
+            var keycode = e.keyCode || e.which ||e.charCode;
+            if(keycode === 13){
+                alert("回车提交成功");
+            }
+
+        }
+    };
+</script>
+</body>
+</html>

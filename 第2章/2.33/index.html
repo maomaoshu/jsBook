@@ -1,0 +1,158 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.33节,下拉框联动效果</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>下拉框联动效果</h2>
+<p>
+    省级:
+    <select id="provinces">
+    </select>
+</p>
+<p>
+    市级:
+    <select id="citys">
+    </select>
+</p>
+<script type="text/javascript">
+    window.onload = function(){
+        /*
+         * 联动效果，地区数据字典
+         * 为了方便用户查阅代码，将数据属性写在此处。
+         * code代表被绑定的二级菜单标示符
+         **/
+        var linkDatas = {
+            provinces:[
+                {
+                    "code":"0",
+                    "name":"请选择"
+                },
+                {
+                    "code":"1",
+                    "name":"北京"
+                },
+                {
+                    "code":"2",
+                    "name":"天津"
+                },
+                {
+                    "code":"3",
+                    "name":"河北"
+                },
+                {
+                    "code":"4",
+                    "name":"湖北"
+                },
+                {
+                    "code":"5",
+                    "name":"广东"
+                },
+                {
+                    "code":"6",
+                    "name":"其他"
+                }
+            ],
+            citys:{
+                0:[
+                    "请选择"
+                ],
+                1:[
+                    "朝阳区",
+                    "海淀区",
+                    "东城区",
+                    "西城区",
+                    "房山区",
+                    "其他"
+                ],
+                2:[
+                    "天津"
+                ],
+                3:[
+                    "沧州",
+                    "石家庄",
+                    "秦皇岛",
+                    "其他"
+                ],
+                4:[
+                    "武汉市",
+                    "宜昌市",
+                    "襄樊市",
+                    "其他"
+                ],
+                5:[
+                    "广州市",
+                    "深圳市",
+                    "汕头市",
+                    "佛山市",
+                    "珠海市",
+                    "其他"
+                ],
+                6:[
+                    "其他"
+                ]
+            }
+        };
+        function addOptions(target, optons){
+            var _option = null,
+                    ol = optons.length,
+                    i = 0,
+                    _v = "",
+                    _t = "";
+            for(; i < ol ; i++ ){
+                _v = optons[i].value;
+                _t = optons[i].text;
+                _option = document.createElement("OPTION")
+                _option.value = _v;
+                _option.text = _t;
+                target.options.add(_option);
+            }
+
+        }
+
+        function linkage(parents, childs){//联动效果，业务处理---参数（一级菜单，二级菜单）
+            var  _linkDatas = linkDatas,
+                    _parents = _linkDatas.provinces,
+                    _childs = _linkDatas.citys,
+                    _initCity = _childs[0],
+                    _p = [];
+            /*初始化数据*/
+
+            for(var i in _parents){//省
+                _p.push({
+                    "text" : _parents[i].name,
+                    "value" : _parents[i].code
+                });
+            }
+
+            addOptions(parents, _p);//添加选项
+
+            addOptions(childs,[{//城市
+                "value":_initCity,
+                "text":_initCity
+            }]);
+
+            parents.onchange = function(){//联动事件绑定及具体业务处理
+                var __childs = _childs[this.value],
+                        __childsLen = __childs.length,
+                        l = 0,
+                        __p = [];
+                childs.innerHTML = "";
+                for(; l < __childsLen ; l++){
+                    __p.push({
+                        "value" : __childs[l],
+                        "text" : __childs[l]
+                    });
+                }
+                addOptions(childs, __p);
+            }
+
+        }
+
+        linkage(//绑定一级菜单与二级菜单
+                document.getElementById("provinces"),
+                document.getElementById("citys"));
+    };
+</script>
+</body>
+</html>

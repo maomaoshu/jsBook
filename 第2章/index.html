@@ -1,0 +1,636 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第2章 表单常用代码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../extend/strLen.js"></script>
+    <script type="text/javascript" src="fObject.js"></script>
+    <style>
+        .remainingCharacters{
+            color: green;
+            font-weight: bold;
+        }
+        .hintInput{
+            color:#ccc;
+        }
+        .rollContent{
+            border: 1px solid #333;
+            background-color: #ccc;
+        }
+        .fboder{
+            border: 2px #ccc solid;
+        }
+
+        .bboder{
+            border: 1px #000 solid;
+        }
+        .contentCheckbox{
+
+            text-align: center;
+
+        }
+        ul li{
+            list-style: none;
+            display: block;
+            border: 1px #ccc solid;
+            width: 300px;
+            height: 20px;
+            margin-top: 1px;
+        }
+        ul li input,ul li div{
+           position: relative;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+	<h2>测试去除字符串左右两边的空格</h2>
+	<input type='text' id='strs' value='          需要过滤空格 '>
+	<input type='button' id='rstrsBtn' value=' 过滤 '>
+	<br>
+	<h2>验证是否输入</h2>
+	<input type='button' id='isContent' value='验证是否为空'><br>
+	<h2>禁止输入</h2>
+	<div>JavaScript控制<input type="text" value="禁止输入" id='inhibitingInput' /></div>
+
+	
+	<div>表单元素特殊属性 一<input type="text" value="没禁止输入" /> </div>
+	<div>表单元素特殊属性 二<input type="text" value="没禁止输入" /> </div>	
+	<div>表单元素特殊属性 三<input type="text" value="没禁止输入"  readonly /> </div>
+	
+	<div>表单元素特殊属性 一<input type="text" value="禁止输入"  disabled /> </div>
+	<div>表单元素特殊属性 二<input type="text" value="禁止输入"  disabled="disabled"/> </div>
+	<div>表单元素特殊属性 三<input type="text" value="禁止输入"  readonly /> </div>
+    <br>
+    <h2>关闭输入法</h2>
+    <input type='text' id='banInputMethodgoogle' value='不支持谷歌浏览器'><br>
+    <input type='text' banInputMethod='1' id='banInputMethod' value='支持主流浏览器'><br>
+    <h2>禁止复制与粘贴</h2>
+    <input type="text" name="banCopyPaste"  id='banCopyPaste'/><br>
+    <h2>限制只能输入数字</h2>
+	<form>
+    <input type="number" name="numberHtml5"  value='html5只能输入数字' id='banNumberHtml5'/><br>
+	<input type="text" value='html5只能输入数字'  pattern=[0-9] id='patternHtml5'/>
+    <input type="text" name="number"  value='只能输入数字' id='banNumber'/><br>  
+	<input type='submit' value='提交'>
+	</form>
+	<h2>限制只能输入中文</h2>
+    <input type="text" name="number"  value='只能输入中文' id='chineseStr'/><br>	
+	<h2>限制字符串的长度</h2>
+     通过“maxlength ”限制：<input type="text" name="lname" maxlength="5" /><br />
+     通过“JavaScript事件 ”限制：<input type="text" data-length='5' id='limitLength' data-model='Ch' name="lname"/><br />
+    <h2>实时显示还可以输入多少字符（区分中英文）</h2>
+    <input type="text" data-length='5' id='remainingCharacters' data-remainingCharacters="charActers1,charActers2" data-model='Ch' name="remainingCharacters"/><br />
+    <p>测试1：还可以输入<span class='remainingCharacters' id="charActers1">5</span>字符</p>
+    <p>测试2：还可以输入<span class='remainingCharacters' id="charActers2">5</span>字符</p>
+    <h2>显示输入提示，获取焦点提示取消</h2>
+    <input type="text" name="info" placeholder="html5提示信息" />
+    <input id='hintInput' data-hint='我是提示信息' type='password' value=''>
+    <h2>文本框中的文字自动滚动效果</h2>
+    <div id='rollContent' data-rwidth='100' data-rhight='100' class='rollContent'>
+       111111111111
+       222222222222
+       333333333333
+       333333333333
+       333333333333
+       333333333333
+    </div>
+    <h2>密码强度实时验证</h2>
+    <input id="passwordStrength" data-hint='请输入密码' type="password"> <span id="showStrength"></span>
+    <h2>回车提交</h2>
+    <input type="text" id="enterSubmit" value="回车提交">
+    <h2>光标永远停留在文字最后</h2>
+    <input type="text" id="cursorPos" value="光标永远停留在文字最后">
+    <h2>不允许文本框自动完成</h2>
+    <form action="">
+        <input type="text" id="banAutocomplete" value="禁止自动完成">
+        <input type="text" id="banAutocomplete2" autocomplete="off" />
+    </form>
+    <h2>自动选定TextArea内容</h2>
+    <textarea id='autoSelected' rows="10" cols="50">
+       默认被选择的文本
+    </textarea>
+    <h2>获取、失去焦点的时候改变样式</h2>
+    <input type="text" value='修改样式' data-fClass='fboder' data-bClass='bboder' data-fCss='{"color":"red"}' data-bCss='{"color":"green"}' id='autoUpdateCss' />
+    <h2>常见的验证规则</h2>
+    <p><input type="text" value='姓名验证'  data-reg='Chinese' data-smsg='通过√' data-emsg='请输入中文' id='regUser' data-tmsg='msgU' /><span id='msgU'></span></p>
+    <p><input type="text" value='邮箱验证'  data-reg='email' data-smsg='通过√' data-emsg='请输入邮箱' id='regEmail' data-tmsg='msgE' /><span id='msgE'></span></p>
+    <p><input type="text" value='电话验证'  data-reg='phone' data-smsg='通过√' data-emsg='请输入电话' id='regPhone' data-tmsg='msgP' /><span id='msgP'></span></p>
+    <p><input type="text" value='带小数位的数字验证'  data-reg='decimalNumber' data-smsg='通过√' data-emsg='请输入小数数字' id='regNumber' data-tmsg='msgN' /><span id='msgN'></span></p>
+    <h2>对文本内容进行关键词过滤</h2>
+    <textarea id='keyWordsFiltering' rows="10" cols="50">
+       关键词过滤：你好，我是席新亮，非常喜欢JavaScript，希望和大家切磋交流。业余爱好：玩游戏，但是不使用外挂，游戏里面有很多美女，咱也不贪色，嘿嘿~~~
+    </textarea>
+    <h2>从字符串中剔除所有HTML代码</h2>
+    <input type="text" id='delHtmlTags' value="剔除所有HTML代码">
+    <h2>测试是否为数值型</h2>
+    <div id='isNumber'>
+    </div>
+    <h2>TextArea自适应文字行数多少</h2>
+    <textarea rows=1 name=s1 cols=27 id="autoRow"></textarea>
+    <h2>判断单选框是否选中</h2>
+    <input type="radio" name='sex' id='sexMan' checked="checked">男 <br />
+    <input type="radio" name='sex' id='sexWoman'>女
+    <h2>判断复选框至少选中一项</h2>
+    <input type="checkbox" name='checkSelects' checked='checked'>1<br />
+    <input type="checkbox" name='checkSelects'>2<br />
+    <input type="checkbox" name='checkSelects'>3<br />
+    <input type="checkbox" name='checkSelects'>4<br />
+    <h2>限制复选框最多选择几项</h2>
+    <input type="checkbox" name='forbidcheckSelects'>1<br />
+    <input type="checkbox" name='forbidcheckSelects'>2<br />
+    <input type="checkbox" name='forbidcheckSelects'>3<br />
+    <input type="checkbox" name='forbidcheckSelects'>4<br />
+    <h2>Checkbox全选、取消全选、反选</h2>
+    <p><input type="button" id='allSelect' value="全选"><input type="button" id='canelallSelect' value="取消全选"><input type="button" id='_select' value='反选'> </p>
+    <input type="checkbox" name='actionSelects'>1<br />
+    <input type="checkbox" name='actionSelects'>2<br />
+    <input type="checkbox" name='actionSelects'>3<br />
+    <input type="checkbox" name='actionSelects'>4<br />
+    <h2>根据指定内容选中复选框</h2>
+    <p>如果内容中含有关键词：“JavaScript”、“席新亮”、“游戏”，则相应的关键词复选框会被选中</p>
+    <textarea id='contentCheckbox' data-target='autoKeywordSelect'>
+
+    </textarea>
+    <br />
+    <input type="checkbox" name='autoKeywordSelect' data-k='JavaScript'>JavaScript<br />
+    <input type="checkbox" name='autoKeywordSelect' data-k='席新亮'>席新亮<br />
+    <input type="checkbox" name='autoKeywordSelect' data-k='游戏'>游戏<br />
+    <h2>获取复选框所有选中内容</h2>
+    <ul>
+        <li>
+            <input type="checkbox" name='getSelectContent'><div class="contentCheckbox">等待选择的内容····1</div>
+        </li>
+        <li>
+            <input type="checkbox" name='getSelectContent'><div class="contentCheckbox">等待选择的内容····2</div>
+        </li>
+        <li>
+            <input type="checkbox" name='getSelectContent'><div class="contentCheckbox">等待选择的内容····3</div>
+        </li>
+    </ul>
+    <p id='selectedContents'>被选择的内容：选择内容为空</p>
+    <h2>判断下拉框是否选中</h2>
+    <select id="selectOptios">
+        <option value="">请选择</option>
+        <option value="1">选项1</option>
+        <option value="2">选项2</option>
+        <option value="2">选项3</option>
+        <option value="2">选项4</option>
+        <option value="2">选项5</option>
+    </select>
+    <h2>动态添加下拉选项</h2>
+    <input type="button" value='添加' id='addOptions' data-target='addOptios' />
+    <select id="addOption">
+        <option value="">请选择</option>
+        <option value="1">原有选项</option>
+    </select>
+    <h2>动态删除下拉选项</h2>
+    <input type="button" value='删除' id='removeOptions' data-target='removeOptios' />
+    <select id="removeOption">
+        <option value="">请选择</option>
+        <option value="1">原有选项</option>
+        <option value="2">原有选项</option>
+        <option value="3">原有选项</option>
+        <option value="4">原有选项</option>
+        <option value="5">原有选项</option>
+        <option value="6">原有选项</option>
+    </select>
+    <h2>下拉框联动效果</h2>
+    <p>
+        省级:
+        <select id="provinces">
+        </select>
+    </p>
+    <p>
+        市级:
+        <select id="citys">
+        </select>
+    </p>
+    <h2>可输入下拉框效果</h2>
+    <select id="inOption" style="position:absolute;width: 118px;left:12px">
+        <option value="可输入1">可输入1</option>
+        <option value="可输入2">可输入2</option>
+    </select>
+    <input type="text" id='inInput' style='position: absolute;left: 11px;width: 100px;border-right: 0px'/><br />
+    <h2>设置表单中所有文本型的成员的值为空</h2>
+    <form id='clearFrom'>
+        <input id='clearText' type="button"  value='清空所有文本' /> <br />
+        <input type="text"  value='文本1' /> <br />
+        <textarea>文本2</textarea>
+    </form>
+    <h2>JavaScript对上传文件相关操作</h2>
+    <form id='fileUpload' enctype="multipart/form-data">
+        <p><input type="file" name='file1' id='filedemo1'> </p>
+        <input type="button" id='addFileUpload' value="添加">
+        <input type="button" id='clearFileUpload' value="清空">
+        <input type="button" id='fileUploadSub' value="上传">
+    </form>
+    <script type="text/javascript">
+		//为了直观方便大家查看  将待测试代码放入当前页
+		; (function (_F, window, document, undefined) {
+
+            var _W = window,
+				document = _W.document,
+                project = project || {}
+                ;
+
+			//初始化
+			project.init = function () {
+
+				this.initEvents();
+			}
+
+			//初始化事件
+			project.initEvents = function () {
+
+				this.rStrEvent();
+
+				this.isContent();
+
+				this.inhibitingInput();
+
+                this.banInputMethod();
+
+                this.banCopyPaste();
+
+                this.banNumber();
+
+				this.chineseStr();
+
+				this.limitLength();
+
+                this.hintInput();
+
+                this.rollContent();
+
+                this.passwordStrength();
+
+                this.enterSubmit();
+
+                this.cursorPos();
+
+                this.banAutocomplete();
+
+                this.autoSelected();
+
+                this.autoUpdateCss();
+
+                this.regVerification();
+
+                this.delHtmlTags();
+
+                this.keyWordsFiltering();
+
+                this.isNumber();
+
+                this.autoRow();
+
+                this.isRadioChecked();
+
+                this.checkSelects();
+
+                this.forbidcheckSelects();
+
+                this.actionSelects();
+
+                this.contentCheckbox();
+
+                this.getSelectContent();
+
+                this.selectOptios();
+
+                this.addOptions();
+
+                this.removeOptions();
+
+                this.linkage();
+
+                this.inOption();
+
+                this.clearText();
+
+                //字符及数字转换
+                this.strNumber();
+                //文件上传操作
+                this.fileUpload();
+			}
+			
+			//去除字符串两边空格
+			project.rStrEvent = function(){
+			
+				var _rstrsBtn = document.getElementById("rstrsBtn");
+				var _strs = document.getElementById("strs");
+				
+				_rstrsBtn.onclick = function(){
+					_strs.value = _F.trim(_strs.value);
+				}
+			}		
+
+			//验证是否输入
+			project.isContent = function(){
+				var _isContent = document.getElementById("isContent");
+				var _strs = document.getElementById("strs");
+				
+				_isContent.onclick = function(){
+					if(_F.isContent(_F.trim(_strs.value))){
+						alert("您的输入为空！");
+					}else{
+						alert("您的输入不为空！");
+					}
+				}
+			}		
+
+			//禁止输入
+			project.inhibitingInput = function(){
+				var _inhibitingInput = document.getElementById("inhibitingInput");
+				_F.inhibitingInput(_inhibitingInput);
+			}
+
+			//关闭输入法
+			project.banInputMethod = function(){
+				_F.banInputMethod([
+                    this.getElement("banInputMethodgoogle"),
+                    this.getElement("banInputMethod")]);
+			}
+
+			//禁止复制与粘贴
+			project.banCopyPaste = function(){
+				_F.banCopyPaste(this.getElement("banCopyPaste"));
+			}
+
+			//限制只能输入数字
+			project.banNumber = function(){
+				_F.banNumber(this.getElement("banNumber"));
+			}		
+
+			//限制只能输入中文
+			project.chineseStr = function(){
+				_F.chineseStr(this.getElement("chineseStr"));
+			}		
+
+			//字符长度限制
+			project.limitLength = function(){
+				_F.limitLength([
+                        this.getElement("limitLength"),
+                        this.getElement("remainingCharacters")
+                ]);
+			}
+			//显示输入提示，获取焦点提示取消
+			project.hintInput = function(){
+				_F.hintInput([
+                        this.getElement("hintInput")
+                ]);
+			}
+			//滚动内容
+			project.rollContent = function(){
+				_F.rollContent(this.getElement("rollContent"));
+			}
+			//密码强度
+			project.passwordStrength = function(){
+				_F.passwordStrength(
+                        this.getElement("passwordStrength"),
+                        this.getElement("showStrength"));
+			}
+			//回车提交
+			project.enterSubmit = function(){
+				_F.enterSubmit(this.getElement("enterSubmit"));
+			}
+
+			//光标在文本尾部
+			project.cursorPos = function(){
+				_F.cursorPos(this.getElement("cursorPos"));
+			}
+
+			//禁用自动完成
+			project.banAutocomplete = function(){
+				_F.banAutocomplete(this.getElement("banAutocomplete"));
+			}
+			//自动选择
+			project.autoSelected = function(){
+				_F.autoSelected(this.getElement("autoSelected"));
+			}
+			//获取、失去焦点改变样式
+			project.autoUpdateCss = function(){
+				_F.autoUpdateCss(this.getElement("autoUpdateCss"));
+			}
+			//常见的正则验证
+			project.regVerification = function(){
+				_F.regVerification([
+                    this.getElement("regUser"),
+                    this.getElement("regEmail"),
+                    this.getElement("regPhone"),
+                    this.getElement("regNumber")
+                ]);
+			}
+			//文本关键词过滤
+			project.keyWordsFiltering = function(){
+                var _keyWordsFiltering = this.getElement("keyWordsFiltering");
+                _keyWordsFiltering.onclick =function(){
+                    _F.keyWordsFiltering(_keyWordsFiltering);
+                }
+			}
+			//从字符串中剔除所有HTML代码
+			project.delHtmlTags = function(){
+                var _delHtmlTags = this.getElement("delHtmlTags");
+                _delHtmlTags.onblur =function(){
+                    _F.delHtmlTags(this);
+                }
+			}
+            //测试是否为数值型
+            project.isNumber = function(){
+                var _number1 = "1",
+                    _number2 = 1,
+                    _number3 = 1.22,
+                    _number4 = null,
+                    _html = "",
+                    _isNumber = _F.isNumber;
+                _html += _isNumber(_number1) ? "_number1是数值型<br />" : "_number2不是数值型<br />";
+                _html += _isNumber(_number2) ? "_number2是数值型<br />" : "_number2不是数值型<br />";
+                _html += _isNumber(_number3) ? "_number3是数值型<br />" : "_number3不是数值型<br />";
+                _html += _isNumber(_number4) ? "_number4是数值型<br />" : "_number4不是数值型<br />";
+                this.getElement("isNumber").innerHTML = _html;
+            }
+            //TextArea自适应文字行数多少
+            project.autoRow = function(){
+                _F.autoRow(this.getElement("autoRow"));
+            }
+
+            //判断单选框是否选中
+            project.isRadioChecked = function(){
+                if(_F.isRadioChecked(this.getElement("sexMan"))){
+                    console.log("sexMan 被选中")
+                }else{
+                    console.log("sexMan 未被选中")
+                }
+
+                if(_F.isRadioChecked(this.getElement("sexWoman"))){
+                    console.log("sexWoman 被选中")
+                }else{
+                    console.log("sexWoman 未被选中")
+                }
+            }
+
+            //判断复选框至少选中一项
+            project.checkSelects = function(){
+                var _checkSelects = document.getElementsByName("checkSelects");
+                for(var i in _checkSelects){
+                    if(_F.isRadioChecked(_checkSelects[i])){
+                        console.log("至少选中了一项");
+                        return;
+                    };
+                }
+                console.log("没有选中");
+
+            }
+
+            //限制复选框最多选择几项
+            project.forbidcheckSelects = function(){
+                _F.forbidcheckSelects("forbidcheckSelects");
+            }
+            //Checkbox全选、取消全选、反选
+            project.actionSelects = function(){
+                _F.actionSelects({
+                    "allSelect":project.getElement("allSelect"),
+                    "canelallSelect":project.getElement("canelallSelect"),
+                    "_select":project.getElement("_select"),
+                    "targets":document.getElementsByName("actionSelects")
+                });
+            }
+
+            project.contentCheckbox = function(){
+                _F.contentCheckbox("contentCheckbox");
+            }
+
+            project.getSelectContent = function(){
+                _F.getSelectContent("getSelectContent");
+            }
+            //判断下拉框是否被选中
+            project.selectOptios = function(){
+                var _selectOptios = project.getElement("selectOptios");
+                _selectOptios.onchange = function(){
+                    if(this.value === ""){
+                        alert("您没有选中选项")
+                    }else{
+                        alert(this.value);
+                    }
+                }
+            }
+
+            project.addOptions = function(){
+                var _addOptions = project.getElement("addOptions");
+                _addOptions.onclick = function(){
+                    _F.addOptions(project.getElement("addOption"), [
+                        {
+                            "value":"新添加的元素",
+                            "text":"新添加的元素"
+                        }
+                    ])
+                }
+            }
+
+            project.removeOptions = function(){
+                var _removeOptions = project.getElement("removeOptions");
+                _removeOptions.onclick = function(){
+                    _F.removeOptions(project.getElement("removeOption"), [1, 2])
+                }
+            }
+            project.linkage = function(){
+                //绑定一级菜单与二级菜单
+                _F.linkage(
+                        project.getElement("provinces"),
+                        project.getElement("citys"));
+            }
+            project.inOption = function(){
+                var _inOption = project.getElement("inOption"),
+                    _inIpnut = project.getElement("inInput");
+                _inIpnut.onkeyup = function(){
+                    var   key=event.keyCode,
+                            _v = _inIpnut.value;
+                    if(key == 13){
+                        _F.addOptions(_inOption, [
+                            {
+                                "value":_v,
+                                "text":_v
+                            }
+                        ])
+
+                    }
+                }
+                _inOption.onchange = function(){
+                    _inIpnut.value = this.value;
+                }
+
+            }
+            project.clearText = function(){
+                var _clearText = project.getElement("clearText");
+                _clearText.onclick = function(){
+                    _F.clearText(project.getElement("clearFrom"));
+                }
+            }
+
+            project.strNumber = function(){
+
+                //小写转大写
+                console.log(_F.getLowerCase("ASDsssss2asdA"));
+
+                //字符转换数字
+                console.log(_F.getNumbers("ASDsssss2asdA"));
+                console.log(_F.getNumbers("123123ASDsssss2asdA"));
+                console.log(_F.getNumbers("ASDsssss2asdA123"));
+
+                //数字转换成字符型
+                console.log(_F.getString(123123)+ "类型："+typeof _F.getString(123123));
+                console.log(_F.getString(234324)+ "类型："+typeof _F.getString(234324));
+            }
+
+            //上传文件业务 start
+
+            //增加的文件“input”标示符
+            project.uploadCount = 1;
+
+            //上传文件的相关业务
+            project.fileUpload = function(){
+                var _fileUpload = project.getElement("fileUpload"),
+                        _addFileUpload = project.getElement("addFileUpload"),
+                        _clearFileUpload = project.getElement("clearFileUpload"),
+                        _filedemo1 = project.getElement("filedemo1"),
+                        _fileUploadSub = project.getElement("fileUploadSub");
+                _fileUploadSub.onclick =function(){
+                    //获取上传文件的大小
+                    alert("测试获取文件大小：" + _F.getFileSize(_filedemo1));
+
+                    //限制上传文件的格式 ---参数（上传文件的表单对象， 被限制的格式）
+                    if(!_F.fileType(_fileUpload, "text")){
+                        return;
+                    }
+
+
+                }
+                //清除上传文件的内容
+                _clearFileUpload.onclick =function(){
+                       _F.clearFile(_fileUpload);
+                }
+
+                //动态多文件上传，添加上传文件元素
+                _addFileUpload.onclick =function(){
+                    project.uploadCount++;
+                    var  _input=document.createElement("input"),
+                         _pE=document.createElement("p");
+                    _input.name="filedemo"+project.uploadCount;
+                    _input.id="filedemo"+project.uploadCount;
+                    _input.type="file";
+                    _pE.appendChild(_input);
+                    _fileUpload.insertBefore(_pE,project.getElement("addFileUpload"));
+                }
+
+            }
+
+            project.getElement = function(eStr){
+                return document.getElementById(eStr);
+            }
+			window.onload = function(){
+                project.init();
+            };
+		})(fObject , window, document);
+	</script>
+</body>
+</html>

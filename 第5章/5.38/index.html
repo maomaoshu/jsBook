@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.38节,定时关闭页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>定时关闭页面</h2>
+    <input type="button" id='timeClosePage' value="3秒后关闭页面"/>
+<script type="text/javascript">
+    window.onload = function(){
+        //多少毫秒之后关闭
+        timeClosePageT = -1;
+        function timeClosePage(t){//关闭页面，t表示时间
+            timeClosePageT = t || -1;
+            if(timeClosePageT != -1){
+                setTimeout(function(){//定时关闭
+                    window.open('','_self','');
+                    window.close();
+                }, timeClosePageT)
+            }
+        }
+        document.getElementById("timeClosePage").onclick = function(){
+            timeClosePage(3000);
+        }
+    };
+</script>
+</body>
+</html>

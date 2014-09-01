@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.31节,动态添加下拉选项</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>动态添加下拉选项</h2>
+<input type="button" value='添加' id='addOptions' data-target='addOptios' />
+<select id="addOption">
+    <option value="">请选择</option>
+    <option value="1">原有选项</option>
+</select>
+<script type="text/javascript">
+    window.onload = function(){
+        var _addOptions = document.getElementById("addOptions"),
+                _addOption = document.getElementById("addOption"),
+                addOptions = function(target, optons){//添加option
+                    var _option = null,
+                            ol = optons.length,
+                            i = 0,
+                            _v = "",
+                            _t = "";
+                    for(; i < ol ; i++ ){
+                        _v = optons[i].value;
+                        _t = optons[i].text;
+                        _option = document.createElement("OPTION");//创建空option引用
+                        _option.value = _v;//添加值
+                        _option.text = _t;//添加文本
+                        target.options.add(_option);//增加option
+                    }
+                };
+        _addOptions.onclick = function(){
+            addOptions(_addOption, [
+                {
+                    "value":"新添加的元素",
+                    "text":"新添加的元素"
+                }
+            ])
+
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.10节,屏蔽右键</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>屏蔽右键</h2>
+<input id='shieldingRight' type="button" value="开启屏蔽"/>
+<script type="text/javascript">
+    window.onload = function(){
+        //屏蔽右键
+        document.getElementById("shieldingRight").onclick = function(){
+            if(this.value == '已经开启屏蔽'){//判断是否开启过屏蔽功能
+                return;
+            }
+            this.value = '已经开启屏蔽';
+            //禁止右键菜单的事件,一般情况下，IE、FF、Chrome都会支持，在一些其它个别浏览器下会不支持
+            document.oncontextmenu=function(){
+                alert('禁止鼠标右键菜单!');
+                return false;//返回false 则会禁止
+            }
+        }
+    };
+</script>
+</body>
+</html>

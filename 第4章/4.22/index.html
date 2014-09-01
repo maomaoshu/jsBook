@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.22节,对联浮动广告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+    /*===============对联浮动广告=======================*/
+    .coupletAds{
+        position: absolute;
+        width: 100px;
+        border: 1px #ccc solid;
+        height: 200px;
+        z-index: 2000;
+        background-color: #ccc;
+        white-space: pre-wrap;
+        display: none;
+    }
+    #coupletAdsLeft{
+        left: 5px;
+    }
+    #coupletAdsRight{
+        left:100%;
+        margin-left: -107px;
+    }
+</style>
+<body>
+    <h2>对联浮动广告</h2>
+    <div class="coupletAds" id='coupletAdsLeft'>浮动广告左边</div>
+    <div class="coupletAds" id='coupletAdsRight'>浮动广告右边</div>
+    <input type="button" id='openAbs' value='显示对联广告'>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+    <p>测试浮动广告```````````</p>
+    <br>
+<script type="text/javascript">
+    window.onload = function(){
+        //对联广告单击显示
+        document.getElementById("openAbs").onclick = function(){
+            var
+            coupletAdsLeft = null,
+            coupletAdsRight = null,
+
+            coupletAds = function(absLeft, absRight){
+                coupletAdsLeft = absLeft;
+                coupletAdsRight = absRight;
+
+                this.coupletAdsLeft.style.display = "block";
+                this.coupletAdsRight.style.display = "block";
+                absTop();
+            },
+
+            absTop = function(){//两个对联层的top位置
+                if(!this.coupletAdsLeft) return;
+                //如果 document.body.scrollTop == 0 选则document.documentElement.scrollTop值，
+                var top = ((document.body.scrollTop || document.documentElement.scrollTop) + window.screen.availHeight/2 - this.coupletAdsLeft.offsetHeight) + "px";
+                this.coupletAdsLeft.style.top = top;
+                this.coupletAdsRight.style.top = top;
+            },
+
+            scrollEvent = (function(){//滚轴事件
+                window.onscroll = function(){
+                    absTop();//重新修正广告top
+                }
+            })();
+
+            coupletAds(
+                    document.getElementById("coupletAdsLeft"),
+                    document.getElementById("coupletAdsRight")
+            );
+        }
+    };
+</script>
+</body>
+</html>

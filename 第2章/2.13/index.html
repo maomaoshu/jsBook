@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.13节,密码强度实时验证</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>密码强度实时验证</h2>
+<input id="passwordStrength" data-hint='请输入密码' type="password"> <span id="showStrength"></span>
+<script type="text/javascript">
+    window.onload = function(){
+        function setCss(_this, cssOption){//设置样式
+            if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                return;
+            }
+            for(var cs in cssOption){
+                _this.style[cs] = cssOption[cs];
+            }
+            return _this;
+        }
+
+        function trim(chars){//去除字符串左右两边的空格
+            return (chars || "").replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g, "" );
+        }
+
+        function passwordStrength(passwordStrength, showStrength){
+            var self = this;
+            /*字符权重：
+             数字1，字母2 ，其他字符为3
+             当密码长度小于6为不符合标准，
+             长度大=6强度小于10，强度弱
+             ，长度大=6 强度>=10 <15，强度中，
+             长度大=6 强度>=15 强*/
+            passwordStrength.onkeyup = function(){
+                var _color = ["red", "yellow", "orange", "green"],
+                        msgs = ["密码太短","弱","中","强"],
+                        _strength= 0,
+                        _v = trim(passwordStrength.value)
+                _vL = _v.length,
+                        i = 0;
+
+                var charStrength = function(char){//计算单个字符强度
+                    if (char>=48 && char <=57){ //数字
+                        return 1;
+                    }
+                    if (char>=97 && char <=122) {//小写
+                        return 2;
+                    }else{
+                        return 3; //特殊字符
+                    }
+                }
+
+                if(_vL < 6){//计算模式
+                    showStrength.innerText = msgs[0];
+                    setCss(showStrength, {
+                        "color":_color[0]
+                    })
+                }else{
+                    for( ; i < _vL ; i++){
+                        _strength+=charStrength(_v.toLocaleLowerCase().charCodeAt(i));
+                    }
+                    if(_strength < 10){
+                        showStrength.innerText = msgs[1];
+                        setCss(showStrength, {
+                            "color":_color[1]
+                        })
+                    }
+                    if(_strength >= 10 && _strength < 15){
+                        showStrength.innerText = msgs[2];
+                        setCss(showStrength, {
+                            "color":_color[2]
+                        })
+                    }
+                    if(_strength >= 15){
+                        showStrength.innerText = msgs[3];
+                        setCss(showStrength, {
+                            "color":_color[3]
+                        })
+                    }
+                }
+            }
+        }
+        passwordStrength(
+                document.getElementById("passwordStrength"),
+                document.getElementById("showStrength"));
+    };
+</script>
+</body>
+</html>

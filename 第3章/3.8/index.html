@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>3.8节,点击图片缓缓放大</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*======================点击图片缓缓放大========================*/
+    #slowlyEnlarge{
+        width: 100px;
+    }
+    .slowlyEnlarge{
+        height: 220px;
+    }
+</style>
+<body>
+    <h2>点击图片缓缓放大--图片 Width范围 <= 300px</h2>
+    <div class="slowlyEnlarge">
+        <img src='../images/psu2.jpg' id='slowlyEnlarge' />
+    </div>
+
+<script type="text/javascript">
+    window.onload = function(){
+        var e = document.getElementById("slowlyEnlarge");
+        e.onclick = function(){
+            if(e.offsetWidth + 50 >= 300){
+                return;
+            }
+            new animateManage({
+                "context":e,//被操作的元素
+                "effect":"linear",
+                "time": 200,//持续时间
+                "starCss":{//元素的起始值偏移量
+                    "width": e.offsetWidth
+                },
+                "css" :{//元素的结束值偏移量
+                    "width":e.offsetWidth + 50
+                }
+            }).init();
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.27节,Checkbox全选、取消全选、反选</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>Checkbox全选、取消全选、反选</h2>
+<p><input type="button" id='allSelect' value="全选"><input type="button" id='canelallSelect' value="取消全选"><input type="button" id='_select' value='反选'> </p>
+<input type="checkbox" name='actionSelects'>1<br />
+<input type="checkbox" name='actionSelects'>2<br />
+<input type="checkbox" name='actionSelects'>3<br />
+<input type="checkbox" name='actionSelects'>4<br />
+<script type="text/javascript">
+    window.onload = function(){
+        var targets = document.getElementsByName("actionSelects"),
+                targetsLen = targets.length,
+                i = 0;
+
+        document.getElementById("allSelect").onclick = function(){
+            for(i = 0 ;i < targetsLen ; i ++){
+                targets[i].checked = true;
+            }
+        }
+
+        document.getElementById("canelallSelect").onclick = function(){
+            for(i = 0 ;i < targetsLen ; i ++){
+                targets[i].checked = false;
+            }
+        }
+
+        document.getElementById("_select").onclick = function(){
+            for(i = 0 ; i < targetsLen ; i ++){
+                targets[i].checked = !targets[i].checked;
+            }
+
+        }
+    };
+</script>
+</body>
+</html>

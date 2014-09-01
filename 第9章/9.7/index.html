@@ -1,0 +1,137 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>9.12节,HTML5版Js实现的音频播放器</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D874c49a728d76c2e075dd33658f0864"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <div><h2>HTML5版Js实现的MP3播放器</h2></div>
+    <style>
+        audio{
+            display: none;
+        }
+    </style>
+    <div>
+        <div>正在播放mp3文件：stubbornDream.mp3</div>
+        <div><input id="audioAction" type="button" value="播放"/></div>
+        <div>进度：<input id="process" value="0"></div>
+        <div>
+            修改进度：
+            <input id="setProcess" type="text" value="0">
+            <input id="setProcessOK" type="button" value="确定">
+        </div>
+        <div>
+            <input type="button" id="volup" value="音量+">
+            <input type="button" id="voldown" value="音量-">
+            <input type="button" id="muted" value="静音">
+        </div>
+    </div>
+    <audio id="audio" src="../stubbornDream.mp3" controls="controls">
+    </audio>
+<script type="text/javascript">
+    window.onload = function(){
+        /*
+         *HTML5版Js实现的MP3播放器
+         * */
+        var playerMp3 = function(mp3){
+            var playerMp3 = function(option){//mp3播放器
+
+                this.audio = option.audio;
+                this.audioAction = option.audioAction;
+                this.process = option.process;
+                this.setProcessO = option.setProcess;
+                this.setProcessOK = option.setProcessOK;
+                this.volup = option.volup;
+                this.voldown = option.voldown;
+                this.muted = option.muted;
+
+                var self = this;
+
+                this.audioAction.onclick = function(){ //播放控制
+                    if(this.value == "播放"){
+                        self.start();
+                        this.value = "暂停";
+                    }else{
+                        self.pause();
+                        this.value = "播放";
+                    }
+                }
+
+                this.volup.onclick = function(){//音量增大
+                    self.setVolup();
+                }
+
+                this.voldown.onclick = function(){//音量减少
+                    self.setVoldown();
+                }
+
+                this.muted.onclick = function(){//静音、发声
+                    self.setMute();
+                }
+
+                setInterval(function(){//获取播放进度
+                    self.getProcess();
+                },1000)
+
+                this.setProcessOK.onclick = function(){//确定修改进度
+                    self.setProcess();
+                }
+
+            }
+
+            playerMp3.prototype.start = function(){//开始播放
+                this.audio.play();
+            }
+
+
+            playerMp3.prototype.pause = function(){//暂停播放
+                this.audio.pause();
+            }
+
+            playerMp3.prototype.getProcess = function(){//获取播放进度
+                this.process.value = Math.floor(this.audio.currentTime) + "秒";
+            }
+
+            playerMp3.prototype.setProcess = function(){//设置播放进度
+                this.audio.currentTime = (this.setProcessO.value || 0);
+            }
+
+            playerMp3.prototype.setVolup = function(){//音量+
+                var v = this.audio.volume + 0.1;
+
+                this.audio.volume = (v > 1 ? 1 : v);
+            }
+
+            playerMp3.prototype.setVoldown = function(){//音量-
+                var v = this.audio.volume - 0.1;
+
+                this.audio.volume = (v < 0 ? 0 : v);
+            }
+
+            playerMp3.prototype.setMute = function(){//静音/发声
+                this.audio.muted = !this.audio.muted;
+                this.audio.muted ? (this.muted.value = "发声") : (this.muted.value = "静音");
+
+            }
+
+            //实例化播放器
+            return new playerMp3(mp3);
+        }
+        /*=========HTML5版Js实现的MP3播放器==============*/
+        playerMp3({
+            "audio":document.getElementById("audio"),//音频对象
+            "audioAction":document.getElementById("audioAction"),//音频控制播放或暂停
+            "process":document.getElementById("process"),//播放进度
+            "setProcess":document.getElementById("setProcess"),//修改播放进度
+            "setProcessOK":document.getElementById("setProcessOK"),//确定修改进度
+            "volup":document.getElementById("volup"),//音量增大
+            "voldown":document.getElementById("voldown"),//音量减小
+            "muted":document.getElementById("muted")//静音
+        })
+    };
+</script>
+</body>
+</html>

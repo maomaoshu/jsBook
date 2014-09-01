@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>6.2节,显示当前时间</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>显示当前时间</h2>
+    <p id='nowTime'>时间：</p>
+<script type="text/javascript">
+    window.onload = function(){
+        function getNowTime(){
+            var date =new Date();//获取日期对象
+
+            /*获取年、月、日、时、分、秒，本地系统的时间*/
+            return date.getFullYear() + "年"
+                    + (date.getMonth() + 1) + "月"
+                    + date.getDate() + "日"
+                    + " "
+                    + date.getHours() + "时"
+                    + date.getMinutes() + "分"
+                    + date.getSeconds() + "秒";
+        }
+        //显示当前时间
+        document.getElementById("nowTime").innerHTML = "时间：" + getNowTime();
+    };
+</script>
+</body>
+</html>

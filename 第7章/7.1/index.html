@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>7.1节,页面悬浮导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<style>
+    a{
+        text-decoration:none;
+    }
+    /*===================页面悬浮导航=======================*/
+    #suspendNavigation{
+        position: absolute;
+        top:0px;
+        left: 0px;
+        background-color: #ccc;
+        width: 100%;
+        z-index: 1000;
+    }
+    #suspendNavigation div{
+        position: relative;
+        float: left;
+        border: #cc2123 1px solid;
+        width: 19%;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+</style>
+<body>
+<div id='suspendNavigation'>
+    <h2>页面悬浮导航</h2>
+    <div><a href='http://www.qingjs.com' target="_blank">导航1</a></div>
+    <div class=""><a href='http://www.qingjs.com' target="_blank">导航2</a></div>
+    <div><a href='http://www.qingjs.com' target="_blank">导航3</a></div>
+    <div><a href='http://www.qingjs.com' target="_blank">导航4</a></div>
+    <div><a href='http://www.qingjs.com' target="_blank">导航5</a></div>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var suspendNavigation = document.getElementById("suspendNavigation");//获取待定位的元素
+        window.onscroll = function(){ //绑定滚轴事件
+            suspendNavigation.style.top = (document.documentElement.scrollTop || document.body.scrollTop) + "px";//将元素top定位
+        }
+    };
+</script>
+<!--以下为距离代码，方便测试-->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>7.2节,下拉式导航菜单</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<style>
+    a{
+        text-decoration:none;
+    }
+    /*=======================下拉式导航菜单=====================*/
+    #pullDownNavigation .navigation{
+        position: relative;
+        float: left;
+        border: #cc2123 1px solid;
+        width: 19%;
+        height: 30px;
+        text-align: center;
+    }
+    .pullDownNavigationc{
+        position: relative;
+        float: left;
+        top: -1px;
+        overflow: hidden;
+        height: 80px;
+        text-align: center;
+        width: 99%;
+        border: 1px solid #cc2123;
+        border-top: 0px;
+        display: none;
+    }
+    .navigation .nav{
+        height: 32px;
+        line-height: 30px;
+    }
+</style>
+<body>
+    <h2>下拉式导航菜单</h2>
+    <div id='pullDownNavigation'>
+        <div class="navigation navigation1" data-targetID='pullDownNavigation1'>
+            <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航1</a></div>
+            <!--导航1菜单-->
+            <div class="pullDownNavigationc" id='pullDownNavigation1'>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+            </div>
+        </div>
+        <div class="navigation navigation1" data-targetID='pullDownNavigation2'>
+            <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航2</a></div>
+            <!--导航1菜单-->
+            <div class="pullDownNavigationc" id='pullDownNavigation2'>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+            </div>
+        </div>
+        <div class="navigation navigation1" data-targetID='pullDownNavigation3'>
+            <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航3</a></div>
+            <!--导航1菜单-->
+            <div class="pullDownNavigationc" id='pullDownNavigation3'>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+            </div>
+        </div>
+        <div class="navigation navigation1" data-targetID='pullDownNavigation4'>
+            <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航4</a></div>
+            <!--导航1菜单-->
+            <div class="pullDownNavigationc" id='pullDownNavigation4'>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+            </div>
+        </div>
+        <div class="navigation navigation1" data-targetID='pullDownNavigation5'>
+            <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航5</a></div>
+            <!--导航1菜单-->
+            <div class="pullDownNavigationc" id='pullDownNavigation5'>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+                <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        getTypeElement = function(es, type){//获取指定类型的节点
+            var esLen = es.length,
+                    i = 0,
+                    eArr = [],
+                    esI = null;
+            for(; i < esLen ; i++){
+                esI = es[i];
+                if(esI.nodeName.replace("#", "").toLocaleLowerCase() == type){
+                    eArr.push(esI);
+                }
+            }
+            return eArr;
+        },
+        navs = getTypeElement(document.getElementById("pullDownNavigation").childNodes, "div"),//获取所有下拉式导航菜单
+        i = 0,
+        l = navs.length,//元素个数
+        targetID = null;
+
+        for(; i < l ; i++){
+            navs[i].onmousemove = function(){    //显示下拉菜单
+                targetID = this.getAttribute("data-targetID");
+                document.getElementById(targetID).style.display = "block";
+            }
+
+            navs[i].onmouseout = function(){  //隐藏下拉菜单
+                document.getElementById(targetID).style.display = "none";
+            }
+        }
+    };
+</script>
+<!--以下为距离代码，方便测试-->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+</body>
+</html>

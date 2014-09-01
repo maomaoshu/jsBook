@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>8.1节,区分平台类型</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<style>
+
+</style>
+<body>
+<script type="text/javascript">
+    window.onload = function(){
+        /*
+         * 区分平台类型
+         * 则在主体元素中添加“iPhone”、“Android”等标示符
+         * */
+
+        function mobPlatformType(){
+
+            var platformType = "others", //平台类型模式是其它
+                    platforms = [//一些主流设备类型库
+                        "iphone",
+                        "ipod",
+                        "ipad",
+                        "android",
+                        "windows phone os"
+                    ],
+                    reg = null,//正则匹配的设备字符
+                    userAgent = navigator.userAgent.toLowerCase(),//设备字符串
+                    i = 0,//初始值
+                    l = platforms.length,//设备的数量上限
+                    p = "";//当前设备
+
+            for(; i < l;i++){
+                p = platforms[i];
+                reg = new RegExp(p, "i");//正则设备匹配
+                if (userAgent.match(reg))//正则判断是否为iPhone
+                {
+                    platformType = p;
+                }
+            }
+
+            document.body.setAttribute("mob-platformType", platformType);
+        }
+        mobPlatformType();
+    };
+</script>
+</body>
+</html>

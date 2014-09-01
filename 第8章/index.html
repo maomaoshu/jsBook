@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第8章 移动开发常用代码管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="mobManage.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+		; (function (_Mob, window, document, undefined) {//为了直观方便大家查看  将待测试代码放入当前页
+
+            var _W = window,
+
+				document = _W.document,
+
+                project = _Mob || {};//继承_Mob ，区别于原型链继承
+                ;
+
+			project.init = function () {//初始化
+				this.initEvents();
+			}
+
+			project.initEvents = function () {//初始化事件
+
+                 this.mobPlatformType();//区分平台类型
+            }
+
+			window.onload = function(){
+                project.init();
+            };
+		})(mobManage , window, document);
+	</script>
+</body>
+</html>

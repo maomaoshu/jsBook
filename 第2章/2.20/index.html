@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.20节,对文本内容进行关键词过滤</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>对文本内容进行关键词过滤</h2>
+<textarea id='keyWordsFiltering' rows="10" cols="50">
+    关键词过滤：你好，我是席新亮，非常喜欢JavaScript，希望和大家切磋交流。业余爱好：玩游戏，但是不使用外挂，游戏里面有很多美女，咱也不贪色，嘿嘿~~~
+</textarea>
+获取焦点执行过滤
+<script type="text/javascript">
+    window.onload = function(){
+        var _keyWordsFiltering = document.getElementById("keyWordsFiltering");
+        _keyWordsFiltering.onclick =function(){
+            var //关键词库
+                keyWordsLibs = [
+                    "JavaScript",
+                    "美女",
+                    /[外]{1}.{0,3}[挂]{1}/
+                ],
+                keyWordsLibsLen = keyWordsLibs.length;
+                for(var i = 0 ; i < keyWordsLibsLen; i++){//正则过滤
+                    _keyWordsFiltering.value = _keyWordsFiltering.value.replace(keyWordsLibs[i], "***")
+                }
+        }
+    };
+</script>
+</body>
+</html>

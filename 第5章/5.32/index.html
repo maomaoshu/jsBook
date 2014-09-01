@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.32节,获得一个窗口的大小</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <h2>获得一个窗口的大小</h2>
+    <p id='getWinSize'></p>
+<script type="text/javascript">
+    window.onload = function(){
+        //获得一个窗口的大小
+        getWinSize = function(){
+            return {
+                //如果ie7~8不支持采用 后边获取属性的方法
+                width: window.innerWidth || document.documentElement.offsetWidth,
+                height:window.innerHeight || document.documentElement.offsetHeight
+            };
+        }
+        var winSize = getWinSize();//获取大小
+        document.getElementById("getWinSize").innerHTML = "高：" + winSize.height + "宽：" + winSize.width;
+    };
+</script>
+</body>
+</html>

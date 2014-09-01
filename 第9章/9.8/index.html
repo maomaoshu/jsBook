@@ -1,0 +1,166 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>9.8节,Ajax实现导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D874c49a728d76c2e075dd33658f0864"></script>
+    <style type="text/css">
+        #ajaxNavigation{
+            position: relative;
+            top:0px;
+            left: 0px;
+            background-color: #ccc;
+            width: 100%;
+            z-index: 1000;
+        }
+        #ajaxNavigation div{
+            position: relative;
+            float: left;
+            border: #cc2123 1px solid;
+            width: 19%;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ajax实现导航</h2>
+    <div id='ajaxNavigation'></div>
+<script type="text/javascript">
+    window.onload = function(){
+        /*
+         Js解析JSON数据
+         */
+
+        function trim(chars){//去除字符串左右两边的空格
+            return (chars || "").replace(/^(\s|\u00A0)+|(\s|\u00A0)+$/g, "" );
+        }
+
+        function parseJSON(jsonData){//解析函数
+
+            if (typeof jsonData === 'object') {  //判断是否为对象
+                return jsonData;//直接返回对象
+            }
+
+            if ( window.JSON && window.JSON.parse ) {//如果存在原生的JSON解析API，则使用原生的解析API
+                return window.JSON.parse( jsonData );//解析JSON字符
+            }
+
+            if ( typeof jsonData === "string" ) {
+                jsonData = trim( jsonData );//简单的过滤字符，保证前后没有空格
+                if ( jsonData ) {//如果不是空字符
+                    return ( new Function( "return " + jsonData ) )();  //利用Function的特性，构造 JSON 对象
+                }
+            }
+        }
+
+        /*
+         *夸浏览器的Ajax（Js实现无刷新Ajax）
+         * */
+
+         function ajax(options){
+            if(!options || !options.url){//检测是否存在请求的URL
+                return false;//ajax调用失败
+            }
+
+            /*
+             * 数据初始化
+             * */
+
+            options.data = options.data || "";//待传送的值
+            options.method = (options.method || "GET").toUpperCase();//传送类型，默认是GET
+            options.async = options.async || true;//异步（true）或同步（false）
+
+            /*
+             *响应类型,如果请求的是xml文件，则默认类型为xml，否则默认为json，目前支持3种：text、xml、json
+             * */
+            options.responseType = options.responseType || (/xml/.test(options.url) ? "xml" : "json");
+            options.successCall = options.successCall || false;//成功回调
+            options.failureCall = options.failureCall || false;//失败回调
+
+            var xmlhttp;
+            if (window.XMLHttpRequest)// code for IE7+, Firefox, Chrome, Opera, Safari etc.
+            {
+                xmlhttp=new XMLHttpRequest();
+            }
+            else//IE6, IE5
+            {
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) //成功回调
+                {
+                    if(options.successCall){
+                        options.successCall(getResponseData(xmlhttp, options.responseType));
+                    }
+                }
+
+                if(xmlhttp.readyState == 4 && xmlhttp.status != 200){ //失败回调
+                    if(options.failureCall){
+
+                        options.failureCall(xmlhttp, xmlhttp.status); //参数1---xml响应对象，参数2---状态码
+                    }
+                }
+
+            }
+
+            xmlhttp.open(options.method, options.url + (options.method == "GET" ? "?" + options.data : ""), options.async);
+            if(options.method != "GET"  &&  options.data){
+                xmlhttp.send(options.data);
+            }else{
+                xmlhttp.send();
+            }
+            return true; //ajax调用成功
+        }
+
+        function getResponseData(xmlhttp, type){//解析响应的ajax数据
+
+            var resData = xmlhttp.responseText; //获得字符串形式的响应数据
+            if(type === "json"){//因为默认值为json，而且现在json格式的流行度优于其它格式，因此将此放在第一位
+                return parseJSON(resData);
+            }
+
+            if(type === "xml"){
+                return xmlhttp.responseXML; //获得 XML 形式的响应数据
+            }
+
+            if(type === "text"){
+                return resData;
+            }
+        }
+        /*
+         Ajax实现导航
+         * */
+        function getAjaxNavigation (){
+            var createNav = function(data){//创建菜单导航列表
+                var nav = document.getElementById("ajaxNavigation"),//获取对象
+                        navHtml = '<h2>Ajax实现导航</h2>',//菜单字符
+                        l = data.length,//数据长度
+                        i = 0,//开始值
+                        d = null; //遍历的当前值
+
+                for(; i < l ; i++){
+                    d = data[i];//当前数据
+                    navHtml += '<div><a href="'+ d.href +'" target="_blank">'+ d.name +'</a></div>';//累加菜单
+                }
+
+                nav.innerHTML = navHtml;
+
+            }
+
+            ajax({//加载json文件
+                "url":"../navigation.json",
+                "successCall":function(msg){ //成功回调
+                    createNav(msg.menu);
+                },
+                "failureCall":function(xmlRes, resCode){//失败回调
+
+                }
+            })
+        }
+        getAjaxNavigation();
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.16节,不允许文本框自动完成</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>不允许文本框自动完成</h2>
+<form action="">
+    <input type="text" id="banAutocomplete" value="禁止自动完成">
+    <input type="text" id="banAutocomplete2" autocomplete="off" />
+</form>
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("banAutocomplete").setAttribute("autocomplete", "off");//设置属性
+    };
+</script>
+</body>
+</html>

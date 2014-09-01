@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.24节,修改浏览器title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<body>
+    <h2>修改浏览器title</h2>
+    <input id='titleNewline' data-title='修改后的title' type="button" value='修改浏览器title'/>
+<script type="text/javascript">
+    window.onload = function(){
+        //修改浏览器title
+        document.getElementById("titleNewline").onclick = function(){
+            document.title =  this.getAttribute("data-title");//修改为目标title
+        }
+    };
+</script>
+</body>
+</html>

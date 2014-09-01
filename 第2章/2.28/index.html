@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.28节,根据指定内容选中复选框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>根据指定内容选中复选框</h2>
+<p>如果内容中含有关键词：“JavaScript”、“席新亮”、“游戏”，则相应的关键词复选框会被选中</p>
+<textarea id='contentCheckbox' data-target='autoKeywordSelect'>
+
+</textarea>
+<br />
+<input type="checkbox" name='autoKeywordSelect' data-k='JavaScript'>JavaScript<br />
+<input type="checkbox" name='autoKeywordSelect' data-k='席新亮'>席新亮<br />
+<input type="checkbox" name='autoKeywordSelect' data-k='游戏'>游戏<br />
+<script type="text/javascript">
+    window.onload = function(){
+        var contentCheckbox = document.getElementById("contentCheckbox"),
+                _targets = document.getElementsByName(contentCheckbox.getAttribute("data-target")),
+                targetsLen = _targets.length,
+                i = 0;
+        contentCheckbox.onkeyup = function(){
+            for(i = 0 ; i < targetsLen ; i ++){
+                var _t = _targets[i],
+                        _v = this.value;
+                //如果内容与复选框的关键词匹配，选择当前的复选框
+                //三元运算写法
+                /*_v.search(_t.getAttribute("data-k")) != -1 ?
+                 _t.checked = true :
+                 _t.checked = false;*/
+
+                //单链式条件写法
+                _t.checked = _v.search(_t.getAttribute("data-k")) != -1 && true || false;
+            }
+        }
+    };
+</script>
+</body>
+</html>

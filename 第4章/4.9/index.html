@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.9节,内容超过元素宽度显示省略号</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+    /*===============内容超过元素宽度显示省略号===========================*/
+    #contentApostrophe{
+        white-space: nowrap;
+        display: block;
+        width: 100px;
+    }
+</style>
+<body>
+    <h2>内容超过元素宽度显示省略号</h2>
+    <div id='contentApostrophe'>内容超过元素宽度显示省略号</div>
+<script type="text/javascript">
+    window.onload = function(){
+        function getAbsoluteLeft(_e){//获取元素的绝对left
+            var _left = _e.offsetLeft,
+                    _current = _e.offsetParent;
+            while (_current !== null){//遍历父层。累加left
+                _left += _current.offsetLeft;
+                _current = _current.offsetParent;
+            }
+            return _left;
+        }
+
+        function getAbsoluteTop(_e){//获取元素的绝对top
+            var _top = _e.offsetTop,
+                    _current = _e.offsetParent;
+            while (_current !== null){//遍历父层。累加top
+                _top += _current.offsetTop;
+                _current = _current.offsetParent;
+            }
+            return _top;
+        }
+
+        function setCss(_this, cssOption){//设置元素样式
+            //判断节点类型
+            if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                return;
+            }
+            for(var cs in cssOption){
+                _this.style[cs] = cssOption[cs];
+            }
+            return _this;
+        }
+
+        function getTextWidth(e){//获取文字的宽度
+            e = e.cloneNode(true);//深度克隆文字节点
+            var textWidth = 0,
+                    _body = document.body;
+
+            _body.appendChild(e);//追加在body元素上
+
+            setCss(e, {//设置样式
+                "width" : "auto",
+                "position":"absolute",
+                "zIndex":-1
+            });
+
+            textWidth = e.offsetWidth;//获取宽度
+            _body.removeChild(e);//释放节点
+            return textWidth;//返回文字宽度
+        }
+
+        function contentApostrophe(e){
+            var _left = getAbsoluteLeft(e),
+                    _top = getAbsoluteTop(e),
+                    _w = e.offsetWidth;
+            e.style.overflow = "hidden";
+            //循环节点，比较文字与目标元素的长度，如果文字的长度大于元素宽度，则继续循环处理
+            while(getTextWidth(e) > _w){
+                e.innerHTML = e.innerHTML.substring(0, e.innerHTML.length-4);//提取文字片段
+                e.innerHTML = e.innerHTML + "…";//添加省略号
+            }
+
+        }
+        contentApostrophe(document.getElementById("contentApostrophe"));
+    };
+</script>
+</body>
+</html>

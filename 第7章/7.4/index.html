@@ -1,0 +1,168 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>7.4节,树形菜单导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    a{
+        text-decoration:none;
+    }
+    /*===============树形菜单导航======================*/
+    ul{
+        list-style: none;
+    }
+    .treeNode li{
+        margin: 3px 0px 3px -20px;
+        white-space: nowrap;
+    }
+    .treeIcon{
+        border: 1px solid #ccc;
+    }
+    .treeIconNo{
+        border: 1px solid #fff;
+    }
+</style>
+<body>
+    <h2>树形菜单导航：展开 | 收缩</h2>
+    <ul class="treeNode">
+        <li>
+            <!--当前项-->
+            <div class="treeList">
+                <a href="javascript:void(0)" class="treeIcon">-</a>
+                <a href="javascript:void(0)">1点</a>
+            </div>
+            <!--子菜单-->
+            <ul class="treeNode">
+                <li>
+                    <!--当前项-->
+                    <div class="treeList">
+                        <a href="javascript:void(0)" class="treeIcon">-</a>
+                        <a href="javascript:void(0)">1-2点</a>
+                    </div>
+                    <!--子菜单-->
+                    <ul class="treeNode">
+                        <li>
+                            <!--当前项-->
+                            <div class="treeList">
+                                <a href="javascript:void(0)" class="treeIcon">-</a>
+                                <a href="javascript:void(0)">1-2-1点</a>
+                            </div>
+                            <!--子菜单-->
+                            <ul class="treeNode">
+                                <li>
+                                    <!--当前项-->
+                                    <div class="treeList">
+                                        <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                                        <a href="javascript:void(0)">1-2-1-1点</a>
+                                    </div>
+                                    <!--子菜单-->
+                                    <ul></ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <!--当前项-->
+                    <div class="treeList">
+                        <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                        <a href="javascript:void(0)">1-3点</a>
+                    </div>
+                </li>
+                <li>
+                    <!--当前项-->
+                    <div class="treeList">
+                        <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                        <a href="javascript:void(0)">1-4点</a>
+                    </div>
+                </li>
+                <li>
+                    <!--当前项-->
+                    <div class="treeList">
+                        <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                        <a href="javascript:void(0)">1-5点</a>
+                    </div>
+                </li>
+                <li>
+                    <!--当前项-->
+                    <div class="treeList">
+                        <a href="javascript:void(0)" class="treeIcon">-</a>
+                        <a href="javascript:void(0)">1-6点</a>
+                    </div>
+                    <!--子菜单-->
+                    <ul class="treeNode">
+                        <li>
+                            <!--当前项-->
+                            <div class="treeList">
+                                <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                                <a href="javascript:void(0)">1-6-1点</a>
+                            </div>
+                        </li>
+                        <li>
+                            <!--当前项-->
+                            <div class="treeList">
+                                <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                                <a href="javascript:void(0)">1-6-2点</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+<script type="text/javascript">
+    window.onload = function(){
+        function getTypeElement(es, type){//获取指定类型的节点
+            var esLen = es.length,
+                    i = 0,
+                    eArr = [],
+                    esI = null;
+            for(; i < esLen ; i++){
+                esI = es[i];
+                if(esI.nodeName.replace("#", "").toLocaleLowerCase() == type){
+                    eArr.push(esI);
+                }
+            }
+            return eArr;
+        }
+
+        function treeMenuNav(){//树形菜单导航
+
+            var as = document.getElementsByTagName('a'),//获取所有a元素
+                    ai = 0,//循环变量初始引导值
+                    al = as.length,//a的个数
+                    ao = null;    //被遍历的当前元素
+
+            for(; ai < al ; ai++){
+                ao = as[ai];
+
+                if(ao.className == "treeIcon"){//判断是否是树形节点被点击的地方
+                    ao.onclick = function(){//绑定点击事件
+
+                        var iconType = this.innerHTML,//获取展示类型
+                                uls = getTypeElement(this.parentNode.parentNode.childNodes, "ul"),//所有将要设置是否显示的元素
+                                uli = 0,//元素初始值
+                                ull = uls.length,//子菜单个数
+                                dis = "block";//默认显示（展开）子菜单
+
+                        if(iconType == "-"){
+                            this.innerHTML = "+";
+                            dis = "none";
+                        }
+                        else{
+                            this.innerHTML = "-";
+                        }
+                        for(; uli < ull ; uli++){
+                            uls[uli].style.display = dis;
+                        }
+                    }
+                }
+            }
+        }
+        treeMenuNav();
+    };
+</script>
+
+</body>
+</html>

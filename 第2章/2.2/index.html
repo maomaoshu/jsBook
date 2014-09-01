@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>2.2节,验证是否输入</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<h2>验证是否输入</h2>
+<input type='text' id='strs' value='          需要过滤空格 '>
+<input type='button' id='isContent' value='验证是否为空'><br>
+<script type="text/javascript">
+    window.onload = function(){
+        var _isContent = document.getElementById("isContent"),
+                _strs = document.getElementById("strs");
+
+        _isContent.onclick = function(){
+            if(!_strs.value.replace( /^(\s|\u00A0)+|(\s|\u00A0)+$/g, "" )){
+                alert("您的输入为空！");
+            }else{
+                alert("您的输入不为空！");
+            }
+        }
+    };
+</script>
+</body>
+</html>

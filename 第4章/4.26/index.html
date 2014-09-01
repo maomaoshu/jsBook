@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.26节,删除时弹出确认对话框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>删除时弹出确认对话框</h2>
+    <div id='deleteElement' style="height: 100px;background-color: #ccc">将要被删除的元素······</div>
+    <input id='deleteConfirmation' data-msg='警告，您真的要删除上边的元素吗？' type="button" value="删除" />
+<script type="text/javascript">
+    window.onload = function(){
+        //删除时弹出确认对话框*******************************************
+        document.getElementById("deleteConfirmation").onclick = function(){//删除单击
+            if(document.getElementById("deleteElement")){//是否存在被删除的元素
+                if(window.confirm(this.getAttribute("data-msg"))){//弹出删除确认框
+                    document.body.removeChild(document.getElementById("deleteElement"));//删除执行
+                    alert("删除成功！");
+                }
+            }else{
+                alert("元素已经删除过！");
+            }
+
+        }
+    };
+</script>
+</body>
+</html>

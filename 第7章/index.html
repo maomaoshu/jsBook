@@ -1,0 +1,682 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>第7章 页面特效</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../extend/animateManage.js"></script>
+    <script type="text/javascript" src="peManage.js"></script>
+    <style>
+        a{
+            text-decoration:none;
+        }
+        /*===================页面悬浮导航=======================*/
+        #suspendNavigation{
+            position: absolute;
+            top:0px;
+            left: 0px;
+            background-color: #ccc;
+            width: 100%;
+            z-index: 1000;
+        }
+        #suspendNavigation div{
+            position: relative;
+            float: left;
+            border: #cc2123 1px solid;
+            width: 19%;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+        /*=======================下拉式导航菜单=====================*/
+        #pullDownNavigation .navigation{
+            position: relative;
+            float: left;
+            border: #cc2123 1px solid;
+            width: 19%;
+            height: 30px;
+            text-align: center;
+        }
+        .pullDownNavigationc{
+            position: relative;
+            float: left;
+            top: -1px;
+            overflow: hidden;
+            height: 80px;
+            text-align: center;
+            width: 99%;
+            border: 1px solid #cc2123;
+            border-top: 0px;
+            display: none;
+        }
+        .navigation .nav{
+            height: 32px;
+            line-height: 30px;
+        }
+         /**=================滑动门导航========================**/
+        #slide{
+            position: relative;
+            left: -72px;
+            display: block;
+            border: 1px #ccc solid;
+            height: 82px;
+            width: 100px;
+        }
+         #slide div{
+             position: relative;
+             float: left;
+             margin-top: 5px;
+             margin-left: 5px;
+         }
+
+        .slideMain div{
+            clear: both;
+        }
+        .slideMain,.slideTab{
+            height: 80px;
+        }
+        .slideTab{
+            line-height: 74px;
+        }
+        /*===============树形菜单导航======================*/
+        ul{
+            list-style: none;
+        }
+        .treeNode li{
+            margin: 3px 0px 3px -20px;
+            white-space: nowrap;
+        }
+        .treeIcon{
+            border: 1px solid #ccc;
+        }
+        .treeIconNo{
+            border: 1px solid #fff;
+        }
+            /*==================仿QQ菜单=====================start*/
+        #likeQQMenue{
+            position: relative;
+            width: 261px;
+            height: 522px;
+            border: 1px solid #9DC3E7;
+            background-color: #F5FAFD;
+            border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            font: 12px/1.5 tahoma,helvetica,clean,sans-serif;
+        }
+        .likeQQMenueLists{
+            width: 100%;
+            margin: 10px;
+        }
+        .relationList .lists div{
+            position: relative;
+            float: left;
+        }
+        .relationList .lists .images img{
+            width: 20px;
+            height: 20px;
+        }
+        .likeQQMenueLists .lists{
+            width: 80%;
+            position: relative;
+            left: 6%;
+            clear: both;
+            height: 30px;
+        }
+        .relationMenu{
+            background: url(./images/icons.png) 0px 0px no-repeat;
+            zoom: 1;
+            line-height: 30px;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+            color: #000;
+        }
+        .relationMenu.on{
+            background: url(./images/icons.png) -16px 0px no-repeat;
+            zoom: 1;
+            line-height: 30px;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+            color: #000;
+        }
+        .likeQQMenueLists div{
+            position: relative;
+            float: left;
+        }
+        .relationTitle{
+            top: -5px;
+        }
+        /*=====================漂浮广告========================start*/
+        #floatingAd{
+            position: absolute;
+            background-color: #ccc;
+            width: 100px;
+            line-height: 100px;
+            height: 100px;
+        }
+        /*=============滑动展开/收缩广告=====start*/
+        #adOpenOrShrink{
+            position: relative;
+            height: 0px;
+            overflow: hidden;
+            background-color: #ccc;
+        }
+        /*===================定时关闭的背投广告=======================start*/
+        #backAd{
+            position: relative;
+            height: 300px;
+            width: 300px;
+            line-height: 300px;
+            text-align: center;
+            background-color: #123323;
+            color: #fff;
+        }
+        /*============随图片快速翻动幻灯代码======start*/
+        #picLists div{
+            position: relative;
+            float: left;
+        }
+        #picLists div img{
+            width: 50px;
+            height: 50px;
+            border: 1px #fff solid;
+        }
+        #flippingPictures{
+            width: 208px;
+            overflow: hidden;
+            position: relative;
+        }
+        #flippingPictures #main{
+            position: relative;
+            width: 516px;
+            height: 208px;
+            overflow: hidden;
+        }
+
+        #flippingPictures #main img{
+            width: 208px;
+            height: 208px;
+        }
+        #flippingPictures #main div{
+            position: relative;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id='suspendNavigation'>
+        <h2>页面悬浮导航</h2>
+        <div><a href='http://www.qingjs.com' target="_blank">导航1</a></div>
+        <div class=""><a href='http://www.qingjs.com' target="_blank">导航2</a></div>
+        <div><a href='http://www.qingjs.com' target="_blank">导航3</a></div>
+        <div><a href='http://www.qingjs.com' target="_blank">导航4</a></div>
+        <div><a href='http://www.qingjs.com' target="_blank">导航5</a></div>
+    </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>下拉式导航菜单</h2>
+<div id='pullDownNavigation'>
+    <div class="navigation navigation1" data-targetID='pullDownNavigation1'>
+        <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航1</a></div>
+        <!--导航1菜单-->
+        <div class="pullDownNavigationc" id='pullDownNavigation1'>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+        </div>
+    </div>
+    <div class="navigation navigation1" data-targetID='pullDownNavigation2'>
+        <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航2</a></div>
+        <!--导航1菜单-->
+        <div class="pullDownNavigationc" id='pullDownNavigation2'>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+        </div>
+    </div>
+    <div class="navigation navigation1" data-targetID='pullDownNavigation3'>
+        <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航3</a></div>
+        <!--导航1菜单-->
+        <div class="pullDownNavigationc" id='pullDownNavigation3'>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+        </div>
+    </div>
+    <div class="navigation navigation1" data-targetID='pullDownNavigation4'>
+        <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航4</a></div>
+        <!--导航1菜单-->
+        <div class="pullDownNavigationc" id='pullDownNavigation4'>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+        </div>
+    </div>
+    <div class="navigation navigation1" data-targetID='pullDownNavigation5'>
+        <div class="nav"><a href='http://www.qingjs.com' target="_blank">导航5</a></div>
+        <!--导航1菜单-->
+        <div class="pullDownNavigationc" id='pullDownNavigation5'>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单1</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单2</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单3</a></div>
+            <div><a href='http://www.qingjs.com' target="_blank">下拉菜单4</a></div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <h2>滑动门导航</h2>
+    <div id='slide'>
+        <!--菜单主体-->
+        <div class="slideMain" id='slideMain'>
+             <div><a href="http://www.qingjs.com">菜单1</a></div>
+             <div><a href="http://www.qingjs.com">菜单1</a></div>
+             <div><a href="http://www.qingjs.com">菜单1</a></div>
+        </div>
+
+        <!--引导卡-->
+        <div class="slideTab" title='显示菜单' id='slideTab'>
+            &nbsp;》》
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2>树形菜单导航：展开 | 收缩</h2>
+<ul class="treeNode">
+    <li>
+        <!--当前项-->
+        <div class="treeList">
+            <a href="javascript:void(0)" class="treeIcon">-</a>
+            <a href="javascript:void(0)">1点</a>
+        </div>
+        <!--子菜单-->
+        <ul class="treeNode">
+            <li>
+                <!--当前项-->
+                <div class="treeList">
+                    <a href="javascript:void(0)" class="treeIcon">-</a>
+                    <a href="javascript:void(0)">1-2点</a>
+                </div>
+                <!--子菜单-->
+                <ul class="treeNode">
+                    <li>
+                        <!--当前项-->
+                        <div class="treeList">
+                            <a href="javascript:void(0)" class="treeIcon">-</a>
+                            <a href="javascript:void(0)">1-2-1点</a>
+                        </div>
+                        <!--子菜单-->
+                        <ul class="treeNode">
+                            <li>
+                                <!--当前项-->
+                                <div class="treeList">
+                                    <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                                    <a href="javascript:void(0)">1-2-1-1点</a>
+                                </div>
+                                <!--子菜单-->
+                                <ul></ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <!--当前项-->
+                <div class="treeList">
+                    <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                    <a href="javascript:void(0)">1-3点</a>
+                </div>
+            </li>
+            <li>
+                <!--当前项-->
+                <div class="treeList">
+                    <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                    <a href="javascript:void(0)">1-4点</a>
+                </div>
+            </li>
+            <li>
+                <!--当前项-->
+                <div class="treeList">
+                    <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                    <a href="javascript:void(0)">1-5点</a>
+                </div>
+            </li>
+            <li>
+                <!--当前项-->
+                <div class="treeList">
+                    <a href="javascript:void(0)" class="treeIcon">-</a>
+                    <a href="javascript:void(0)">1-6点</a>
+                </div>
+                <!--子菜单-->
+                <ul class="treeNode">
+                    <li>
+                        <!--当前项-->
+                        <div class="treeList">
+                            <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                            <a href="javascript:void(0)">1-6-1点</a>
+                        </div>
+                    </li>
+                    <li>
+                        <!--当前项-->
+                        <div class="treeList">
+                            <a href="javascript:void(0)" class="treeIconNo">&nbsp;</a>
+                            <a href="javascript:void(0)">1-6-2点</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h2>仿QQ菜单</h2>
+    <!--QQ菜单最外层-->
+    <div id='likeQQMenue'>
+        <!--好友-->
+        <div class="likeQQMenueLists" data-targetID='relationList1'>
+            <div class="relationMenu">&nbsp;</div>
+            <div class="relationTitle">&nbsp;好友[11/11]</div>
+        </div>
+        <!--好友-关系列表-->
+        <div class="relationList likeQQMenueLists" id='relationList1'>
+             <div class="lists">
+                 <!--头像-->
+                 <div class="images">
+                     <img src='images/my.jpg'/>
+                 </div>
+                 <!--昵称-->
+                 <div class="nickname">
+                     <a href="javascript:void(0)">&nbsp;张王</a>
+                 </div>
+             </div>
+            <div class="lists">
+                 <!--头像-->
+                 <div class="images">
+                     <img src='images/my.jpg'/>
+                 </div>
+                 <!--昵称-->
+                 <div class="nickname">
+                     <a href="javascript:void(0)">&nbsp;小李</a>
+                 </div>
+             </div>
+            <div class="lists">
+                 <!--头像-->
+                 <div class="images">
+                     <img src='images/my.jpg'/>
+                 </div>
+                 <!--昵称-->
+                 <div class="nickname">
+                     <a href="javascript:void(0)">&nbsp;老孙</a>
+                 </div>
+             </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;赵五</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小龙</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小韩</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;赵五</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小龙</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小韩</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;赵五</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小龙</a>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+        <!--黑名单-->
+        <div class="likeQQMenueLists" data-targetID='relationList2'>
+            <div class="relationMenu">&nbsp;</div>
+            <div class="relationTitle">&nbsp;黑名单[3/3]</div>
+        </div>
+        <!--好友-关系列表-->
+        <div class="relationList likeQQMenueLists" id='relationList2'>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;赵五</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小龙</a>
+                </div>
+            </div>
+            <div class="lists">
+                <!--头像-->
+                <div class="images">
+                    <img src='images/my.jpg'/>
+                </div>
+                <!--昵称-->
+                <div class="nickname">
+                    <a href="javascript:void(0)">&nbsp;小韩</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<h2>漂浮广告</h2>
+<div id='floatingAd'>
+    我是漂浮广告
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2>滑动展开/收缩广告</h2>
+
+<div id='adOpenOrShrink'>
+    <p>我是展开/收缩广告</p>
+    <p>我是展开/收缩广告</p>
+    <p>我是展开/收缩广告</p>
+    <p>我是展开/收缩广告</p>
+    <p>我是展开/收缩广告</p>
+    <p>我是展开/收缩广告</p>
+</div>
+<input value='显示广告' id="updateAdOpenOrShrink" type="button" />
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h2>定时关闭的背投广告</h2>
+ <div id='backAd'>
+       点击我，5秒后关闭背投广告
+ </div>
+<h2>随图片快速翻动幻灯代码</h2>
+<div id='flippingPictures'>
+    <!--主视图-->
+    <div id='main'>
+        <!--第1张视图-->
+        <div id='firstUi'>
+            <img id='firstUiimg' src='images/my.jpg'/>
+        </div>
+        <!--第2张视图-->
+        <div id='secondUi'>
+            <img id='secondUiimg' src='images/my.jpg'/>
+        </div>
+    </div>
+    <!--多张图片-->
+    <div id='picLists'>
+        <div>
+            <img src='images/my.jpg'/>
+        </div>
+        <div>
+            <img src='images/psu.jpg'/>
+        </div>
+        <div>
+            <img src='images/psu1.jpg'/>
+        </div>
+        <div>
+            <img src='images/psu2.jpg'/>
+        </div>
+    </div>
+</div>
+<div style="clear: both"></div>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+<h2>页面五颜六色的雪花</h2>
+<input id='startFlutterCharacter'value="开始" type="button"/>
+<script type="text/javascript">
+		; (function (_PeM, window, document, undefined) {//为了直观方便大家查看  将待测试代码放入当前页
+
+            var _W = window,
+
+				document = _W.document,
+
+                project = _PeM || {};//继承_PeM ，区别于原型链继承
+                ;
+
+			project.init = function () {//初始化
+				this.initEvents();
+			}
+
+			project.initEvents = function () {//初始化事件
+
+                this.suspendNavigation();//页面悬浮导航====================start
+
+                this.pullDownNavigation(); //下拉式菜单导航
+
+                this.slideNavs(this.getElement("slide"));//滑动门导航======================start
+
+                this.treeMenuNav();//树形菜单导航======================start
+
+                this.likeQQMenue();//仿QQ菜单======================start
+
+                this.floatingAd();//漂浮广告======================start
+
+                this.getElement("updateAdOpenOrShrink").onclick = function(){//滑动展开/收缩广告===========================start
+                    project.adOpenOrShrink(project.getElement("adOpenOrShrink"));
+                }
+
+                this.getElement("backAd").onclick = function(){ //定时关闭的背投广告===========start
+                    project.backAd(project.getElement("backAd"));
+                }
+
+                this.picLists(); //随图片快速翻动幻灯代码=============start
+
+                this.getElement("startFlutterCharacter").onclick = function(){//页面五颜六色的雪花
+                    this.value = "已开始下雪，请等待";
+                    project.flutterChar();
+                }
+
+            }
+
+			window.onload = function(){
+                project.init();
+            };
+		})(peManage , window, document);
+	</script>
+</body>
+</html>

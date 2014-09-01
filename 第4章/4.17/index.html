@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>4.17节,隐藏层</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*========公共==========*/
+    h2,h5,#tooltipMsg,p{
+        white-space: nowrap;
+    }
+    td{
+        border: 1px solid #ccc;
+        height: 50px;
+        text-align: center;
+        font-size: 10pt;
+        padding: 2px;
+    }
+</style>
+<body>
+    <h2>隐藏层</h2>
+    <div id="hide" style="position:relative;border: 1px solid #ccc;width: 200px;height: 100px;display: block">
+        我是将要被隐藏的层！</div>
+    <input type="button" id="hidePrev" value="隐藏上边的层" />
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById("hidePrev").onclick = function(){//绑定隐藏单击事件
+            document.getElementById("hide").style.display = "none";//隐藏元素
+        }
+    };
+</script>
+</body>
+</html>

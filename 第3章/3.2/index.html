@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>3.2节,实时预览上传图片</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="../../extend/animateManage.js"></script>
+</head>
+<style>
+    /*======================图片预览上传========================*/
+    #previewImg{
+        height: 100px;
+    }
+    #previewImgSrc{
+        display: none;
+        height: 100px;
+    }
+</style>
+<body>
+    <h2>实时预览上传图片</h2>
+    <form>
+        <div id='previewImg'><img id='previewImgSrc' src='' /></div>
+        <input type="file" id='upPreviewImg' name='fileimg'>
+    </form>
+<script type="text/javascript">
+    window.onload = function(){
+        var
+        isIE = function(){//是否IE
+            return !!window.ActiveXObject;
+        },
+
+        isIE6 = function(){//是否IE6
+            return isIE() && !window.XMLHttpRequest;
+        },
+
+        isIE7 = function(){//是否IE7
+            return isIE() && !isIE6() && !isIE8();
+        },
+
+        isIE8 = function(){//是否IE8
+            return isIE() && !!document.documentMode;
+        },
+
+        setCss = function(_this, cssOption){//设置元素样式
+            if ( !_this || _this.nodeType === 3 || _this.nodeType === 8 || !_this.style ) {
+                return;
+            }
+            for(var cs in cssOption){
+                _this.style[cs] = cssOption[cs];
+            }
+            return _this;
+        },
+
+        /******************************
+         * 实时预览上传图片    start  *
+         *******************************/
+
+        upPreviewImg = function(options){
+            var _e = options.e,
+                    preloadImg = null;
+            _e.onchange = function(){
+                var _v = this.value,
+                        _body = document.body;
+                picReg = /(.JPEG|.jpeg|.JPG|.jpg|.GIF|.gif|.BMP|.bmp|.PNG|.png){1}/;//图片正则
+
+                if(!picReg.test(_v)){//简单的图片格式验证
+                    alert("请选择正确的图片格式");
+                    return false;
+                }
+
+                if(typeof FileReader == 'undefined'){//不支持FileReader
+                    if(this.file){
+                        options.previewImgSrc.setAttribute("src", this.file.files[0].getAsDataURL());
+                        options.previewImgSrc.style.display = "block";
+                    }
+                    else if(isIE6()){
+                        //ie6支持
+                        options.previewImgSrc.setAttribute("src", _v);
+                        options.previewImgSrc.style.display = "block";
+                    }
+                    else{
+                        /*ie7、ie8等支持 filters滤镜的浏览器
+                         * 为了去除图片默认的icon采用Data URI 与 MHTML技术接口，修改默认的图片
+                         * AlphaImageLoader 滤镜 ---filter : progid:DXImageTransform.Microsoft.AlphaImageLoader ( enabled=bEnabled , sizingMethod=sSize , src=sURL )
+                         * Data URI --- RFC 2397定义的一种把小文件直接嵌入文档的方案,格式：data:[<MIME-type>][;base64],<data>，注意ie6/7不支持Data URI
+                         * MHTML --- RFC 2557定义的把一个多媒体的页面所有内容都保存到同一个文档解决方案
+                         * */
+
+                        /*
+                         Content-Type: multipart/related; boundary="_CLOUDGAMER"
+
+                         --_CLOUDGAMER
+                         Content-Location:blankImage
+                         Content-Transfer-Encoding:base64
+
+                         R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAABAAEAAAICVAEAOw==
+                         */
+
+                        /*
+                         * 为了防止路径中有“)”，“%”这类字符，直接拼接到滤镜字符串中会出现一些sql注入的问题，所以进行escape编码
+                         */
+                        _v = _v.replace(/[)'"%]/g, function(str){ return escape(escape(str)); });
+                        setCss(options.previewImgSrc, {
+                            "filter":"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale',src=\"" + _v + "\")",
+                            "display":"block"
+                        });
+                        options.previewImgSrc.setAttribute("src", ( isIE6() || isIE7() ? "!blankImage" :
+                                "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="));
+
+                    }
+
+
+                }
+                else{//支持FileReader
+
+                    /*
+                     * 调用FileReader 文件API的readAsDataURL，启动异步加载文件的数据，通过监听reade的onload事件，
+                     * 等待数据加载完毕后，在回调函数onload事件中，通过reader的result属性即可获得图片文件的相关内容
+                     * */
+                    var reader = new FileReader(),
+                            _file = this.files[0];      //读取被加载的文件对象
+
+                    reader.onload = (function(file) {   //监听load事件
+                        return function() {
+                            options.previewImgSrc.setAttribute("src", this.result);
+                            options.previewImgSrc.style.display = "block";
+                        };
+                    })(_file);
+
+                    reader.onerror = function(){//监听文件读取的错误处理
+                        alert("文件读取数据出错");
+                    }
+
+                    reader.readAsDataURL(_file);//读取文件内容···
+                }
+            }
+        };
+
+        upPreviewImg({//图片预览上传
+            "e":document.getElementById("upPreviewImg"),
+            "previewImgSrc":document.getElementById("previewImgSrc")
+        });
+    };
+</script>
+</body>
+</html>

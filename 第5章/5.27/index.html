@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>5.27节,脚本永不出错</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = function(){
+            //在打开页面时，普通用户并不希望看到弹出脚本错误的对话框，为避免这种情况可以在网页中添加捕获错误的代码
+
+            //脚本发生错误时触发的对象---参数：m为错误信息、f错误的文件、l错误的行号
+            window.onerror = function(m, f, l){
+                return true;
+            };
+    };
+</script>
+</body>
+</html>
