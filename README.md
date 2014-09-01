@@ -1,7 +1,4 @@
-jsBook
-======
 <img src="http://images.china-pub.com/ebook3800001-3805000/3804034/zcover.jpg" alt="超实用的JS代码段" title="超实用的JS代码段" width="200" />
-
 ###《超实用的JS代码段》书籍项目
 ___________________________
 
@@ -11,6 +8,28 @@ ___________________________
 	新浪微博 ： 席新亮_javascript_html5
 	JavaScript交流群 ：315238234 
 ___________________________
+
+### 本书包括以下内容
+
+####第1章　学习javascript必须知道的事儿	
+* 1.1　如何在html中调用javascript代码	
+* 1.1.1　[script]标签的定义	 
+* 1.1.2　两种嵌入javascript代码的方式	 
+* 1.1.3　xhtml与html对javascript解析的不同之处	 
+* 1.1.4　[noscript]如何用	 
+* 1.2　使用什么工具开发javascript	 
+* 1.2.1　adobe dreamweaver软件，推荐指数：3	 
+* 1.2.2　sublimetext，推荐指数：4	 
+* 1.2.3　aptanastudio，推荐指数：4	 
+* 1.2.4　webstorm，推荐指数：4.5	 
+* 1.3　如何在不同浏览器中调试javascript代码	 
+* 1.3.1　webinspector调试工具	 
+* 1.3.2　firebug调试工具	 
+* 1.3.3　javascript调试器	 
+* 1.3.4　控制台	 
+* 1.3.5　http分析	 
+* 1.3.6　性能检测	 
+* 1.4　总结	 
 
 ####第2章　表单常用代码 
 * 2.1　去除字符串左右两边的空格	 
@@ -182,8 +201,10 @@ ___________________________
 * 9.9　类似百度的自动完成功能	 
 * 9.10　等级星投票效果	 
 * 9.11 ie导出表格  
+
 ___________________________
 
-###对本代码的书籍感兴趣的朋友可以访问一下地址购买
-购买地址推荐：http://product.china-pub.com/3804034?ref=xilie
+###《超实用的JS代码段》书籍访问地址:
+
+[互动出版网：](http://product.china-pub.com/3804034?ref=xilie)  
 
