@@ -1,14 +1,19 @@
 jsBook
 ======
 <img src="http://images.china-pub.com/ebook3800001-3805000/3804034/zcover.jpg" alt="超实用的JS代码段" title="超实用的JS代码段" width="200" />
-《超实用的JS代码段》书籍项目
+
+###《超实用的JS代码段》书籍项目
 ___________________________
 
-    >作者 ：席新亮
-    >QQ   ：939898101
-    >邮箱 ：939898101@qq.com
-    >新浪微博 ： 席新亮_javascript_html5
-	>JavaScript交流群 ：315238234 
+购买地址推荐：http://product.china-pub.com/3804034?ref=xilie
+
+___________________________
+
+>作者 ：席新亮
+>QQ   ：939898101
+>邮箱 ：939898101@qq.com
+>新浪微博 ： 席新亮_javascript_html5
+>JavaScript交流群 ：315238234 
 ___________________________
 
 ####第2章　表单常用代码 
