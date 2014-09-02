@@ -12,9 +12,9 @@ ___________________________
 
 ### 本书包括以下内容
 
--序1  30个简单的趣味JavaScript代码
--序2  30个你不可能全部会做的JavaScript题目
--序3  30个2014年最火热的JavaScript面试题
+#####序1  30个简单的趣味JavaScript代码
+#####序2  30个你不可能全部会做的JavaScript题目
+#####序3  30个2014年最火热的JavaScript面试题
 
 ####第1章  JavaScript必须知道的事儿
 * 1.1  如何在HTML中调用JavaScript代码
@@ -209,7 +209,9 @@ ___________________________
 
 =================================
 
-####书籍购买地址:
+####书籍点击购买地址:
 
-[互动出版网：http://product.china-pub.com/3804034?ref=xilie](http://product.china-pub.com/3804034?ref=xilie "访问-超实用的JS代码段")  
+[互动出版网](http://product.china-pub.com/3804034?ref=xilie "访问-超实用的JS代码段")  
+[京东商城](http://item.jd.com/1267770060.html "访问-超实用的JS代码段")  
+[亚马逊](http://www.amazon.cn/%E8%B6%85%E5%AE%9E%E7%94%A8%E7%9A%84JavaScript%E4%BB%A3%E7%A0%81%E6%AE%B5-%E5%B8%AD%E6%96%B0%E4%BA%AE/dp/B00N7YKWBS/ref=sr_1_1?ie=UTF8&qid=1409648740&sr=8-1&keywords=%E8%B6%85%E5%AE%9E%E7%94%A8%E7%9A%84JavaScript "访问-超实用的JS代码段")  
 
