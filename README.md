@@ -5,9 +5,10 @@ ___________________________
 	作者 ：席新亮
 	QQ   ：939898101
 	邮箱 ：939898101@qq.com
-	新浪微博 ： 席新亮_javascript_html5
-	[点击访问·书评交流区域](http://xixinliang.lofter.com/post/333fbe_24cd4ca "访问书评交流区域")  
+	新浪微博 ： 席新亮_javascript_html5  
 ___________________________
+
+###[点击访问·书评交流区域](http://xixinliang.lofter.com/post/333fbe_24cd4ca "访问书评交流区域")
 
 ### 本书包括以下内容
 
