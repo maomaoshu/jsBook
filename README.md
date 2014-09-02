@@ -18,10 +18,10 @@ ___________________________
 
 ####第1章  JavaScript必须知道的事儿
 * 1.1  如何在HTML中调用JavaScript代码
-* 1.1.1  <script>标签的定义
+* 1.1.1  \<script\>标签的定义
 * 1.1.2  两种嵌入JavaScript代码的方式
 * 1.1.3  XHTML与HTML对JavaScript解析的不同之处
-* 1.1.4  <noscript>如何用
+* 1.1.4  \<noscript\>如何用
 * 1.2  使用什么工具开发JavaScript
 * 1.2.1  Adobe Dreamweaver软件，推荐指数：3
 * 1.2.2  SublimeText，推荐指数：4
