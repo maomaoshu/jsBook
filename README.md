@@ -215,3 +215,5 @@ ___________________________
 [京东商城](http://item.jd.com/1267770060.html "访问-超实用的JS代码段")  
 [亚马逊](http://www.amazon.cn/%E8%B6%85%E5%AE%9E%E7%94%A8%E7%9A%84JavaScript%E4%BB%A3%E7%A0%81%E6%AE%B5-%E5%B8%AD%E6%96%B0%E4%BA%AE/dp/B00N7YKWBS/ref=sr_1_1?ie=UTF8&qid=1409648740&sr=8-1&keywords=%E8%B6%85%E5%AE%9E%E7%94%A8%E7%9A%84JavaScript "访问-超实用的JS代码段")  
 
+####前端学习社区推荐:
+[前端范](http://qianduanfan.com/ "访问-前端范 - 前端人的快速响应问答社区，汇聚了大量的前端工程师，为前端爱好者提供一流的资讯、技术交流、资源下载！")  
